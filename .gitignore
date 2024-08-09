@@ -1,0 +1,107 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.generated.cs
+*.g.cs
+*.g.i.cs
+
+# Backup & log files
+*.log
+*.bak
+*.orig
+*.tmp
+
+# Package directories
+packages/
+.vscode/
+.vscode/*
+.vscode/**
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+
+# Tooling files
+.vscode/
+.vscode/*
+.vscode/**
+
+# Visual Studio code snippets
+*.code-snippets
+
+# Azure Web Apps
+## Website local cache
+.localhistory/
+.localhistory/*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+# Uncomment if using the old style of NuGet package restore
+#*.nupkg
+#Packages/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Entity Framework
+*.edmx
+*.edmx.sql
+*.edmx.diagram
+
+# Rider
+.idea/
+*.sln.iml
+.idea/
+.idea/**
+
+# Dotnet user artifacts
+*.dll
+*.exe
+*.pdb
+
+# Visual Studio 2019 and later
+.vs/
+.vs/**
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# File system
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
