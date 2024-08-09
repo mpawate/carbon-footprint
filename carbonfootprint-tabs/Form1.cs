@@ -827,7 +827,7 @@ namespace carbonfootprint_tabs
                 MessageBoxIcon.Information);
         }
 
-        //Heater carbon emission calculation
+        //CustomEntry carbon emission calculation
         private void CustomEntry_HomeEnergy_Carbon_Calculation(object sender, EventArgs e)
         {
             double wattHoursResult = 0;
