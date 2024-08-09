@@ -73,6 +73,7 @@ namespace carbonfootprint_tabs
         private void Form1_Load(object sender, EventArgs e)
         {
             CheckDatabaseConnection();
+            OptimizeDatabase();
             // Add items to the ComboBox
             database_list_combobox.Items.Add("Year 2024");
             database_list_combobox.Items.Add("Year 2023");
@@ -81,6 +82,64 @@ namespace carbonfootprint_tabs
             database_list_combobox.SelectedIndex = 0; // This selects the first item, "Year 2024"
             selectedYear = "2024";
         }
+        private void OptimizeDatabase()
+        {
+            try
+            {
+                string connectionString = $"Data Source={dbPath};Version=3;";
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand("VACUUM;", connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Debug.WriteLine("Database vacuumed successfully.");
+                    }
+                    using (SQLiteCommand command = new SQLiteCommand("ANALYZE;", connection))
+                    {
+                        command.ExecuteNonQuery();
+                        Debug.WriteLine("Database analyzed successfully.");
+                    }
+
+                    // Delete data older than 6 months (or adjust the months parameter as needed)
+                    DeleteOldData(6); // Deletes data older than 6 months
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Database optimization failed: {ex.Message}");
+            }
+        }
+
+        private void DeleteOldData(int months)
+        {
+            try
+            {
+                string connectionString = $"Data Source={dbPath};Version=3;";
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Assuming each table has a 'date' or 'timestamp' column to track record creation or update time.
+                    // This example assumes the table name is 'user_data' and the date column is named 'timestamp'.
+                    string query = "DELETE FROM user_data WHERE timestamp < @OlderThanDate";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        DateTime olderThanDate = DateTime.Now.AddMonths(-months);
+                        command.Parameters.AddWithValue("@OlderThanDate", olderThanDate.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        Debug.WriteLine($"{rowsAffected} rows older than {months} months deleted.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to delete old data: {ex.Message}");
+            }
+        }
+
         private void database_list_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CheckDatabaseConnection();
