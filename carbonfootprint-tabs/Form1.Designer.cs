@@ -41,7 +41,7 @@
             this.tab4 = new System.Windows.Forms.TabControl();
             this.HomeEnergy_tabPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.EnergyUsage_Heater_HomeEnergy_label = new System.Windows.Forms.GroupBox();
+            this.GroupboxHeater = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.Watt_Heater_HomeEnergy_textBox = new System.Windows.Forms.TextBox();
@@ -50,7 +50,7 @@
             this.Qty_Heater_HomeEnergy_label = new System.Windows.Forms.Label();
             this.HoursDay_Heater_HomeEnergy_textBox = new System.Windows.Forms.TextBox();
             this.HoursDay_Heater_HomeEnergy_label = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
+            this.EnergyUsage_Heater_HomeEnergy_label = new System.Windows.Forms.Label();
             this.Emission_Heater_HomeEnergy_label = new System.Windows.Forms.Label();
             this.Feedback_Heater_HomeEnergy_label = new System.Windows.Forms.Label();
             this.HelpClickMe_Heater_HomeEnergy_button = new System.Windows.Forms.Button();
@@ -122,6 +122,7 @@
             this.chartpanel = new System.Windows.Forms.Panel();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.database_list_combobox = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.mode_annual_radioButton = new System.Windows.Forms.RadioButton();
@@ -144,13 +145,15 @@
             this.Watt_CustomEntry_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Qty_CustomEntry_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HoursUsage_CustomEntry_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.AvgLiters_WaterSupply_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.NumPersons_WaterSupply_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tab4.SuspendLayout();
             this.HomeEnergy_tabPage.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.EnergyUsage_Heater_HomeEnergy_label.SuspendLayout();
+            this.GroupboxHeater.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -313,7 +316,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.tableLayoutPanel3.Controls.Add(this.EnergyUsage_Heater_HomeEnergy_label, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.GroupboxHeater, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.groupBox2, 8, 0);
             this.tableLayoutPanel3.Controls.Add(this.groupBox1, 4, 0);
             this.tableLayoutPanel3.Controls.Add(this.LED_HomeEnergy_Groupbox, 0, 0);
@@ -331,18 +334,18 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1022, 503);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // EnergyUsage_Heater_HomeEnergy_label
+            // GroupboxHeater
             // 
-            this.tableLayoutPanel3.SetColumnSpan(this.EnergyUsage_Heater_HomeEnergy_label, 4);
-            this.EnergyUsage_Heater_HomeEnergy_label.Controls.Add(this.tableLayoutPanel9);
-            this.EnergyUsage_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EnergyUsage_Heater_HomeEnergy_label.Location = new System.Drawing.Point(343, 253);
-            this.EnergyUsage_Heater_HomeEnergy_label.Name = "EnergyUsage_Heater_HomeEnergy_label";
-            this.tableLayoutPanel3.SetRowSpan(this.EnergyUsage_Heater_HomeEnergy_label, 2);
-            this.EnergyUsage_Heater_HomeEnergy_label.Size = new System.Drawing.Size(334, 247);
-            this.EnergyUsage_Heater_HomeEnergy_label.TabIndex = 6;
-            this.EnergyUsage_Heater_HomeEnergy_label.TabStop = false;
-            this.EnergyUsage_Heater_HomeEnergy_label.Text = "Heater / Daily Usage Data";
+            this.tableLayoutPanel3.SetColumnSpan(this.GroupboxHeater, 4);
+            this.GroupboxHeater.Controls.Add(this.tableLayoutPanel9);
+            this.GroupboxHeater.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupboxHeater.Location = new System.Drawing.Point(343, 253);
+            this.GroupboxHeater.Name = "GroupboxHeater";
+            this.tableLayoutPanel3.SetRowSpan(this.GroupboxHeater, 2);
+            this.GroupboxHeater.Size = new System.Drawing.Size(334, 247);
+            this.GroupboxHeater.TabIndex = 6;
+            this.GroupboxHeater.TabStop = false;
+            this.GroupboxHeater.Text = "Heater / Daily Usage Data";
             // 
             // tableLayoutPanel9
             // 
@@ -359,7 +362,7 @@
             this.tableLayoutPanel9.Controls.Add(this.Qty_Heater_HomeEnergy_label, 4, 1);
             this.tableLayoutPanel9.Controls.Add(this.HoursDay_Heater_HomeEnergy_textBox, 1, 3);
             this.tableLayoutPanel9.Controls.Add(this.HoursDay_Heater_HomeEnergy_label, 2, 3);
-            this.tableLayoutPanel9.Controls.Add(this.label25, 0, 5);
+            this.tableLayoutPanel9.Controls.Add(this.EnergyUsage_Heater_HomeEnergy_label, 0, 5);
             this.tableLayoutPanel9.Controls.Add(this.Emission_Heater_HomeEnergy_label, 0, 6);
             this.tableLayoutPanel9.Controls.Add(this.Feedback_Heater_HomeEnergy_label, 0, 7);
             this.tableLayoutPanel9.Controls.Add(this.HelpClickMe_Heater_HomeEnergy_button, 3, 8);
@@ -457,16 +460,16 @@
             this.HoursDay_Heater_HomeEnergy_label.TabIndex = 6;
             this.HoursDay_Heater_HomeEnergy_label.Text = "Hours/Day";
             // 
-            // label25
+            // EnergyUsage_Heater_HomeEnergy_label
             // 
-            this.label25.AutoSize = true;
-            this.tableLayoutPanel9.SetColumnSpan(this.label25, 4);
-            this.label25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label25.Location = new System.Drawing.Point(3, 110);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(262, 22);
-            this.label25.TabIndex = 7;
-            this.label25.Text = "EnergyUsage:";
+            this.EnergyUsage_Heater_HomeEnergy_label.AutoSize = true;
+            this.tableLayoutPanel9.SetColumnSpan(this.EnergyUsage_Heater_HomeEnergy_label, 4);
+            this.EnergyUsage_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EnergyUsage_Heater_HomeEnergy_label.Location = new System.Drawing.Point(3, 110);
+            this.EnergyUsage_Heater_HomeEnergy_label.Name = "EnergyUsage_Heater_HomeEnergy_label";
+            this.EnergyUsage_Heater_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.EnergyUsage_Heater_HomeEnergy_label.TabIndex = 7;
+            this.EnergyUsage_Heater_HomeEnergy_label.Text = "EnergyUsage:";
             // 
             // Emission_Heater_HomeEnergy_label
             // 
@@ -1091,6 +1094,9 @@
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Name = "AvgLitersDaily_WaterSupply_HomeEnergy_textbox";
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Size = new System.Drawing.Size(50, 22);
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.TabIndex = 1;
+            this.AvgLiters_WaterSupply_HomeEnergy_toolTip.SetToolTip(this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox, "Please enter a valid water consumption value in liters per person. Ex: 142 liters" +
+        " per day");
+            this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.TextChanged += new System.EventHandler(this.HomeEnergy_CalculateWaterCarbon);
             // 
             // AvgLitersDaily_WaterSupply_HomeEnergy_label
             // 
@@ -1111,6 +1117,8 @@
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.Name = "NumberOfPersons_WaterSupply_HomeEnergy_textBox";
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.TabIndex = 5;
+            this.NumPersons_WaterSupply_HomeEnergy_toolTip.SetToolTip(this.NumberOfPersons_WaterSupply_HomeEnergy_textBox, "Please enter a valid number of persons (at least 1).");
+            this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.HomeEnergy_CalculateWaterCarbon);
             // 
             // NumberOfPersons_WaterSupply_HomeEnergy_label
             // 
@@ -1168,6 +1176,7 @@
             this.HelpClickMe_WaterSupply_HomeEnergy_button.TabIndex = 10;
             this.HelpClickMe_WaterSupply_HomeEnergy_button.Text = "Help Click Me>";
             this.HelpClickMe_WaterSupply_HomeEnergy_button.UseVisualStyleBackColor = true;
+            this.HelpClickMe_WaterSupply_HomeEnergy_button.Click += new System.EventHandler(this.HelpClickMe_WaterSupply_HomeEnergy_button_Click);
             // 
             // CustomEntry_HomeEnergy_Groupbox
             // 
@@ -1387,6 +1396,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.database_list_combobox);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.ExitApp_button);
             this.panel1.Controls.Add(this.database_status_button);
@@ -1395,6 +1405,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1044, 133);
             this.panel1.TabIndex = 4;
+            // 
+            // database_list_combobox
+            // 
+            this.database_list_combobox.FormattingEnabled = true;
+            this.database_list_combobox.Location = new System.Drawing.Point(193, 37);
+            this.database_list_combobox.Name = "database_list_combobox";
+            this.database_list_combobox.Size = new System.Drawing.Size(121, 24);
+            this.database_list_combobox.TabIndex = 3;
+            this.database_list_combobox.SelectedIndexChanged += new System.EventHandler(this.database_list_combobox_SelectedIndexChanged);
             // 
             // panel2
             // 
@@ -1426,6 +1445,7 @@
             this.mode_annual_radioButton.TabStop = true;
             this.mode_annual_radioButton.Text = "Annual";
             this.mode_annual_radioButton.UseVisualStyleBackColor = true;
+            this.mode_annual_radioButton.CheckedChanged += new System.EventHandler(this.updateGlobalLabel);
             // 
             // mode_daily_radioButton
             // 
@@ -1436,6 +1456,7 @@
             this.mode_daily_radioButton.TabIndex = 0;
             this.mode_daily_radioButton.Text = "Daily";
             this.mode_daily_radioButton.UseVisualStyleBackColor = true;
+            this.mode_daily_radioButton.CheckedChanged += new System.EventHandler(this.updateGlobalLabel);
             // 
             // ExitApp_button
             // 
@@ -1478,7 +1499,7 @@
             this.tab4.ResumeLayout(false);
             this.HomeEnergy_tabPage.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.EnergyUsage_Heater_HomeEnergy_label.ResumeLayout(false);
+            this.GroupboxHeater.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
@@ -1570,7 +1591,7 @@
         private System.Windows.Forms.Label Emission_Fan_HomeEnergy_label;
         private System.Windows.Forms.Label Feedback_Fan_HomeEnergy_label;
         private System.Windows.Forms.Button HelpClickMe_Fan_HomeEnergy_button;
-        private System.Windows.Forms.GroupBox EnergyUsage_Heater_HomeEnergy_label;
+        private System.Windows.Forms.GroupBox GroupboxHeater;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.TextBox Watt_Heater_HomeEnergy_textBox;
@@ -1579,7 +1600,7 @@
         private System.Windows.Forms.Label Qty_Heater_HomeEnergy_label;
         private System.Windows.Forms.TextBox HoursDay_Heater_HomeEnergy_textBox;
         private System.Windows.Forms.Label HoursDay_Heater_HomeEnergy_label;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label EnergyUsage_Heater_HomeEnergy_label;
         private System.Windows.Forms.Label Emission_Heater_HomeEnergy_label;
         private System.Windows.Forms.Label Feedback_Heater_HomeEnergy_label;
         private System.Windows.Forms.Button HelpClickMe_Heater_HomeEnergy_button;
@@ -1628,6 +1649,9 @@
         private System.Windows.Forms.ToolTip Watt_CustomEntry_HomeEnergy_toolTip;
         private System.Windows.Forms.ToolTip Qty_CustomEntry_HomeEnergy_toolTip;
         private System.Windows.Forms.ToolTip HoursUsage_CustomEntry_HomeEnergy_toolTip;
+        private System.Windows.Forms.ComboBox database_list_combobox;
+        private System.Windows.Forms.ToolTip AvgLiters_WaterSupply_HomeEnergy_toolTip;
+        private System.Windows.Forms.ToolTip NumPersons_WaterSupply_HomeEnergy_toolTip;
     }
 }
 

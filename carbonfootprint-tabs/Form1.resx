@@ -121,7 +121,7 @@
   <data name="pictureBox6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAIEwSURBVHhe7d0H
+        vQAADr0BR/uQrQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAIEwSURBVHhe7d0H
         tBXXeT78c7j0DpfeuwCJIhAdBEggiiiiCxAgRBFNYHq9dLj03kEucRLH+idOYidO/MlJ7Fhy4kRy3CTL
         diw5cSzJVZLVLFT2974HYyP0wN17Zs85c+Y871q/tbRs6c6ePbudmV1SDAYjVlFJNBNdxRAxUcwX68V+
         cUl8TnxFPPV7PxA//r0XxW9+73VhQtK/cfXv6d++eh295tXr/4v4K3FRaBrXCU2zpl3vQe9F70nvjcFg
@@ -677,18 +677,18 @@
 </value>
   </data>
   <metadata name="Watt_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>331, 99</value>
+    <value>17, 140</value>
   </metadata>
   <metadata name="Qty_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>619, 99</value>
+    <value>305, 140</value>
   </metadata>
   <metadata name="HoursUsage_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>899, 99</value>
+    <value>585, 140</value>
   </metadata>
   <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAN
-        0gAADdIBb5L+jgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAFWOSURBVHhe7d0H
+        0AAADdABEGw9BwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAFWOSURBVHhe7d0H
         mF5V2TXgzExmJslkJr333kjvjXQCCUnoCCo2BBsKfKigKEXBXlDs/ihiQywoKIgFG6CI2Dt2mr33cv71
         DCewOVlJTq9rXdf9XR9b2Od9T9n7mfe0Pp7niYiISMPQRhEREak32igiIiL1RhtFRESk3mijiIiI1Btt
         FBERkXqjjSIiIlJvtFFERETqjTaKiIhIvdFGkTCQGXAUPBkugjfBh+FGKdQN8G54JTwTHg1bYADbjiLS
@@ -1058,18 +1058,18 @@
 </value>
   </data>
   <metadata name="Watt_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 140</value>
+    <value>922, 140</value>
   </metadata>
   <metadata name="Qty_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>299, 140</value>
+    <value>17, 181</value>
   </metadata>
   <metadata name="HoursUsage_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>573, 140</value>
+    <value>291, 181</value>
   </metadata>
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAJ82SURBVHhe7Z0F
+        vQAADr0BR/uQrQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAJ82SURBVHhe7Z0F
         mBTH1rCBXdzd3d3d3SG4u7tDcAuE4Boswd2d4MHd3TXYooEQv3XPaXqDnd2ptpnumfM+z/v833/D1lRb
         VXVX1TkhGIZxFHHALGA5sC7YFuwDjgJngMvAreBh8Ax48yOfgy9U/wSF6lv1f0MD/+1l8ITqXnAHuAL8
         HhwOdgEbguXBPGAKMArIMAzDMIxGsAPNCWLH3gucCGKnewC8A/4BBnbadhUHFndBHDTMB4eATcCiYBLQ
@@ -1759,12 +1759,12 @@
     <value>983, 58</value>
   </metadata>
   <metadata name="HoursUsage_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 99</value>
+    <value>751, 99</value>
   </metadata>
   <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAFR4SURBVHhe7d0H
+        vQAADr0BR/uQrQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAFR4SURBVHhe7d0H
         tFTV2cZxLr1LE0UU7AULItgL1qjYe8FK7AVRRFGaBRFBVBRUxAaISFFjww5qsCNGjSUKIr2jib3u73nv
         Fwzic5l92sycOc9/rd9KsqIzZ9re+86cUkkplanWh4HwAXzzX+/DALD/TymllFIlVBlcDj+Cq8APcBko
         pZRSqkS6Edikz9g3BEoppZRKeUcAm+hX5zBQSimlVEqzr/4/ATbJr85HYP+uUkoppVJYO2ATvI82oJRS
@@ -2140,7 +2140,7 @@
   <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAFsTSURBVHhe7Z0F
+        vQAADr0BR/uQrQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAFsTSURBVHhe7Z0F
         2FVV1sd9i+7uRkCQlkZAQpSSEEVEQtIu7BoUA8fuLix0RLEVsYNRMRBjxhoda2xRx2+M/f3XdV4HXhdw
         9qm7zzn/3/P8nu9jhH1P7Lv3uufsvdZWhBBCyBboDO+BlXN/IoQQQkjqaQM/hgY+CMtDQgghhKSYxvBd
         KJN/qTfCQkgICQl5tNYUtqKpsjokJInUga/BDSf/Ui+EhBCfNIQHwhXwI6h9yWg6/Bo+CU+CXSEhrlMN
@@ -2532,10 +2532,16 @@
         X4Ofwh+gBAdfwrfgw/BiOAe2hoQQla22+n/xqicT1B5mJAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="AvgLiters_WaterSupply_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>394, 99</value>
+  </metadata>
+  <metadata name="NumPersons_WaterSupply_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 99</value>
+  </metadata>
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAHBsSURBVHhe7d0H
+        DAAACwwBP0AiyAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAHBsSURBVHhe7d0H
         mBRV2jbgXXV33ZzcoJsAhWbXzftt+HclZ5iBIUvOWbKKYk6YlSCSc84gKpJzgznnLCjKBGaYSKz/PT20
         9tQ83VPdXeFU98N13dd+3xGqq6urzvN29TmnvmYYBlEUXzvPOBDoZgRrzTCCgefFcfGMtE019gc64H9D
         RER+ABuJjODll0nI75XAN2LYbOy7/Lfw3xMRkdZgI6W5A7XrS7gXm8I+mgJjX+D/4HaIiEhbsJHS2L7A
@@ -3030,55 +3036,10 @@
   <metadata name="plotView1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="plotView1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Watt_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>335, 17</value>
-  </metadata>
-  <metadata name="Qty_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>604, 17</value>
-  </metadata>
-  <metadata name="HoursUsage_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>865, 17</value>
-  </metadata>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1183, 17</value>
   </metadata>
-  <metadata name="Watt_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>392, 58</value>
-  </metadata>
-  <metadata name="Qty_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>983, 58</value>
-  </metadata>
-  <metadata name="HoursUsage_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 99</value>
-  </metadata>
-  <metadata name="Watt_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 140</value>
-  </metadata>
-  <metadata name="Qty_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>299, 140</value>
-  </metadata>
-  <metadata name="HoursUsage_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>573, 140</value>
-  </metadata>
-  <metadata name="Watt_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>331, 99</value>
-  </metadata>
-  <metadata name="Qty_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>619, 99</value>
-  </metadata>
-  <metadata name="HoursUsage_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>899, 99</value>
-  </metadata>
-  <metadata name="Watt_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>657, 58</value>
-  </metadata>
-  <metadata name="Qty_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="HoursUsage_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 58</value>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>141</value>
   </metadata>
 </root>

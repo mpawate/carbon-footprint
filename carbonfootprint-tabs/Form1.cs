@@ -36,7 +36,7 @@ namespace carbonfootprint_tabs
         private string totalOrganicGardenWasteEmission = "";
         private string totalHouseholdResidualWasteEmission = "";
         private string totalOrganicFoodWasteEmission = "";
-        private string selectedYear = "2024";
+        private string selectedYear = "";
 
         // Boolean flags to track error state
         private bool isWattKettleErrorSet = false;
@@ -59,6 +59,10 @@ namespace carbonfootprint_tabs
         private bool isHoursCustomErrorSet = false;
         private bool isQtyCustomErrorSet = false;
 
+        private bool isWattWaterErrorSet = false;
+        private bool isHoursWaterErrorSet = false;
+        private bool isNumnerPersonWaterErrorSet = false;
+
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
 
         //Unique functions
@@ -69,7 +73,63 @@ namespace carbonfootprint_tabs
         private void Form1_Load(object sender, EventArgs e)
         {
             CheckDatabaseConnection();
+            // Add items to the ComboBox
+            database_list_combobox.Items.Add("Year 2024");
+            database_list_combobox.Items.Add("Year 2023");
+
+            // Optionally set the default selected item
+            database_list_combobox.SelectedIndex = 0; // This selects the first item, "Year 2024"
+            selectedYear = "2024";
         }
+        private void database_list_combobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckDatabaseConnection();
+
+            // Check if the selected item is not null
+            if (database_list_combobox.SelectedItem != null)
+            {
+                // Get the selected year
+                string selectedYearString = database_list_combobox.SelectedItem.ToString();
+
+                // Update the selectedYear variable based on the selected year
+                if (selectedYearString == "Year 2023")
+                {
+                    selectedYear = "2023";
+                }
+                else if (selectedYearString == "Year 2024")
+                {
+                    selectedYear = "2024";
+                }
+
+                // Recalculate carbon emissions using the selected year
+                RecalculateCarbonEmissions(sender, e);
+
+            }
+            else
+            {
+                // Handle the case where no item is selected, if necessary
+                Console.WriteLine("No year selected");
+            }
+
+        }
+        private void RecalculateCarbonEmissions(object sender, EventArgs e)
+        {
+            //OrganicWaste_CalcuateCarbon(sender, e);
+            //HouseholdResidualWaste_CalculateCarbon(sender, e);
+            //OrganicFoodWaste_CalculateCarbon(sender, e);
+            //HomeOffice_CalculateCarbon(sender, e);
+            //LeisureTravel_CalculateMotorBikeCarbon(sender, e);
+            //LeisureTravel_CalculateCarCarbon(sender, e);
+            //LeisureTravel_CalculateMotorHotelCarbon(sender, e);
+            //LeisureTravel_CalculateHomeOfficeCarbon(sender, e);
+            HomeEnergy_CalculateWaterCarbon(sender, e);
+            Kettle_HomeEnergy_Carbon_Calculation(sender, e);
+            Fan_HomeEnergy_Carbon_Calculation(sender, e);
+            LED_HomeEnergy_Carbon_Calculation(sender, e);
+            Heater_HomeEnergy_Carbon_Calculation(sender, e);
+            CustomEntry_HomeEnergy_Carbon_Calculation(sender, e);
+        }
+
         private void CheckDatabaseConnection()
         {
             bool isConnected = false;
@@ -110,6 +170,174 @@ namespace carbonfootprint_tabs
         private void ExitApp_button_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        //Water supply carbon emission calculations
+        private void HomeEnergy_CalculateWaterCarbon(object sender, EventArgs e)
+        {
+            double waterConsumptionLitersPerPerson = 0;
+            double numPersons = 0;
+
+            // Validate inputs
+            bool isValid = true;
+
+            // Validate Water Consumption per Person
+            if (string.IsNullOrWhiteSpace(AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Text))
+            {
+                EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
+                Emission_WaterSupply_HomeEnergy_label.Text = "Emission"; // Assogn default value
+                Feedback_WaterSupply_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+                if (isWattWaterErrorSet)
+                {
+                    errorProvider1.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, string.Empty);
+                    isWattWaterErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Text, out waterConsumptionLitersPerPerson) || waterConsumptionLitersPerPerson < 0)
+            {
+                isValid = false;
+                if (!isWattWaterErrorSet)
+                {
+                    errorProvider1.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, "Please enter a valid water consumption value in liters per person. Ex: 142 liters per day");
+                    isWattWaterErrorSet = true;
+                }
+                EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
+                Emission_WaterSupply_HomeEnergy_label.Text = "Emission"; // Assogn default value
+                Feedback_WaterSupply_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+
+                totalWaterEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isWattWaterErrorSet)
+                {
+                    errorProvider1.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, string.Empty);
+                    isWattWaterErrorSet = false;
+                }
+            }
+
+            // Validate Number of Persons
+            if (string.IsNullOrWhiteSpace(NumberOfPersons_WaterSupply_HomeEnergy_textBox.Text))
+            {
+                EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
+                Emission_WaterSupply_HomeEnergy_label.Text = "Emission"; // Assogn default value
+                Feedback_WaterSupply_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+                if (isNumnerPersonWaterErrorSet)
+                {
+                    errorProvider1.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, string.Empty);
+                    isNumnerPersonWaterErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(NumberOfPersons_WaterSupply_HomeEnergy_textBox.Text, out numPersons) || numPersons <= 0)
+            {
+                isValid = false;
+                if (!isNumnerPersonWaterErrorSet)
+                {
+                    errorProvider1.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, "Please enter a valid number of persons (at least 1).");
+                    isNumnerPersonWaterErrorSet = true;
+                }
+                EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
+                Emission_WaterSupply_HomeEnergy_label.Text = "Emission"; // Assogn default value
+                Feedback_WaterSupply_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+                totalWaterEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isNumnerPersonWaterErrorSet)
+                {
+                    errorProvider1.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, string.Empty);
+                    isNumnerPersonWaterErrorSet = false;
+                }
+            }
+
+            // If validation fails, return
+            if (!isValid)
+            {
+                EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
+                Emission_WaterSupply_HomeEnergy_label.Text = "Emission"; // Assogn default value
+                Feedback_WaterSupply_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+                return;
+            }
+
+            // Perform the calculation in cubic meters
+            double waterConsumptionCubicMetersPerPerson = waterConsumptionLitersPerPerson / 1000;
+            double totalWaterConsumptionCubicMeters = waterConsumptionCubicMetersPerPerson * numPersons;
+
+            // Calculate total carbon emission from water consumption
+            totalWaterEmission = CalculateWaterSupplyCarbonEmission(totalWaterConsumptionCubicMeters);
+
+            // Update labels
+            EnergyUsage_WaterSupply_HomeEnergy_label.Text = $"{waterConsumptionLitersPerPerson * numPersons} liters/day";
+            Emission_WaterSupply_HomeEnergy_label.Text = $"Emission: {ExtractEmissionValue(totalWaterEmission)} kg CO2e";
+            updateGlobalLabel(this, EventArgs.Empty);
+
+            // Provide feedback based on average water usage
+            double averageWaterConsumptionPerPerson = 150; // Average water consumption in liters per person per day
+            double dailyWaterConsumption = waterConsumptionLitersPerPerson * numPersons; // User's input for daily water consumption
+
+            // Calculate the average daily water consumption
+            double averageDailyWaterConsumption = averageWaterConsumptionPerPerson * numPersons;
+
+            if (dailyWaterConsumption > averageDailyWaterConsumption)
+            {
+                Feedback_WaterSupply_HomeEnergy_label.Text = $"Feedback: Your daily water usage of {dailyWaterConsumption} liters for {numPersons} persons is higher than the average of {averageDailyWaterConsumption} liters.";
+            }
+            else
+            {
+                Feedback_WaterSupply_HomeEnergy_label.Text = $"Feedback: Your daily water usage of {dailyWaterConsumption} liters for {numPersons} persons is within the average range of {averageDailyWaterConsumption} liters.";
+            }
+
+
+        }
+        private string CalculateWaterSupplyCarbonEmission(double waterConsumptionCubicMeters)
+        {
+            double emissionFactor = 0;
+
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Water supply");
+                    command.Parameters.AddWithValue("@Unit", "cubic metres");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Carbon emission factors per kWh for electricity generation in the UK
+                            emissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                        }
+                    }
+                }
+            }
+            // Assuming the emission factor for water supply is 0.177 kg CO2e per cubic meter
+            double totalEmission = waterConsumptionCubicMeters * emissionFactor;
+            string result = $"Total Emission: {totalEmission:F6} kg CO2e)";
+
+            // Output for debugging purposes
+            Debug.WriteLine(result);
+
+            return result; // Format the emission value to 6 decimal places
+
+        }
+        private void HelpClickMe_WaterSupply_HomeEnergy_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message
+            MessageBox.Show(
+                "Daily Usage Data:\n\n" +
+                "1. Please enter a valid water consumption value in liters per person. Ex: 142 liters per day\n" +
+                "2. Please enter a valid number of persons (at least 1).",
+                "Help Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         //LED carbon emission calculation
@@ -1078,6 +1306,7 @@ namespace carbonfootprint_tabs
             return result;
         }
 
+        //pie chart
         private void UpdatePieChartplot(double homeEmission, double leisureTravelEmission, double commuteTravelEmission, double personalWasteEmission)
         {
             // Create a new PlotModel
