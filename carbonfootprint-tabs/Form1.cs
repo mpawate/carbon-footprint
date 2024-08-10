@@ -139,6 +139,20 @@ namespace carbonfootprint_tabs
                 Debug.WriteLine($"Failed to delete old data: {ex.Message}");
             }
         }
+        private void btnPrivacyPolicy_Click(object sender, EventArgs e)
+                {
+                    string privacyPolicy = @"This application is designed to collect data related to the usage of household items, office commutes, leisure activities, and similar behaviors. The data collected is solely for the purpose of tracking and managing carbon footprints. No personal identifiers are collected, only the data regarding the usage patterns of the items and activities.
+
+        User login credentials and all other logged data are securely encrypted using Advanced Encryption Standard (AES) with a 256-bit key. This encryption ensures that the data stored in the application's database is protected at rest, making it unreadable without proper decryption keys. Since the application is desktop-based and does not transmit data over the internet, encryption during data transmission is not required. All logged data is automatically deleted from the database after three months and is not recoverable after deletion.
+
+        All scaling factors used in the application are stored in the database and are sourced from the official UK Government resources: 'ghg-conversion-factors-2023-condensed-set-update.xlsx' and 'ghg-conversion-factors-2024-condensed-set-update.xlsx'. These factors are provided by the UK Government for greenhouse gas (GHG) reporting and are suitable for use by UK-based organisations of all sizes, as well as international organisations reporting on UK operations. The scope of these factors is defined to be relevant to emissions reporting. They may also be used for other purposes, but users do so at their own risk.
+
+        The application is focused on maintaining data security and protecting user privacy. No data is shared with third parties, and it is utilized exclusively to aid users in understanding and reducing their carbon footprints. By using this application, these practices are acknowledged and accepted.";
+
+                    MessageBox.Show(privacyPolicy, "Privacy Policy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
 
         // Updated method to show badge and random phrase based on energy usage
         private void UpdateLEDUsageBadge(double userUsage, double averageUsage)
@@ -203,7 +217,6 @@ namespace carbonfootprint_tabs
             Award_LED_HomeEnergy_picturebox.Visible = true;
             Award_LED_HomeEnergy_label.Visible = true;
         }
-
         private void database_list_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CheckDatabaseConnection();
@@ -252,7 +265,6 @@ namespace carbonfootprint_tabs
             Heater_HomeEnergy_Carbon_Calculation(sender, e);
             CustomEntry_HomeEnergy_Carbon_Calculation(sender, e);
         }
-
         private void CheckDatabaseConnection()
         {
             bool isConnected = false;

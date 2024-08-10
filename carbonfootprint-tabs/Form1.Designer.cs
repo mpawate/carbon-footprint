@@ -149,6 +149,9 @@
             this.NumPersons_WaterSupply_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Award_LED_HomeEnergy_picturebox = new System.Windows.Forms.PictureBox();
             this.Award_LED_HomeEnergy_label = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Award_Fan_HomeEnergy_picturebox = new System.Windows.Forms.PictureBox();
+            this.Award_Fan_HomeEnergy_label = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -178,6 +181,7 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Award_LED_HomeEnergy_picturebox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_Fan_HomeEnergy_picturebox)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -715,6 +719,8 @@
             this.tableLayoutPanel6.Controls.Add(this.Emission_Fan_HomeEnergy_label, 0, 6);
             this.tableLayoutPanel6.Controls.Add(this.Feedback_Fan_HomeEnergy_label, 0, 7);
             this.tableLayoutPanel6.Controls.Add(this.HelpClickMe_Fan_HomeEnergy_button, 3, 8);
+            this.tableLayoutPanel6.Controls.Add(this.Award_Fan_HomeEnergy_picturebox, 4, 5);
+            this.tableLayoutPanel6.Controls.Add(this.Award_Fan_HomeEnergy_label, 3, 7);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 18);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
@@ -1401,6 +1407,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.database_list_combobox);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.ExitApp_button);
@@ -1511,6 +1518,37 @@
             this.Award_LED_HomeEnergy_label.Text = "Award Ceremony";
             this.Award_LED_HomeEnergy_label.Visible = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(914, 23);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 71);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Privacy Policy";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnPrivacyPolicy_Click);
+            // 
+            // Award_Fan_HomeEnergy_picturebox
+            // 
+            this.Award_Fan_HomeEnergy_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Award_Fan_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_Fan_HomeEnergy_picturebox.Name = "Award_Fan_HomeEnergy_picturebox";
+            this.tableLayoutPanel6.SetRowSpan(this.Award_Fan_HomeEnergy_picturebox, 2);
+            this.Award_Fan_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 38);
+            this.Award_Fan_HomeEnergy_picturebox.TabIndex = 11;
+            this.Award_Fan_HomeEnergy_picturebox.TabStop = false;
+            // 
+            // Award_Fan_HomeEnergy_label
+            // 
+            this.Award_Fan_HomeEnergy_label.AutoSize = true;
+            this.tableLayoutPanel6.SetColumnSpan(this.Award_Fan_HomeEnergy_label, 2);
+            this.Award_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Right;
+            this.Award_Fan_HomeEnergy_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_Fan_HomeEnergy_label.Name = "Award_Fan_HomeEnergy_label";
+            this.Award_Fan_HomeEnergy_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_Fan_HomeEnergy_label.TabIndex = 12;
+            this.Award_Fan_HomeEnergy_label.Text = "Award Ceremony";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1558,6 +1596,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Award_LED_HomeEnergy_picturebox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_Fan_HomeEnergy_picturebox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1683,6 +1722,9 @@
         private System.Windows.Forms.ToolTip NumPersons_WaterSupply_HomeEnergy_toolTip;
         private System.Windows.Forms.PictureBox Award_LED_HomeEnergy_picturebox;
         private System.Windows.Forms.Label Award_LED_HomeEnergy_label;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox Award_Fan_HomeEnergy_picturebox;
+        private System.Windows.Forms.Label Award_Fan_HomeEnergy_label;
     }
 }
 
