@@ -2280,5 +2280,9 @@ namespace carbonfootprint_tabs
             return double.TryParse(emissionPart, out double emission) ? emission : 0;
         }
 
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
