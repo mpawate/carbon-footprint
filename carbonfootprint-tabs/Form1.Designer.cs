@@ -147,6 +147,8 @@
             this.HoursUsage_CustomEntry_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.AvgLiters_WaterSupply_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.NumPersons_WaterSupply_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.Award_LED_HomeEnergy_picturebox = new System.Windows.Forms.PictureBox();
+            this.Award_LED_HomeEnergy_label = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -175,6 +177,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_LED_HomeEnergy_picturebox)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -885,6 +888,8 @@
             this.tableLayoutPanel5.Controls.Add(this.Emission_LED_HomeEnergy_label, 0, 6);
             this.tableLayoutPanel5.Controls.Add(this.Feedback_LED_HomeEnergy_label, 0, 7);
             this.tableLayoutPanel5.Controls.Add(this.HelpClickMe_LED_HomeEnergy_button, 3, 8);
+            this.tableLayoutPanel5.Controls.Add(this.Award_LED_HomeEnergy_picturebox, 4, 5);
+            this.tableLayoutPanel5.Controls.Add(this.Award_LED_HomeEnergy_label, 3, 7);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 18);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -1483,6 +1488,29 @@
             this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this.errorProvider1.ContainerControl = this;
             // 
+            // Award_LED_HomeEnergy_picturebox
+            // 
+            this.Award_LED_HomeEnergy_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Award_LED_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_LED_HomeEnergy_picturebox.Name = "Award_LED_HomeEnergy_picturebox";
+            this.tableLayoutPanel5.SetRowSpan(this.Award_LED_HomeEnergy_picturebox, 2);
+            this.Award_LED_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 38);
+            this.Award_LED_HomeEnergy_picturebox.TabIndex = 11;
+            this.Award_LED_HomeEnergy_picturebox.TabStop = false;
+            this.Award_LED_HomeEnergy_picturebox.Visible = false;
+            // 
+            // Award_LED_HomeEnergy_label
+            // 
+            this.Award_LED_HomeEnergy_label.AutoSize = true;
+            this.tableLayoutPanel5.SetColumnSpan(this.Award_LED_HomeEnergy_label, 2);
+            this.Award_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Right;
+            this.Award_LED_HomeEnergy_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_LED_HomeEnergy_label.Name = "Award_LED_HomeEnergy_label";
+            this.Award_LED_HomeEnergy_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_LED_HomeEnergy_label.TabIndex = 12;
+            this.Award_LED_HomeEnergy_label.Text = "Award Ceremony";
+            this.Award_LED_HomeEnergy_label.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1529,6 +1557,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_LED_HomeEnergy_picturebox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1652,6 +1681,8 @@
         private System.Windows.Forms.ComboBox database_list_combobox;
         private System.Windows.Forms.ToolTip AvgLiters_WaterSupply_HomeEnergy_toolTip;
         private System.Windows.Forms.ToolTip NumPersons_WaterSupply_HomeEnergy_toolTip;
+        private System.Windows.Forms.PictureBox Award_LED_HomeEnergy_picturebox;
+        private System.Windows.Forms.Label Award_LED_HomeEnergy_label;
     }
 }
 

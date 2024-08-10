@@ -86,10 +86,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="conversion_factors.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -107,6 +110,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="crown1.png" />
+    <None Include="Resources\fail.png" />
+    <None Include="Resources\business.png" />
+    <None Include="Resources\person.png" />
+    <None Include="Resources\target.png" />
+    <None Include="Resources\ribbon.png" />
+    <None Include="Resources\trophy.png" />
+    <None Include="Resources\award.png" />
+    <None Include="Resources\trophy-star.png" />
+    <None Include="Resources\crown1.png" />
+    <None Include="Resources\crown2.png" />
+    <None Include="Resources\home-service.png" />
+    <None Include="Resources\home-renovation.png" />
+    <None Include="Resources\improvement1.png" />
+    <None Include="Resources\improvement2.png" />
+    <None Include="Resources\Image1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

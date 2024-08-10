@@ -64,6 +64,7 @@ namespace carbonfootprint_tabs
         private bool isNumnerPersonWaterErrorSet = false;
 
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
+        private Random random = new Random();
 
         //Unique functions
         public Form1()
@@ -110,7 +111,6 @@ namespace carbonfootprint_tabs
                 Debug.WriteLine($"Database optimization failed: {ex.Message}");
             }
         }
-
         private void DeleteOldData(int months)
         {
             try
@@ -138,6 +138,70 @@ namespace carbonfootprint_tabs
             {
                 Debug.WriteLine($"Failed to delete old data: {ex.Message}");
             }
+        }
+
+        // Updated method to show badge and random phrase based on energy usage
+        private void UpdateLEDUsageBadge(double userUsage, double averageUsage)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            // Generate random indexes for each phrase array separately
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userUsage < averageUsage)
+            {
+                // Show the "Eco Warrior" badge
+                Award_LED_HomeEnergy_picturebox.Image = goodPerformanceImages[goodImageIndex];
+                Award_LED_HomeEnergy_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_LED_HomeEnergy_picturebox.Image = improvementImages[improvementImageIndex];
+                Award_LED_HomeEnergy_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_LED_HomeEnergy_picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_LED_HomeEnergy_picturebox.Visible = true;
+            Award_LED_HomeEnergy_label.Visible = true;
         }
 
         private void database_list_combobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -347,8 +411,6 @@ namespace carbonfootprint_tabs
             {
                 Feedback_WaterSupply_HomeEnergy_label.Text = $"Feedback: Your daily water usage of {dailyWaterConsumption} liters for {numPersons} persons is within the average range of {averageDailyWaterConsumption} liters.";
             }
-
-
         }
         private string CalculateWaterSupplyCarbonEmission(double waterConsumptionCubicMeters)
         {
@@ -415,6 +477,14 @@ namespace carbonfootprint_tabs
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
                 Emission_LED_HomeEnergy_label.Text = "Emission"; // Assogn default value
                 Feedback_LED_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+
+                // Clear the picturebox and label
+                Award_LED_HomeEnergy_picturebox.Image = null;
+                Award_LED_HomeEnergy_picturebox.Visible = false; // Hide the picturebox
+
+                Award_LED_HomeEnergy_label.Text = string.Empty;
+                Award_LED_HomeEnergy_label.Visible = false; // Hide the label
+
                 if (isWattLEDErrorSet)
                 {
                     errorProvider1.SetError(Watt_LED_HomeEnergy_textBox, string.Empty);
@@ -433,6 +503,14 @@ namespace carbonfootprint_tabs
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
                 Emission_LED_HomeEnergy_label.Text = "Emission"; // Assogn default value
                 Feedback_LED_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+
+                // Clear the picturebox and label
+                Award_LED_HomeEnergy_picturebox.Image = null;
+                Award_LED_HomeEnergy_picturebox.Visible = false; // Hide the picturebox
+
+                Award_LED_HomeEnergy_label.Text = string.Empty;
+                Award_LED_HomeEnergy_label.Visible = false; // Hide the label
+
 
                 totalLedEmission = "";
                 updateGlobalLabel(this, EventArgs.Empty);
@@ -453,6 +531,14 @@ namespace carbonfootprint_tabs
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
                 Emission_LED_HomeEnergy_label.Text = "Emission"; // Assogn default value
                 Feedback_LED_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+
+                // Clear the picturebox and label
+                Award_LED_HomeEnergy_picturebox.Image = null;
+                Award_LED_HomeEnergy_picturebox.Visible = false; // Hide the picturebox
+
+                Award_LED_HomeEnergy_label.Text = string.Empty;
+                Award_LED_HomeEnergy_label.Visible = false; // Hide the label
+
                 if (isHoursLEDErrorSet)
                 {
                     errorProvider1.SetError(HoursDay_LED_HomeEnergy_textBox, string.Empty);
@@ -475,6 +561,13 @@ namespace carbonfootprint_tabs
                 Emission_LED_HomeEnergy_label.Text = "Emission"; // Assogn default value
                 Feedback_LED_HomeEnergy_label.Text = "Feedback"; //Assogn default value
 
+                // Clear the picturebox and label
+                Award_LED_HomeEnergy_picturebox.Image = null;
+                Award_LED_HomeEnergy_picturebox.Visible = false; // Hide the picturebox
+
+                Award_LED_HomeEnergy_label.Text = string.Empty;
+                Award_LED_HomeEnergy_label.Visible = false; // Hide the label
+
                 totalLedEmission = "";
                 updateGlobalLabel(this, EventArgs.Empty);
 
@@ -495,6 +588,14 @@ namespace carbonfootprint_tabs
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
                 Emission_LED_HomeEnergy_label.Text = "Emission"; // Assogn default value
                 Feedback_LED_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+
+                // Clear the picturebox and label
+                Award_LED_HomeEnergy_picturebox.Image = null;
+                Award_LED_HomeEnergy_picturebox.Visible = false; // Hide the picturebox
+
+                Award_LED_HomeEnergy_label.Text = string.Empty;
+                Award_LED_HomeEnergy_label.Visible = false; // Hide the label
+
                 if (isQtyLEDErrorSet)
                 {
                     errorProvider1.SetError(Qty_LED_HomeEnergy_textBox, string.Empty);
@@ -513,6 +614,13 @@ namespace carbonfootprint_tabs
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
                 Emission_LED_HomeEnergy_label.Text = "Emission"; // Assogn default value
                 Feedback_LED_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+
+                // Clear the picturebox and label
+                Award_LED_HomeEnergy_picturebox.Image = null;
+                Award_LED_HomeEnergy_picturebox.Visible = false; // Hide the picturebox
+
+                Award_LED_HomeEnergy_label.Text = string.Empty;
+                Award_LED_HomeEnergy_label.Visible = false; // Hide the label
 
                 totalLedEmission = "";
                 updateGlobalLabel(this, EventArgs.Empty);
@@ -534,35 +642,50 @@ namespace carbonfootprint_tabs
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
                 Emission_LED_HomeEnergy_label.Text = "Emission"; // Assogn default value
                 Feedback_LED_HomeEnergy_label.Text = "Feedback"; //Assogn default value
+                                                                 // Clear the picturebox and label
+                Award_LED_HomeEnergy_picturebox.Image = null;
+                Award_LED_HomeEnergy_picturebox.Visible = false; // Hide the picturebox
+
+                Award_LED_HomeEnergy_label.Text = string.Empty;
+                Award_LED_HomeEnergy_label.Visible = false; // Hide the label
+
                 return;
             }
 
-
-            // Perform the calculation in watts
-            double totalWatts = wattResult * wattHoursResult * wattQty;
-            // Convert to kilowatts (kW)
-            double totalKilowatts = totalWatts / 1000;
-
-            EnergyUsage_LED_HomeEnergy_label.Text = $"Energy: {totalWatts} W / {totalKilowatts} kWh";
-            totalLedEmission = CalculateTotalCarbonEmission(totalKilowatts);
-            Emission_LED_HomeEnergy_label.Text = $"Emission: {ExtractEmissionValue(totalLedEmission):F6} kg CO2e";
-            updateGlobalLabel(this, EventArgs.Empty);
-            // Provide feedback based on average usage
-            double averageUsageHours = 8; // Average usage in hours per day
-            double averageWattage = 12; // Average wattage in watts
-            double dailyUsageHours = wattHoursResult; // User's input for usage hours
-
-            // Calculate the average daily energy consumption in watts
-            double averageDailyUsage = averageUsageHours * averageWattage;
-            double userDailyUsage = wattHoursResult * wattResult; // User's input for daily usage
-
-            if (userDailyUsage > averageDailyUsage)
+            // Perform the calculation in watts only if all textboxes are non-empty
+            if (!string.IsNullOrWhiteSpace(HoursDay_LED_HomeEnergy_textBox.Text) &&
+               !string.IsNullOrWhiteSpace(Qty_LED_HomeEnergy_textBox.Text) &&
+               !string.IsNullOrWhiteSpace(Watt_LED_HomeEnergy_textBox.Text))
             {
-                Feedback_LED_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts.";
-            }
-            else
-            {
-                Feedback_LED_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is within the average range of {averageUsageHours} hours/day with {averageWattage} watts.";
+                // Perform the calculation in watts
+                double totalWatts = wattResult * wattHoursResult * wattQty;
+                // Convert to kilowatts (kW)
+                double totalKilowatts = totalWatts / 1000;
+
+                EnergyUsage_LED_HomeEnergy_label.Text = $"Energy: {totalWatts} W / {totalKilowatts} kWh";
+                totalLedEmission = CalculateTotalCarbonEmission(totalKilowatts);
+                Emission_LED_HomeEnergy_label.Text = $"Emission: {ExtractEmissionValue(totalLedEmission):F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average usage
+                double averageUsageHours = 8; // Average usage in hours per day
+                double averageWattage = 12; // Average wattage in watts
+                double dailyUsageHours = wattHoursResult; // User's input for usage hours
+
+                // Calculate the average daily energy consumption in watts
+                double averageDailyUsage = averageUsageHours * averageWattage;
+                double userDailyUsage = wattHoursResult * wattResult; // User's input for daily usage
+
+                if (userDailyUsage > averageDailyUsage)
+                {
+                    Feedback_LED_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts.";
+                }
+                else
+                {
+                    Feedback_LED_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is within the average range of {averageUsageHours} hours/day with {averageWattage} watts.";
+                }
+
+                UpdateLEDUsageBadge(userDailyUsage, averageDailyUsage);
             }
         }
         private void HelpClickMe_LED_HomeEnergy_button_Click(object sender, EventArgs e)
