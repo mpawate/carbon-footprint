@@ -114,6 +114,9 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="crown1.png" />
+    <None Include="Resources\scrap.png" />
+    <None Include="Resources\trimming.png" />
+    <None Include="Resources\garbage.png" />
     <None Include="Resources\train-station.png" />
     <None Include="Resources\bus-station.png" />
     <None Include="Resources\jobs.png" />

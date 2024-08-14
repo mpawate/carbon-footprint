@@ -2284,5 +2284,10 @@ namespace carbonfootprint_tabs
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
