@@ -243,6 +243,394 @@ namespace carbonfootprint_tabs
             Application.Exit();
         }
 
+        //Leisure Car Emission
+        private string LeisureTravelGetCarType()
+        {
+            if (LeisureTravel_CarType_Small_RadioButton.Checked)
+            {
+                return "small";
+            }
+            else if (LeisureTravel_CarType_Medium_RadioButton.Checked)
+            {
+                return "medium";
+            }
+            else if (LeisureTravel_CarType_Large_RadioButton.Checked)
+            {
+                return "large";
+            }
+            else
+            {
+                return "unknown";
+            }
+        }
+        private string LeisureTravelGetFuelType()
+        {
+            if (LeisureTravel_FuelType_Petrol_RadioButton.Checked)
+            {
+                return "petrol";
+            }
+            else if (LeisureTravel_FuelType_Diesel_RadioButton.Checked)
+            {
+                return "diesel";
+            }
+            else if (LeisureTravel_FuelType_EV_RadioButton.Checked)
+            {
+                return "EV";
+            }
+            else
+            {
+                return "unknown";
+            }
+        }
+        private bool TryGetLeisureTravelCarMilesTravelled(out double milesTravelled)
+        {
+            milesTravelled = 0;
+
+            if (string.IsNullOrWhiteSpace(MilesTravelled_Car_LeisureTravel_Textbox.Text))
+            {
+                //MessageBox.Show("Please enter the miles travelled.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (double.TryParse(MilesTravelled_Car_LeisureTravel_Textbox.Text, out double miles))
+            {
+                milesTravelled = miles;
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Invalid input for miles travelled. Please enter a number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MilesTravelled_Car_LeisureTravel_Textbox.Text = ""; // Clear invalid input
+                leisuretravel_car_emission_label.Text = "";
+                return false;
+            }
+        }
+
+        //Leisure Bike Emission:
+        private string LeisureTravelGetBikeType()
+        {
+            if (LeisureTravel_BikeType_Small_RadioButton.Checked)
+            {
+                return "small";
+            }
+            else if (LeisureTravel_BikeType_Medium_RadioButton.Checked)
+            {
+                return "medium";
+            }
+            else if (LeisureTravel_BikeType_Large_RadioButton.Checked)
+            {
+                return "large";
+            }
+            else
+            {
+                return "unknown";
+            }
+        }
+        private bool TryGetMilesBikeTravelled(out double milesTravelled)
+        {
+            milesTravelled = 0;
+
+            if (string.IsNullOrWhiteSpace(MilesTravelled_Bike_LeisureTravel_Textbox.Text))
+            {
+                //MessageBox.Show("Please enter the miles travelled.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (double.TryParse(MilesTravelled_Bike_LeisureTravel_Textbox.Text, out double miles))
+            {
+                milesTravelled = miles;
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Invalid input for miles travelled by Bike. Please enter a number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MilesTravelled_Bike_LeisureTravel_Textbox.Text = ""; // Clear invalid input
+                leisuretravel_bike_emission_label.Text = "";
+                return false;
+            }
+        }
+        private void LeisureTravel_CalculateMotorBikeCarbon(object sender, EventArgs e)
+        {
+            string bikeType = LeisureTravelGetBikeType();
+
+            if (!TryGetMilesBikeTravelled(out double milesTravelledBike))
+            {
+                totalLeisureTravelBikeEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+                return; // Exit the method if the input is invalid
+            }
+
+            // Use the carType, fuelType, and milesTravelled variables as needed
+            Debug.WriteLine($"Selected bike type: {bikeType}");
+            Debug.WriteLine($"Miles Bike travelled: {milesTravelledBike}");
+
+            // Further calculation logic here
+            string emissionFactor = GetEmissionFactorBike(bikeType);
+            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
+            //string result = $"Total Emission: {overallTotalEmission:F6} kg CO2e (CO2: {overallCO2Emission:F6}, CH4: {overallCH4Emission:F6}, N2O: {overallN2OEmission:F6})";
+
+            double totalEmission = milesTravelledBike * Convert.ToDouble(extractedEmissionFactor);
+            leisuretravel_bike_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+            totalLeisureTravelBikeEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
+            updateGlobalLabel(this, EventArgs.Empty);
+
+            Debug.WriteLine($"Total emission: {totalLeisureTravelCarEmission} kg CO2e");
+        }
+
+        //Leisure hotel room
+        private void LeisureTravel_CalculateMotorHotelCarbon(object sender, EventArgs e)
+        {
+            double totalnights = 0;
+            // Check if the first TextBox is empty
+            if (string.IsNullOrWhiteSpace(LeisureTravel_HotelStay_Textbox.Text))
+            {
+                LeisureTravel_HotelStay_Textbox.Text = ""; // Assign placeholder text
+                leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign placeholder text
+                totalHotelStayEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+
+            // Validate and parse the first TextBox input
+            if (double.TryParse(LeisureTravel_HotelStay_Textbox.Text, out double totalNights))
+            {
+                totalnights = totalNights;
+                Debug.WriteLine($"Entered Night value: {totalnights}, Calculation result: {totalnights}");
+            }
+            else
+            {
+                MessageBox.Show("Invalid input for TotalNights. Please enter a number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine("Invalid input for TotalNights. Please enter a number.");
+                LeisureTravel_HotelStay_Textbox.Text = ""; // Clear invalid input
+                leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign placeholder text
+                return; // Exit the method if the input is invalid
+            }
+
+            totalHotelStayEmission = CalculateTotalCarbonEmissionHotel(totalnights);
+
+            //fan_emission_label.Text = ExtractEmissionValue(totalFanEmission);
+            leisuretravel_HotelStay_emission_label.Text = $"Emission: {ExtractEmissionValue(totalHotelStayEmission):F6} kg CO2e";
+            updateGlobalLabel(this, EventArgs.Empty);
+        }
+        private string CalculateTotalCarbonEmissionHotel(double totalnights)
+        {
+            double ukRoomPerNightEmissionFactor = 0;
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Hotel stay");
+                    command.Parameters.AddWithValue("@Type", "NA");
+                    command.Parameters.AddWithValue("@Unit", "Room per night");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Carbon emission factors per kWh for electricity generation in the UK
+                            ukRoomPerNightEmissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                        }
+                    }
+                }
+            }
+            // Emission factor per room per night in the UK
+            //double ukRoomPerNightEmissionFactor = 10.4; // kg CO2e per room per night
+
+            // Calculate total carbon emissions from generation
+            double totalGenerationEmission = totalnights * ukRoomPerNightEmissionFactor;
+
+            // Output or use these values as needed
+            Debug.WriteLine($"Total Carbon Emission for Hotel Stay: {totalGenerationEmission} kg CO2e");
+
+            // Optionally update UI or store these values
+            // resultLabel.Text = $"Total Carbon Emission: {overallTotalEmission} kg CO2e";
+            //led_op_Total_KWh_label.Text = $"Total Emission: {overallTotalEmission} kg CO2e (CO2: {overallCO2Emission}, CH4: {overallCH4Emission}, N2O: {overallN2OEmission})";
+            // Create the result string
+            //string result = $"Total Emission: {overallTotalEmission} kg CO2e (CO2: {overallCO2Emission}, CH4: {overallCH4Emission}, N2O: {overallN2OEmission})";
+            string result = $"Total Emission: {totalGenerationEmission:F6} kg CO2e (CO2: {0:F6}, CH4: {0:F6}, N2O: {0:F6})";
+
+            // Output for debugging purposes
+            Debug.WriteLine(result);
+
+            // Return the result string
+            return result;
+        }
+
+
+        // Function to get emission factor based on car type and fuel type
+        private string GetEmissionFactor(string carType, string fuelType)
+        {
+            double CarTotalFactor = 0;
+            double CarCO2Factor = 0;
+            double CarCH4Factor = 0;
+            double CarN2OFactor = 0;
+
+            string activityParam = "Cars";
+            string typeParam = "";
+            string fuelParam = "Petrol";
+            string unitParam = "miles";
+
+            // Dummy values, replace with actual logic/data fetching based on the provided data.
+            if (carType == "small")
+            {
+                typeParam = "Small";
+            }
+            else if (carType == "medium")
+            {
+                typeParam = "Medium";
+            }
+            else if (carType == "large")
+            {
+                typeParam = "Large";
+            }
+            else
+            {
+                typeParam = "";
+            }
+
+            if (fuelType == "diesel")
+            {
+                fuelParam = "Diesel";
+            }
+            else if (fuelType == "petrol")
+            {
+                fuelParam = "Petrol";
+            }
+            else if (fuelType == "EV")
+            {
+                fuelParam = "EV";
+            }
+            else
+            {
+                fuelParam = "";
+            }
+
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Fuel = @Fuel AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", activityParam);
+                    command.Parameters.AddWithValue("@Type", typeParam);
+                    command.Parameters.AddWithValue("@Unit", unitParam);
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Fuel", fuelParam);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Carbon emission factors per kWh for electricity generation in the UK
+                            CarTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                            CarCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            CarCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            CarN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                        }
+                    }
+                }
+            }
+            string emission_factors = $"Emission Factors: {CarTotalFactor:F6} kg CO2e (CO2: {CarCO2Factor:F6}, CH4: {CarCH4Factor:F6}, N2O: {CarN2OFactor:F6})";
+            return emission_factors; // Small car, petrol, miles
+
+        }
+        private string GetEmissionFactorBike(string bikeType)
+        {
+            double BikeTotalFactor = 0;
+            double BikeCO2Factor = 0;
+            double BikeCH4Factor = 0;
+            double BikeN2OFactor = 0;
+
+            string activityParam = "Motorbike";
+            string typeParam = "";
+            string fuelParam = "Petrol";
+            string unitParam = "miles";
+
+            // Dummy values, replace with actual logic/data fetching based on the provided data.
+            if (bikeType == "small")
+            {
+                typeParam = "Small";
+            }
+            else if (bikeType == "medium")
+            {
+                typeParam = "Medium";
+            }
+            else if (bikeType == "large")
+            {
+                typeParam = "Large";
+            }
+
+
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Fuel = @Fuel AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", activityParam);
+                    command.Parameters.AddWithValue("@Type", typeParam);
+                    command.Parameters.AddWithValue("@Unit", unitParam);
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Fuel", fuelParam);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Carbon emission factors per kWh for electricity generation in the UK
+                            BikeTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                            BikeCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            BikeCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            BikeN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                        }
+                    }
+                }
+            }
+            string emission_factors = $"Emission Factors: {BikeTotalFactor:F6} kg CO2e (CO2: {BikeCO2Factor:F6}, CH4: {BikeCH4Factor:F6}, N2O: {BikeN2OFactor:F6})";
+            return emission_factors; // Small car, petrol, miles
+        }
+
+        private void CarLeisureTravel_CalculateCarCarbon(object sender, EventArgs e)
+        {
+            string carType = LeisureTravelGetCarType();
+            string fuelType = LeisureTravelGetFuelType();
+
+            if (!TryGetLeisureTravelCarMilesTravelled(out double milesTravelled))
+            {
+                totalLeisureTravelCarEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+                return; // Exit the method if the input is invalid
+            }
+
+            // Use the carType, fuelType, and milesTravelled variables as needed
+            Debug.WriteLine($"Selected car type: {carType}");
+            Debug.WriteLine($"Selected fuel type: {fuelType}");
+            Debug.WriteLine($"Miles travelled: {milesTravelled}");
+
+            // Further calculation logic here
+            string emissionFactor = GetEmissionFactor(carType, fuelType);
+            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
+            //string result = $"Total Emission: {overallTotalEmission:F6} kg CO2e (CO2: {overallCO2Emission:F6}, CH4: {overallCH4Emission:F6}, N2O: {overallN2OEmission:F6})";
+
+            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+            leisuretravel_car_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+            totalLeisureTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
+            updateGlobalLabel(this, EventArgs.Empty);
+
+            Debug.WriteLine($"Total emission: {totalLeisureTravelCarEmission} kg CO2e");
+        }
+
         //Water supply carbon emission calculations
         private void HomeEnergy_CalculateWaterCarbon(object sender, EventArgs e)
         {
@@ -2049,6 +2437,18 @@ namespace carbonfootprint_tabs
             // Return the result string
             return result;
         }
+        private string ExtractEmissionFactorsValue(string emissionString)
+        {
+            if (emissionString.Contains("Emission Factors:"))
+            {
+                //string emission_factors = $"Emission Factors: {largeDieselTotalFactor:F6} kg CO2e (CO2: {largeDieselCO2Factor:F6}, CH4: {largeDieselCH4Factor:F6}, N2O: {largeDieselN2OFactor:F6})";
+
+                string emissionPart = emissionString.Substring(emissionString.IndexOf("Emission Factors:") + "Emission Factors:".Length).Trim();
+                emissionPart = emissionPart.Substring(0, emissionPart.IndexOf("kg CO2e")).Trim();
+                return emissionPart;
+            }
+            return "0"; // Return "0" if the label is not found
+        }
 
         //pie chart
         private void UpdatePieChartplot(double homeEmission, double leisureTravelEmission, double commuteTravelEmission, double personalWasteEmission)
@@ -2200,9 +2600,9 @@ namespace carbonfootprint_tabs
                 waterEmission *= daysInYear;
                 customEntryEmission *= daysInYear;
 
-                //LeiTravelCarEmission *= daysInYear;
-                //LeiTravelBikeEmission *= daysInYear;
-                //LeiTravelHotelStayEmission *= daysInYear;
+                LeiTravelCarEmission *= daysInYear;
+                LeiTravelBikeEmission *= daysInYear;
+                LeiTravelHotelStayEmission *= daysInYear;
                 WorkHrsEmission *= workingDaysInYear;
 
                 // Use working days for commute emissions
@@ -2213,9 +2613,9 @@ namespace carbonfootprint_tabs
             else
             {
                 // Convert annual emissions to daily if in daily mode
-                //CommuTravelCarEmission /= workingDaysInYear;
-                //CommuTravelTrainEmission /= workingDaysInYear;
-                //CommuTravelBusEmission /= workingDaysInYear;
+                CommuTravelCarEmission /= workingDaysInYear;
+                CommuTravelTrainEmission /= workingDaysInYear;
+                CommuTravelBusEmission /= workingDaysInYear;
                 LeiTravelCarEmission /= daysInYear;
                 LeiTravelBikeEmission /= daysInYear;
                 LeiTravelHotelStayEmission /= daysInYear;
