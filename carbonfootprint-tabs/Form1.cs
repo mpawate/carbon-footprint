@@ -1,4 +1,4 @@
-﻿using System;
+﻿            using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,6 +62,10 @@ namespace carbonfootprint_tabs
         private bool isWattWaterErrorSet = false;
         private bool isHoursWaterErrorSet = false;
         private bool isNumnerPersonWaterErrorSet = false;
+
+        private bool isHotelStayErrorSet = false;
+        private bool isCarLeisureMilesErrorSet = false;
+        private bool isBikeLeisureMilesErrorSet = false;
 
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
         private Random random = new Random();
@@ -190,9 +194,9 @@ namespace carbonfootprint_tabs
             //HouseholdResidualWaste_CalculateCarbon(sender, e);
             //OrganicFoodWaste_CalculateCarbon(sender, e);
             //HomeOffice_CalculateCarbon(sender, e);
-            //LeisureTravel_CalculateMotorBikeCarbon(sender, e);
-            //LeisureTravel_CalculateCarCarbon(sender, e);
-            //LeisureTravel_CalculateMotorHotelCarbon(sender, e);
+            BikeLeisureTravel_CalculateBikeCarbon(sender, e);
+            CarLeisureTravel_CalculateCarCarbon(sender, e);
+            LeisureTravel_CalculateHotelRoomCarbon(sender, e);
             //LeisureTravel_CalculateHomeOfficeCarbon(sender, e);
             HomeEnergy_CalculateWaterCarbon(sender, e);
             Kettle_HomeEnergy_Carbon_Calculation(sender, e);
@@ -282,29 +286,197 @@ namespace carbonfootprint_tabs
                 return "unknown";
             }
         }
-        private bool TryGetLeisureTravelCarMilesTravelled(out double milesTravelled)
+        private void CarLeisureTravel_CalculateCarCarbon(object sender, EventArgs e)
         {
-            milesTravelled = 0;
+            double milesTravelled = 0;
 
+            // Validate inputs
+            bool isValid = true;
+
+            // Default feedback and UI reset
+            leisuretravel_car_emission_label.Text = "Emission"; // Assign default value
+            feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+            // Clear the picturebox and label
+            Award_Car_Leisure_picturebox.Image = null;
+            Award_Car_Leisure_picturebox.Visible = false; // Hide the picturebox
+
+            Award_Car_Leisure_label.Text = string.Empty;
+            Award_Car_Leisure_label.Visible = false; // Hide the label
+            feedback_Car_Leisure_label.Text = string.Empty;
+            feedback_Car_Leisure_label.Visible = false; // Assign default value
+
+            // Validate Miles Travelled
             if (string.IsNullOrWhiteSpace(MilesTravelled_Car_LeisureTravel_Textbox.Text))
             {
-                //MessageBox.Show("Please enter the miles travelled.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+                if (isCarLeisureMilesErrorSet)
+                {
+                    Car_LeisureTravel_errorProvider.SetError(MilesTravelled_Car_LeisureTravel_Textbox, string.Empty);
+                    isCarLeisureMilesErrorSet = false;
+                }
+                totalLeisureTravelCarEmission = "";
+                feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
 
-            if (double.TryParse(MilesTravelled_Car_LeisureTravel_Textbox.Text, out double miles))
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else if (!double.TryParse(MilesTravelled_Car_LeisureTravel_Textbox.Text, out milesTravelled) || milesTravelled < 1 || milesTravelled > 5000)
             {
-                milesTravelled = miles;
-                return true;
+                isValid = false;
+                if (!isCarLeisureMilesErrorSet)
+                {
+                    Car_LeisureTravel_errorProvider.SetError(MilesTravelled_Car_LeisureTravel_Textbox, "Please enter a valid number of miles between 1 and 5,000.");
+                    isCarLeisureMilesErrorSet = true;
+                }
+                totalLeisureTravelCarEmission = "";
+                feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
             }
             else
             {
-                MessageBox.Show("Invalid input for miles travelled. Please enter a number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MilesTravelled_Car_LeisureTravel_Textbox.Text = ""; // Clear invalid input
-                leisuretravel_car_emission_label.Text = "";
-                return false;
+                if (isCarLeisureMilesErrorSet)
+                {
+                    Car_LeisureTravel_errorProvider.SetError(MilesTravelled_Car_LeisureTravel_Textbox, string.Empty);
+                    isCarLeisureMilesErrorSet = false;
+                }
+            }
+
+            // Validate Car Type and Fuel Type
+            string carType = LeisureTravelGetCarType();
+            string fuelType = LeisureTravelGetFuelType();
+
+            if (carType == "unknown" || fuelType == "unknown")
+            {
+                isValid = false;
+                //MessageBox.Show("Please select a valid car type and fuel type.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                totalLeisureTravelCarEmission = "";
+                feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+
+            // If validation fails, return
+            if (!isValid)
+            {
+                totalLeisureTravelCarEmission = "";
+                feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+
+            // Perform the calculation only if all inputs are valid
+            if (!string.IsNullOrWhiteSpace(MilesTravelled_Car_LeisureTravel_Textbox.Text) &&
+                carType != "unknown" &&
+                fuelType != "unknown")
+            {
+                // Use the carType, fuelType, and milesTravelled variables as needed
+                string emissionFactor = GetEmissionFactor(carType, fuelType);
+                string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
+
+                double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+                leisuretravel_car_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+                totalLeisureTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average mileage
+                double averageMiles = 1053; // Example average miles per person per year
+                if (milesTravelled > averageMiles)
+                {
+                    feedback_Car_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
+                    feedback_Car_Leisure_label.Visible = true;
+                }
+                else
+                {
+                    feedback_Car_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
+                    feedback_Car_Leisure_label.Visible = true;
+                }
+
+                UpdateCarLeisureBadge(milesTravelled, averageMiles);
             }
         }
+        private void UpdateCarLeisureBadge(double userMileage, double averageMileage)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            // Generate random indexes for each phrase array separately
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userMileage < averageMileage)
+            {
+                // Show the "Eco Warrior" badge
+                Award_Car_Leisure_picturebox.Image = goodPerformanceImages[goodImageIndex];
+                Award_Car_Leisure_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_Car_Leisure_picturebox.Image = improvementImages[improvementImageIndex];
+                Award_Car_Leisure_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_Car_Leisure_picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_Car_Leisure_picturebox.Visible = true;
+            Award_Car_Leisure_label.Visible = true;
+        }
+        private void HelpClickMe_CarLeisureTravel_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message for car leisure travel
+            MessageBox.Show(
+                "Annual Car Leisure Travel Data:\n\n" +
+                "1. Enter the total number of miles traveled by car for leisure purposes in a year. E.g., 1053\n" +
+                "2. Make sure to enter a realistic value, typically based on your leisure activities throughout the year.\n" +
+                "3. This data will be used to calculate your annual carbon emission for leisure car travel.\n\n" +
+                "In 2018, the average person in England traveled 1,053 miles per year for leisure purposes, such as visiting friends, entertainment, and holidays, primarily by car or van.\n\n" +
+                "This section calculates the carbon emission based on your car travel, using data specific to the UK.",
+                "Help Information - Leisure Car Travel",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
 
         //Leisure Bike Emission:
         private string LeisureTravelGetBikeType()
@@ -326,91 +498,341 @@ namespace carbonfootprint_tabs
                 return "unknown";
             }
         }
-        private bool TryGetMilesBikeTravelled(out double milesTravelled)
+        private void UpdateBikeLeisureBadge(double userMileage, double averageMileage)
         {
-            milesTravelled = 0;
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
 
-            if (string.IsNullOrWhiteSpace(MilesTravelled_Bike_LeisureTravel_Textbox.Text))
-            {
-                //MessageBox.Show("Please enter the miles travelled.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
 
-            if (double.TryParse(MilesTravelled_Bike_LeisureTravel_Textbox.Text, out double miles))
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            // Generate random indexes for each phrase array separately
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userMileage < averageMileage)
             {
-                milesTravelled = miles;
-                return true;
+                // Show the "Eco Warrior" badge
+                Award_Bike_Leisure_picturebox.Image = goodPerformanceImages[goodImageIndex];
+                Award_Bike_Leisure_label.Text = goodPerformancePhrases[goodPhraseIndex];
             }
             else
             {
-                MessageBox.Show("Invalid input for miles travelled by Bike. Please enter a number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MilesTravelled_Bike_LeisureTravel_Textbox.Text = ""; // Clear invalid input
-                leisuretravel_bike_emission_label.Text = "";
-                return false;
+                // Show the "You Can Do Better" feedback
+                Award_Bike_Leisure_picturebox.Image = improvementImages[improvementImageIndex];
+                Award_Bike_Leisure_label.Text = improvementPhrases[improvementPhraseIndex];
             }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_Bike_Leisure_picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_Bike_Leisure_picturebox.Visible = true;
+            Award_Bike_Leisure_label.Visible = true;
         }
-        private void LeisureTravel_CalculateMotorBikeCarbon(object sender, EventArgs e)
+        private void BikeLeisureTravel_CalculateBikeCarbon(object sender, EventArgs e)
         {
+            double milesTravelled = 0;
+
+            // Validate inputs
+            bool isValid = true;
+
+            // Default feedback and UI reset
+            leisuretravel_bike_emission_label.Text = "Emission"; // Assign default value
+            feedback_Bike_Leisure_label.Text = "Feedback"; // Assign default value
+
+            // Clear the picturebox and label
+            Award_Bike_Leisure_picturebox.Image = null;
+            Award_Bike_Leisure_picturebox.Visible = false; // Hide the picturebox
+
+            Award_Bike_Leisure_label.Text = string.Empty;
+            Award_Bike_Leisure_label.Visible = false; // Hide the label
+            feedback_Bike_Leisure_label.Text = string.Empty;
+            feedback_Bike_Leisure_label.Visible = false; // Assign default value
+
+            // Validate Miles Travelled
+            if (string.IsNullOrWhiteSpace(MilesTravelled_Bike_LeisureTravel_Textbox.Text))
+            {
+                if (isBikeLeisureMilesErrorSet)
+                {
+                    Bike_LeisureTravel_errorProvider2.SetError(MilesTravelled_Bike_LeisureTravel_Textbox, string.Empty);
+                    isBikeLeisureMilesErrorSet = false;
+                }
+                totalLeisureTravelBikeEmission = "";
+                feedback_Bike_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else if (!double.TryParse(MilesTravelled_Bike_LeisureTravel_Textbox.Text, out milesTravelled) || milesTravelled < 1 || milesTravelled > 5000)
+            {
+                isValid = false;
+                if (!isBikeLeisureMilesErrorSet)
+                {
+                    Bike_LeisureTravel_errorProvider2.SetError(MilesTravelled_Bike_LeisureTravel_Textbox, "Please enter a valid number of miles between 1 and 5,000.");
+                    isBikeLeisureMilesErrorSet = true;
+                }
+                totalLeisureTravelBikeEmission = "";
+                feedback_Bike_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else
+            {
+                if (isBikeLeisureMilesErrorSet)
+                {
+                    Bike_LeisureTravel_errorProvider2.SetError(MilesTravelled_Bike_LeisureTravel_Textbox, string.Empty);
+                    isBikeLeisureMilesErrorSet = false;
+                }
+            }
+
+            // Validate Car Type and Fuel Type
             string bikeType = LeisureTravelGetBikeType();
 
-            if (!TryGetMilesBikeTravelled(out double milesTravelledBike))
+            if (bikeType == "unknown")
+            {
+                isValid = false;
+                //MessageBox.Show("Please select a valid car type and fuel type.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                totalLeisureTravelBikeEmission = "";
+                feedback_Bike_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+
+            // If validation fails, return
+            if (!isValid)
             {
                 totalLeisureTravelBikeEmission = "";
+                feedback_Bike_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+
+            // Perform the calculation only if all inputs are valid
+            if (!string.IsNullOrWhiteSpace(MilesTravelled_Bike_LeisureTravel_Textbox.Text) &&
+                bikeType != "unknown")
+            {
+                // Use the carType, fuelType, and milesTravelled variables as needed
+                string emissionFactor = GetEmissionFactorBike(bikeType);
+                string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
+
+                double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+                leisuretravel_bike_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+                totalLeisureTravelBikeEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average mileage
+                double averageMiles = 1053; // Example average miles per person per year
+                if (milesTravelled > averageMiles)
+                {
+                    feedback_Bike_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
+                    feedback_Bike_Leisure_label.Visible = true;
+                }
+                else
+                {
+                    feedback_Bike_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
+                    feedback_Bike_Leisure_label.Visible = true;
+                }
+
+                UpdateBikeLeisureBadge(milesTravelled, averageMiles);
+            }
+        }
+
+        // Leisure hotel room carbon emission calculation
+        private void LeisureTravel_CalculateHotelRoomCarbon(object sender, EventArgs e)
+        {
+            double totalNights = 0;
+
+            // Validate inputs
+            bool isValid = true;
+
+            // Validate Number of Nights
+            if (string.IsNullOrWhiteSpace(LeisureTravel_HotelStay_Textbox.Text))
+            {
+                leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign default value
+                                                                          // Clear the picturebox and label
+                Award_HotelStay_Leisure_picturebox.Image = null;
+                Award_HotelStay_Leisure_picturebox.Visible = false; // Hide the picturebox
+
+                feedback_HotelStay_Leisure_label.Text = string.Empty;
+                feedback_HotelStay_Leisure_label.Visible = false; // Hide the label
+
+                totalHotelStayEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                if (isHotelStayErrorSet)
+                {
+                    hotelStay_LeisureTravel_errorProvider.SetError(LeisureTravel_HotelStay_Textbox, string.Empty);
+                    isHotelStayErrorSet = false;
+                }
+                return;
+            }
+            else if (!double.TryParse(LeisureTravel_HotelStay_Textbox.Text, out totalNights) || totalNights < 1 || totalNights > 30)
+            {
+                isValid = false;
+                if (!isHotelStayErrorSet)
+                {
+                    hotelStay_LeisureTravel_errorProvider.SetError(LeisureTravel_HotelStay_Textbox, "Please enter a valid number of nights between 1 and 30.");
+                    isHotelStayErrorSet = true;
+                }
+                leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign default value
+
+                // Clear the picturebox and label
+                Award_HotelStay_Leisure_picturebox.Image = null;
+                Award_HotelStay_Leisure_picturebox.Visible = false; // Hide the picturebox
+
+                feedback_HotelStay_Leisure_label.Text = string.Empty;
+                feedback_HotelStay_Leisure_label.Visible = false; // Hide the label
+
+                totalHotelStayEmission = "";
                 updateGlobalLabel(this, EventArgs.Empty);
                 return; // Exit the method if the input is invalid
             }
-
-            // Use the carType, fuelType, and milesTravelled variables as needed
-            Debug.WriteLine($"Selected bike type: {bikeType}");
-            Debug.WriteLine($"Miles Bike travelled: {milesTravelledBike}");
-
-            // Further calculation logic here
-            string emissionFactor = GetEmissionFactorBike(bikeType);
-            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
-            //string result = $"Total Emission: {overallTotalEmission:F6} kg CO2e (CO2: {overallCO2Emission:F6}, CH4: {overallCH4Emission:F6}, N2O: {overallN2OEmission:F6})";
-
-            double totalEmission = milesTravelledBike * Convert.ToDouble(extractedEmissionFactor);
-            leisuretravel_bike_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
-            totalLeisureTravelBikeEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
-            updateGlobalLabel(this, EventArgs.Empty);
-
-            Debug.WriteLine($"Total emission: {totalLeisureTravelCarEmission} kg CO2e");
-        }
-
-        //Leisure hotel room
-        private void LeisureTravel_CalculateMotorHotelCarbon(object sender, EventArgs e)
-        {
-            double totalnights = 0;
-            // Check if the first TextBox is empty
-            if (string.IsNullOrWhiteSpace(LeisureTravel_HotelStay_Textbox.Text))
+            else
             {
-                LeisureTravel_HotelStay_Textbox.Text = ""; // Assign placeholder text
-                leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign placeholder text
+                if (isHotelStayErrorSet)
+                {
+                    hotelStay_LeisureTravel_errorProvider.SetError(LeisureTravel_HotelStay_Textbox, string.Empty);
+                    isHotelStayErrorSet = false;
+                }
+            }
+
+            // If validation fails, return
+            if (!isValid)
+            {
+                leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign default value
+                                                                          // Clear the picturebox and label
+                Award_HotelStay_Leisure_picturebox.Image = null;
+                Award_HotelStay_Leisure_picturebox.Visible = false; // Hide the picturebox
+
+                feedback_HotelStay_Leisure_label.Text = string.Empty;
+                feedback_HotelStay_Leisure_label.Visible = false; // Hide the label
+
                 totalHotelStayEmission = "";
                 updateGlobalLabel(this, EventArgs.Empty);
                 return;
             }
 
-            // Validate and parse the first TextBox input
-            if (double.TryParse(LeisureTravel_HotelStay_Textbox.Text, out double totalNights))
+            // Perform the calculation only if all inputs are valid
+            if (!string.IsNullOrWhiteSpace(LeisureTravel_HotelStay_Textbox.Text))
             {
-                totalnights = totalNights;
-                Debug.WriteLine($"Entered Night value: {totalnights}, Calculation result: {totalnights}");
+                totalHotelStayEmission = CalculateTotalCarbonEmissionHotel(totalNights);
+
+                leisuretravel_HotelStay_emission_label.Text = $"Emission: {ExtractEmissionValue(totalHotelStayEmission):F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average usage or thresholds
+                double averageNights = 7; // Example average number of nights for comparison
+                if (totalNights > averageNights)
+                {
+                    leisuretravel_HotelStay_emission_label.Text = $"Feedback: Your stay of {totalNights} nights exceeds the average of {averageNights} nights.";
+                }
+                else
+                {
+                    leisuretravel_HotelStay_emission_label.Text = $"Feedback: Your stay of {totalNights} nights is within the average range of {averageNights} nights.";
+                }
+
+                UpdateHotelStayBadge(totalNights, averageNights); // Update UI with badges or rewards based on user input
+            }
+        }
+        // Function to update the badge and feedback for hotel stay
+        private void UpdateHotelStayBadge(double userNights, double averageNights)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userNights <= averageNights)
+            {
+                // Show the "Eco Warrior" badge
+                Award_HotelStay_Leisure_picturebox.Image = goodPerformanceImages[goodImageIndex];
+                feedback_HotelStay_Leisure_label.Text = goodPerformancePhrases[goodPhraseIndex];
             }
             else
             {
-                MessageBox.Show("Invalid input for TotalNights. Please enter a number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debug.WriteLine("Invalid input for TotalNights. Please enter a number.");
-                LeisureTravel_HotelStay_Textbox.Text = ""; // Clear invalid input
-                leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign placeholder text
-                return; // Exit the method if the input is invalid
+                // Show the "You Can Do Better" feedback
+                Award_HotelStay_Leisure_picturebox.Image = improvementImages[improvementImageIndex];
+                feedback_HotelStay_Leisure_label.Text = improvementPhrases[improvementPhraseIndex];
             }
 
-            totalHotelStayEmission = CalculateTotalCarbonEmissionHotel(totalnights);
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_HotelStay_Leisure_picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            //fan_emission_label.Text = ExtractEmissionValue(totalFanEmission);
-            leisuretravel_HotelStay_emission_label.Text = $"Emission: {ExtractEmissionValue(totalHotelStayEmission):F6} kg CO2e";
-            updateGlobalLabel(this, EventArgs.Empty);
+            // Make sure the PictureBox and Label are visible
+            Award_HotelStay_Leisure_picturebox.Visible = true;
+            feedback_HotelStay_Leisure_label.Visible = true;
         }
         private string CalculateTotalCarbonEmissionHotel(double totalnights)
         {
@@ -460,6 +882,19 @@ namespace carbonfootprint_tabs
 
             // Return the result string
             return result;
+        }
+        private void HelpClickMe_HotelStay_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message for hotel stay
+            MessageBox.Show(
+                "Annual Leisure Hotel Stay Data:\n\n" +
+                "1. Enter the total number of nights stayed at the hotel for leisure purposes in a year. E.g., 5\n" +
+                "2. Make sure to enter a realistic value, typically between 1 and 30 nights for a single stay.\n" +
+                "3. This data will be used to calculate your annual carbon emission for leisure hotel stays.\n\n" +
+                "This section calculates the carbon emission based on your hotel stay, using data specific to the UK.",
+                "Help Information - Leisure Hotel Stay",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
 
@@ -601,35 +1036,6 @@ namespace carbonfootprint_tabs
             return emission_factors; // Small car, petrol, miles
         }
 
-        private void CarLeisureTravel_CalculateCarCarbon(object sender, EventArgs e)
-        {
-            string carType = LeisureTravelGetCarType();
-            string fuelType = LeisureTravelGetFuelType();
-
-            if (!TryGetLeisureTravelCarMilesTravelled(out double milesTravelled))
-            {
-                totalLeisureTravelCarEmission = "";
-                updateGlobalLabel(this, EventArgs.Empty);
-                return; // Exit the method if the input is invalid
-            }
-
-            // Use the carType, fuelType, and milesTravelled variables as needed
-            Debug.WriteLine($"Selected car type: {carType}");
-            Debug.WriteLine($"Selected fuel type: {fuelType}");
-            Debug.WriteLine($"Miles travelled: {milesTravelled}");
-
-            // Further calculation logic here
-            string emissionFactor = GetEmissionFactor(carType, fuelType);
-            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
-            //string result = $"Total Emission: {overallTotalEmission:F6} kg CO2e (CO2: {overallCO2Emission:F6}, CH4: {overallCH4Emission:F6}, N2O: {overallN2OEmission:F6})";
-
-            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
-            leisuretravel_car_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
-            totalLeisureTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
-            updateGlobalLabel(this, EventArgs.Empty);
-
-            Debug.WriteLine($"Total emission: {totalLeisureTravelCarEmission} kg CO2e");
-        }
 
         //Water supply carbon emission calculations
         private void HomeEnergy_CalculateWaterCarbon(object sender, EventArgs e)
@@ -658,7 +1064,7 @@ namespace carbonfootprint_tabs
 
                 if (isWattWaterErrorSet)
                 {
-                    errorProvider1.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, string.Empty);
+                    water_LeisureTravel_errorProvider.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, string.Empty);
                     isWattWaterErrorSet = false;
                 }
             }
@@ -667,7 +1073,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isWattWaterErrorSet)
                 {
-                    errorProvider1.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, "Please enter a valid water consumption value in liters per person. Ex: 142 liters per day");
+                    water_LeisureTravel_errorProvider.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, "Please enter a valid water consumption value in liters per person. Ex: 142 liters per day");
                     isWattWaterErrorSet = true;
                 }
                 EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -687,7 +1093,7 @@ namespace carbonfootprint_tabs
             {
                 if (isWattWaterErrorSet)
                 {
-                    errorProvider1.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, string.Empty);
+                    water_LeisureTravel_errorProvider.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, string.Empty);
                     isWattWaterErrorSet = false;
                 }
             }
@@ -709,7 +1115,7 @@ namespace carbonfootprint_tabs
 
                 if (isNumnerPersonWaterErrorSet)
                 {
-                    errorProvider1.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, string.Empty);
+                    water_LeisureTravel_errorProvider.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, string.Empty);
                     isNumnerPersonWaterErrorSet = false;
                 }
             }
@@ -718,7 +1124,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isNumnerPersonWaterErrorSet)
                 {
-                    errorProvider1.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, "Please enter a valid number of persons (at least 1).");
+                    water_LeisureTravel_errorProvider.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, "Please enter a valid number of persons (at least 1).");
                     isNumnerPersonWaterErrorSet = true;
                 }
                 EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -738,7 +1144,7 @@ namespace carbonfootprint_tabs
             {
                 if (isNumnerPersonWaterErrorSet)
                 {
-                    errorProvider1.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, string.Empty);
+                    water_LeisureTravel_errorProvider.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, string.Empty);
                     isNumnerPersonWaterErrorSet = false;
                 }
             }
@@ -933,7 +1339,7 @@ namespace carbonfootprint_tabs
 
                 if (isWattLEDErrorSet)
                 {
-                    errorProvider1.SetError(Watt_LED_HomeEnergy_textBox, string.Empty);
+                    LED_homeEnergy_errorProvider.SetError(Watt_LED_HomeEnergy_textBox, string.Empty);
                     isWattLEDErrorSet = false;
                 }
                 //return;
@@ -943,7 +1349,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isWattLEDErrorSet)
                 {
-                    errorProvider1.SetError(Watt_LED_HomeEnergy_textBox, "Please enter a valid wattage between 5 and 100.");
+                    LED_homeEnergy_errorProvider.SetError(Watt_LED_HomeEnergy_textBox, "Please enter a valid wattage between 5 and 100.");
                     isWattLEDErrorSet = true;
                 }
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -965,7 +1371,7 @@ namespace carbonfootprint_tabs
             {
                 if (isWattLEDErrorSet)
                 {
-                    errorProvider1.SetError(Watt_LED_HomeEnergy_textBox, string.Empty);
+                    LED_homeEnergy_errorProvider.SetError(Watt_LED_HomeEnergy_textBox, string.Empty);
                     isWattLEDErrorSet = false;
                 }
                 wattResult = wattNumber;
@@ -987,7 +1393,7 @@ namespace carbonfootprint_tabs
 
                 if (isHoursLEDErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_LED_HomeEnergy_textBox, string.Empty);
+                    LED_homeEnergy_errorProvider.SetError(HoursDay_LED_HomeEnergy_textBox, string.Empty);
                     isHoursLEDErrorSet = false;
                 }
                 totalLedEmission = "";
@@ -1000,7 +1406,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHoursLEDErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_LED_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
+                    LED_homeEnergy_errorProvider.SetError(HoursDay_LED_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
 
                     isHoursLEDErrorSet = true;
                 }
@@ -1024,7 +1430,7 @@ namespace carbonfootprint_tabs
             {
                 if (isHoursLEDErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_LED_HomeEnergy_textBox, string.Empty);
+                    LED_homeEnergy_errorProvider.SetError(HoursDay_LED_HomeEnergy_textBox, string.Empty);
                     isHoursLEDErrorSet = false;
                 }
                 wattHoursResult = wattHoursNumber;
@@ -1046,7 +1452,7 @@ namespace carbonfootprint_tabs
 
                 if (isQtyLEDErrorSet)
                 {
-                    errorProvider1.SetError(Qty_LED_HomeEnergy_textBox, string.Empty);
+                    LED_homeEnergy_errorProvider.SetError(Qty_LED_HomeEnergy_textBox, string.Empty);
                     isQtyLEDErrorSet = false;
                 }
                 totalLedEmission = "";
@@ -1059,7 +1465,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isQtyLEDErrorSet)
                 {
-                    errorProvider1.SetError(Qty_LED_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    LED_homeEnergy_errorProvider.SetError(Qty_LED_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
                     isQtyLEDErrorSet = true;
                 }
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -1081,7 +1487,7 @@ namespace carbonfootprint_tabs
             {
                 if (isQtyLEDErrorSet)
                 {
-                    errorProvider1.SetError(Qty_LED_HomeEnergy_textBox, string.Empty);
+                    LED_homeEnergy_errorProvider.SetError(Qty_LED_HomeEnergy_textBox, string.Empty);
                     isQtyLEDErrorSet = false;
                 }
                 wattQty = wattqty;
@@ -1240,7 +1646,7 @@ namespace carbonfootprint_tabs
 
                 if (isWattFanErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Fan_HomeEnergy_textBox, string.Empty);
+                    Fan_homeEnergy_errorProvider.SetError(Watt_Fan_HomeEnergy_textBox, string.Empty);
                     isWattFanErrorSet = false;
                 }
                 totalFanEmission = "";
@@ -1253,7 +1659,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isWattFanErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Fan_HomeEnergy_textBox, "Please enter a valid wattage between 5 and 100.");
+                    Fan_homeEnergy_errorProvider.SetError(Watt_Fan_HomeEnergy_textBox, "Please enter a valid wattage between 5 and 100.");
                     isWattFanErrorSet = true;
                 }
                 EnergyUsage_Fan_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -1275,7 +1681,7 @@ namespace carbonfootprint_tabs
             {
                 if (isWattFanErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Fan_HomeEnergy_textBox, string.Empty);
+                    Fan_homeEnergy_errorProvider.SetError(Watt_Fan_HomeEnergy_textBox, string.Empty);
                     isWattFanErrorSet = false;
                 }
                 wattResult = wattNumber;
@@ -1546,7 +1952,7 @@ namespace carbonfootprint_tabs
 
                 if (isWattKettleErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Kettle_HomeEnergy_textBox, string.Empty);
+                    Kettl_homeEnergy_errorProvider.SetError(Watt_Kettle_HomeEnergy_textBox, string.Empty);
                     isWattKettleErrorSet = false;
                 }
                 totalKettleEmission = "";
@@ -1559,7 +1965,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isWattKettleErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Kettle_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
+                    Kettl_homeEnergy_errorProvider.SetError(Watt_Kettle_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
                     isWattKettleErrorSet = true;
                 }
                 EnergyUsage_Kettle_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -1581,7 +1987,7 @@ namespace carbonfootprint_tabs
             {
                 if (isWattKettleErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Kettle_HomeEnergy_textBox, string.Empty);
+                    Kettl_homeEnergy_errorProvider.SetError(Watt_Kettle_HomeEnergy_textBox, string.Empty);
                     isWattKettleErrorSet = false;
                 }
                 wattResult = wattNumber;
@@ -1603,7 +2009,7 @@ namespace carbonfootprint_tabs
 
                 if (isHoursKettleErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Kettle_HomeEnergy_textBox, string.Empty);
+                    Kettl_homeEnergy_errorProvider.SetError(HoursDay_Kettle_HomeEnergy_textBox, string.Empty);
                     isHoursKettleErrorSet = false;
                 }
                 totalKettleEmission = "";
@@ -1616,7 +2022,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHoursKettleErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Kettle_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 2.");
+                    Kettl_homeEnergy_errorProvider.SetError(HoursDay_Kettle_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 2.");
                     isHoursKettleErrorSet = true;
                 }
 
@@ -1638,7 +2044,7 @@ namespace carbonfootprint_tabs
             {
                 if (isHoursKettleErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Kettle_HomeEnergy_textBox, string.Empty);
+                    Kettl_homeEnergy_errorProvider.SetError(HoursDay_Kettle_HomeEnergy_textBox, string.Empty);
                     isHoursKettleErrorSet = false;
                 }
                 wattHoursResult = wattHoursNumber;
@@ -1660,7 +2066,7 @@ namespace carbonfootprint_tabs
 
                 if (isQtyKettleErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Kettle_HomeEnergy_textBox, string.Empty);
+                    Kettl_homeEnergy_errorProvider.SetError(Qty_Kettle_HomeEnergy_textBox, string.Empty);
                     isQtyKettleErrorSet = false;
                 }
                 totalKettleEmission = "";
@@ -1673,7 +2079,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isQtyKettleErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Kettle_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    Kettl_homeEnergy_errorProvider.SetError(Qty_Kettle_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
                     isQtyKettleErrorSet = true;
                 }
                 EnergyUsage_Kettle_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -1695,7 +2101,7 @@ namespace carbonfootprint_tabs
             {
                 if (isQtyKettleErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Kettle_HomeEnergy_textBox, string.Empty);
+                    Kettl_homeEnergy_errorProvider.SetError(Qty_Kettle_HomeEnergy_textBox, string.Empty);
                     isQtyKettleErrorSet = false;
                 }
                 wattQty = wattqty;
@@ -2600,9 +3006,9 @@ namespace carbonfootprint_tabs
                 waterEmission *= daysInYear;
                 customEntryEmission *= daysInYear;
 
-                LeiTravelCarEmission *= daysInYear;
-                LeiTravelBikeEmission *= daysInYear;
-                LeiTravelHotelStayEmission *= daysInYear;
+                //LeiTravelCarEmission *= daysInYear;
+                //LeiTravelBikeEmission *= daysInYear;
+                //LeiTravelHotelStayEmission *= daysInYear;
                 WorkHrsEmission *= workingDaysInYear;
 
                 // Use working days for commute emissions

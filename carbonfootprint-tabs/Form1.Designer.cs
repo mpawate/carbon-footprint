@@ -143,27 +143,28 @@
             this.LeisureTravel_BikeType_Small_RadioButton = new System.Windows.Forms.RadioButton();
             this.LeisureTravel_BikeType_Medium_RadioButton = new System.Windows.Forms.RadioButton();
             this.LeisureTravel_BikeType_Large_RadioButton = new System.Windows.Forms.RadioButton();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.Award_Bike_Leisure_picturebox = new System.Windows.Forms.PictureBox();
             this.HotelStay_groupBox7 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
             this.LeisureTravel_HotelStay_Textbox = new System.Windows.Forms.TextBox();
             this.leisuretravel_HotelStay_emission_label = new System.Windows.Forms.Label();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.Award_HotelStay_Leisure_picturebox = new System.Windows.Forms.PictureBox();
             this.Award_HotelStay_Leisure_label = new System.Windows.Forms.Label();
-            this.Feedback_HotelStay_Leisure_label = new System.Windows.Forms.Label();
+            this.feedback_HotelStay_Leisure_label = new System.Windows.Forms.Label();
+            this.Help_LeisureTravel_HotelStay_Button = new System.Windows.Forms.Button();
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
             this.MilesTravelled_Bike_LeisureTravel_Textbox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.leisuretravel_bike_emission_label = new System.Windows.Forms.Label();
             this.tableLayoutPanel19 = new System.Windows.Forms.TableLayoutPanel();
-            this.Feedback_Bike_Leisure_label = new System.Windows.Forms.Label();
+            this.feedback_Bike_Leisure_label = new System.Windows.Forms.Label();
             this.Award_Bike_Leisure_label = new System.Windows.Forms.Label();
             this.CarGroupBox = new System.Windows.Forms.GroupBox();
             this.Car_LeisureTravel_Layout = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
-            this.Feedback_Car_Leisure_label = new System.Windows.Forms.Label();
+            this.feedback_Car_Leisure_label = new System.Windows.Forms.Label();
             this.Award_Car_Leisure_label = new System.Windows.Forms.Label();
             this.FuelType_groupBox5 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
@@ -176,11 +177,13 @@
             this.LeisureTravel_CarType_Small_RadioButton = new System.Windows.Forms.RadioButton();
             this.LeisureTravel_CarType_Medium_RadioButton = new System.Windows.Forms.RadioButton();
             this.LeisureTravel_CarType_Large_RadioButton = new System.Windows.Forms.RadioButton();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.Award_Car_Leisure_picturebox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.MilesTravelled_Car_LeisureTravel_Textbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.leisuretravel_car_emission_label = new System.Windows.Forms.Label();
+            this.tableLayoutPanel46 = new System.Windows.Forms.TableLayoutPanel();
+            this.Help_LeisureTravel__Car_Button = new System.Windows.Forms.Button();
             this.HomeOffice_Commute_tabPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel22 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -325,6 +328,14 @@
             this.HoursUsage_CustomEntry_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.AvgLiters_WaterSupply_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.NumPersons_WaterSupply_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.TotalNights_HotelStay_Leisure_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.Bike_LeisureTravel_errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.Car_LeisureTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.hotelStay_LeisureTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.LED_homeEnergy_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.Fan_homeEnergy_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.Kettl_homeEnergy_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.water_LeisureTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel20.SuspendLayout();
@@ -366,11 +377,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.tableLayoutPanel18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_Bike_Leisure_picturebox)).BeginInit();
             this.HotelStay_groupBox7.SuspendLayout();
             this.tableLayoutPanel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_HotelStay_Leisure_picturebox)).BeginInit();
             this.tableLayoutPanel16.SuspendLayout();
             this.tableLayoutPanel19.SuspendLayout();
             this.CarGroupBox.SuspendLayout();
@@ -381,8 +392,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Car_LeisureTravel_PictureBox)).BeginInit();
             this.CarType_groupBox4.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_Car_Leisure_picturebox)).BeginInit();
             this.tableLayoutPanel13.SuspendLayout();
+            this.tableLayoutPanel46.SuspendLayout();
             this.HomeOffice_Commute_tabPage.SuspendLayout();
             this.tableLayoutPanel22.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -441,6 +453,13 @@
             this.panel2.SuspendLayout();
             this.tableLayoutPanel45.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Bike_LeisureTravel_errorProvider2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Car_LeisureTravel_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hotelStay_LeisureTravel_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LED_homeEnergy_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Fan_homeEnergy_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kettl_homeEnergy_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.water_LeisureTravel_errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -1880,7 +1899,7 @@
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel15.Controls.Add(this.pictureBox8, 0, 0);
             this.tableLayoutPanel15.Controls.Add(this.groupBox8, 1, 0);
-            this.tableLayoutPanel15.Controls.Add(this.pictureBox9, 0, 1);
+            this.tableLayoutPanel15.Controls.Add(this.Award_Bike_Leisure_picturebox, 0, 1);
             this.tableLayoutPanel15.Controls.Add(this.HotelStay_groupBox7, 7, 0);
             this.tableLayoutPanel15.Controls.Add(this.tableLayoutPanel16, 4, 0);
             this.tableLayoutPanel15.Controls.Add(this.tableLayoutPanel19, 1, 1);
@@ -1947,6 +1966,7 @@
             this.LeisureTravel_BikeType_Small_RadioButton.TabStop = true;
             this.LeisureTravel_BikeType_Small_RadioButton.Text = "Small";
             this.LeisureTravel_BikeType_Small_RadioButton.UseVisualStyleBackColor = true;
+            this.LeisureTravel_BikeType_Small_RadioButton.CheckedChanged += new System.EventHandler(this.BikeLeisureTravel_CalculateBikeCarbon);
             // 
             // LeisureTravel_BikeType_Medium_RadioButton
             // 
@@ -1959,6 +1979,7 @@
             this.LeisureTravel_BikeType_Medium_RadioButton.TabStop = true;
             this.LeisureTravel_BikeType_Medium_RadioButton.Text = "Medium";
             this.LeisureTravel_BikeType_Medium_RadioButton.UseVisualStyleBackColor = true;
+            this.LeisureTravel_BikeType_Medium_RadioButton.CheckedChanged += new System.EventHandler(this.BikeLeisureTravel_CalculateBikeCarbon);
             // 
             // LeisureTravel_BikeType_Large_RadioButton
             // 
@@ -1971,16 +1992,17 @@
             this.LeisureTravel_BikeType_Large_RadioButton.TabStop = true;
             this.LeisureTravel_BikeType_Large_RadioButton.Text = "Large";
             this.LeisureTravel_BikeType_Large_RadioButton.UseVisualStyleBackColor = true;
+            this.LeisureTravel_BikeType_Large_RadioButton.CheckedChanged += new System.EventHandler(this.BikeLeisureTravel_CalculateBikeCarbon);
             // 
-            // pictureBox9
+            // Award_Bike_Leisure_picturebox
             // 
-            this.pictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox9.Location = new System.Drawing.Point(3, 116);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(95, 107);
-            this.pictureBox9.TabIndex = 4;
-            this.pictureBox9.TabStop = false;
-            this.pictureBox9.Visible = false;
+            this.Award_Bike_Leisure_picturebox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Award_Bike_Leisure_picturebox.Location = new System.Drawing.Point(3, 116);
+            this.Award_Bike_Leisure_picturebox.Name = "Award_Bike_Leisure_picturebox";
+            this.Award_Bike_Leisure_picturebox.Size = new System.Drawing.Size(95, 107);
+            this.Award_Bike_Leisure_picturebox.TabIndex = 4;
+            this.Award_Bike_Leisure_picturebox.TabStop = false;
+            this.Award_Bike_Leisure_picturebox.Visible = false;
             // 
             // HotelStay_groupBox7
             // 
@@ -2008,9 +2030,10 @@
             this.tableLayoutPanel17.Controls.Add(this.label8, 2, 0);
             this.tableLayoutPanel17.Controls.Add(this.LeisureTravel_HotelStay_Textbox, 4, 0);
             this.tableLayoutPanel17.Controls.Add(this.leisuretravel_HotelStay_emission_label, 2, 1);
-            this.tableLayoutPanel17.Controls.Add(this.pictureBox11, 0, 2);
+            this.tableLayoutPanel17.Controls.Add(this.Award_HotelStay_Leisure_picturebox, 0, 2);
             this.tableLayoutPanel17.Controls.Add(this.Award_HotelStay_Leisure_label, 2, 2);
-            this.tableLayoutPanel17.Controls.Add(this.Feedback_HotelStay_Leisure_label, 2, 3);
+            this.tableLayoutPanel17.Controls.Add(this.feedback_HotelStay_Leisure_label, 2, 3);
+            this.tableLayoutPanel17.Controls.Add(this.Help_LeisureTravel_HotelStay_Button, 4, 2);
             this.tableLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel17.Location = new System.Drawing.Point(3, 18);
             this.tableLayoutPanel17.Name = "tableLayoutPanel17";
@@ -2049,13 +2072,13 @@
             // LeisureTravel_HotelStay_Textbox
             // 
             this.LeisureTravel_HotelStay_Textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel17.SetColumnSpan(this.LeisureTravel_HotelStay_Textbox, 2);
             this.LeisureTravel_HotelStay_Textbox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LeisureTravel_HotelStay_Textbox.Location = new System.Drawing.Point(195, 24);
             this.LeisureTravel_HotelStay_Textbox.Name = "LeisureTravel_HotelStay_Textbox";
-            this.LeisureTravel_HotelStay_Textbox.Size = new System.Drawing.Size(95, 22);
+            this.LeisureTravel_HotelStay_Textbox.Size = new System.Drawing.Size(42, 22);
             this.LeisureTravel_HotelStay_Textbox.TabIndex = 2;
-            this.LeisureTravel_HotelStay_Textbox.TextChanged += new System.EventHandler(this.LeisureTravel_CalculateMotorHotelCarbon);
+            this.TotalNights_HotelStay_Leisure_toolTip.SetToolTip(this.LeisureTravel_HotelStay_Textbox, "Please enter a valid number of nights between 1 and 30.");
+            this.LeisureTravel_HotelStay_Textbox.TextChanged += new System.EventHandler(this.LeisureTravel_CalculateHotelRoomCarbon);
             // 
             // leisuretravel_HotelStay_emission_label
             // 
@@ -2068,41 +2091,53 @@
             this.leisuretravel_HotelStay_emission_label.TabIndex = 3;
             this.leisuretravel_HotelStay_emission_label.Text = "Total Emission:";
             // 
-            // pictureBox11
+            // Award_HotelStay_Leisure_picturebox
             // 
-            this.tableLayoutPanel17.SetColumnSpan(this.pictureBox11, 2);
-            this.pictureBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox11.Location = new System.Drawing.Point(3, 101);
-            this.pictureBox11.Name = "pictureBox11";
-            this.tableLayoutPanel17.SetRowSpan(this.pictureBox11, 2);
-            this.pictureBox11.Size = new System.Drawing.Size(90, 95);
-            this.pictureBox11.TabIndex = 4;
-            this.pictureBox11.TabStop = false;
-            this.pictureBox11.Visible = false;
+            this.tableLayoutPanel17.SetColumnSpan(this.Award_HotelStay_Leisure_picturebox, 2);
+            this.Award_HotelStay_Leisure_picturebox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Award_HotelStay_Leisure_picturebox.Location = new System.Drawing.Point(3, 101);
+            this.Award_HotelStay_Leisure_picturebox.Name = "Award_HotelStay_Leisure_picturebox";
+            this.tableLayoutPanel17.SetRowSpan(this.Award_HotelStay_Leisure_picturebox, 2);
+            this.Award_HotelStay_Leisure_picturebox.Size = new System.Drawing.Size(90, 95);
+            this.Award_HotelStay_Leisure_picturebox.TabIndex = 4;
+            this.Award_HotelStay_Leisure_picturebox.TabStop = false;
+            this.Award_HotelStay_Leisure_picturebox.Visible = false;
             // 
             // Award_HotelStay_Leisure_label
             // 
             this.Award_HotelStay_Leisure_label.AutoSize = true;
-            this.tableLayoutPanel17.SetColumnSpan(this.Award_HotelStay_Leisure_label, 4);
+            this.tableLayoutPanel17.SetColumnSpan(this.Award_HotelStay_Leisure_label, 2);
             this.Award_HotelStay_Leisure_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Award_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 131);
+            this.Award_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 115);
             this.Award_HotelStay_Leisure_label.Name = "Award_HotelStay_Leisure_label";
-            this.Award_HotelStay_Leisure_label.Size = new System.Drawing.Size(191, 16);
+            this.Award_HotelStay_Leisure_label.Size = new System.Drawing.Size(90, 32);
             this.Award_HotelStay_Leisure_label.TabIndex = 5;
             this.Award_HotelStay_Leisure_label.Text = "Award Ceremony";
             this.Award_HotelStay_Leisure_label.Visible = false;
             // 
-            // Feedback_HotelStay_Leisure_label
+            // feedback_HotelStay_Leisure_label
             // 
-            this.Feedback_HotelStay_Leisure_label.AutoSize = true;
-            this.tableLayoutPanel17.SetColumnSpan(this.Feedback_HotelStay_Leisure_label, 4);
-            this.Feedback_HotelStay_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 147);
-            this.Feedback_HotelStay_Leisure_label.Name = "Feedback_HotelStay_Leisure_label";
-            this.Feedback_HotelStay_Leisure_label.Size = new System.Drawing.Size(191, 52);
-            this.Feedback_HotelStay_Leisure_label.TabIndex = 6;
-            this.Feedback_HotelStay_Leisure_label.Text = "Feedback";
-            this.Feedback_HotelStay_Leisure_label.Visible = false;
+            this.feedback_HotelStay_Leisure_label.AutoSize = true;
+            this.tableLayoutPanel17.SetColumnSpan(this.feedback_HotelStay_Leisure_label, 4);
+            this.feedback_HotelStay_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.feedback_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 147);
+            this.feedback_HotelStay_Leisure_label.Name = "feedback_HotelStay_Leisure_label";
+            this.feedback_HotelStay_Leisure_label.Size = new System.Drawing.Size(191, 52);
+            this.feedback_HotelStay_Leisure_label.TabIndex = 6;
+            this.feedback_HotelStay_Leisure_label.Text = "Feedback";
+            this.feedback_HotelStay_Leisure_label.Visible = false;
+            // 
+            // Help_LeisureTravel_HotelStay_Button
+            // 
+            this.tableLayoutPanel17.SetColumnSpan(this.Help_LeisureTravel_HotelStay_Button, 2);
+            this.Help_LeisureTravel_HotelStay_Button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Help_LeisureTravel_HotelStay_Button.Location = new System.Drawing.Point(195, 101);
+            this.Help_LeisureTravel_HotelStay_Button.Name = "Help_LeisureTravel_HotelStay_Button";
+            this.Help_LeisureTravel_HotelStay_Button.Size = new System.Drawing.Size(95, 43);
+            this.Help_LeisureTravel_HotelStay_Button.TabIndex = 7;
+            this.Help_LeisureTravel_HotelStay_Button.Text = "Help Click Me>";
+            this.Help_LeisureTravel_HotelStay_Button.UseVisualStyleBackColor = true;
+            this.Help_LeisureTravel_HotelStay_Button.Click += new System.EventHandler(this.HelpClickMe_HotelStay_button_Click);
             // 
             // tableLayoutPanel16
             // 
@@ -2135,6 +2170,7 @@
             this.MilesTravelled_Bike_LeisureTravel_Textbox.Name = "MilesTravelled_Bike_LeisureTravel_Textbox";
             this.MilesTravelled_Bike_LeisureTravel_Textbox.Size = new System.Drawing.Size(68, 22);
             this.MilesTravelled_Bike_LeisureTravel_Textbox.TabIndex = 1;
+            this.MilesTravelled_Bike_LeisureTravel_Textbox.TextChanged += new System.EventHandler(this.BikeLeisureTravel_CalculateBikeCarbon);
             // 
             // label4
             // 
@@ -2166,7 +2202,7 @@
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel19.Controls.Add(this.Feedback_Bike_Leisure_label, 0, 2);
+            this.tableLayoutPanel19.Controls.Add(this.feedback_Bike_Leisure_label, 0, 2);
             this.tableLayoutPanel19.Controls.Add(this.Award_Bike_Leisure_label, 0, 1);
             this.tableLayoutPanel19.Location = new System.Drawing.Point(104, 116);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
@@ -2179,17 +2215,17 @@
             this.tableLayoutPanel19.Size = new System.Drawing.Size(297, 102);
             this.tableLayoutPanel19.TabIndex = 16;
             // 
-            // Feedback_Bike_Leisure_label
+            // feedback_Bike_Leisure_label
             // 
-            this.Feedback_Bike_Leisure_label.AutoSize = true;
-            this.tableLayoutPanel19.SetColumnSpan(this.Feedback_Bike_Leisure_label, 3);
-            this.Feedback_Bike_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_Bike_Leisure_label.Location = new System.Drawing.Point(3, 50);
-            this.Feedback_Bike_Leisure_label.Name = "Feedback_Bike_Leisure_label";
-            this.tableLayoutPanel19.SetRowSpan(this.Feedback_Bike_Leisure_label, 2);
-            this.Feedback_Bike_Leisure_label.Size = new System.Drawing.Size(216, 52);
-            this.Feedback_Bike_Leisure_label.TabIndex = 2;
-            this.Feedback_Bike_Leisure_label.Text = "Feedback";
+            this.feedback_Bike_Leisure_label.AutoSize = true;
+            this.tableLayoutPanel19.SetColumnSpan(this.feedback_Bike_Leisure_label, 3);
+            this.feedback_Bike_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.feedback_Bike_Leisure_label.Location = new System.Drawing.Point(3, 50);
+            this.feedback_Bike_Leisure_label.Name = "feedback_Bike_Leisure_label";
+            this.tableLayoutPanel19.SetRowSpan(this.feedback_Bike_Leisure_label, 2);
+            this.feedback_Bike_Leisure_label.Size = new System.Drawing.Size(216, 52);
+            this.feedback_Bike_Leisure_label.TabIndex = 2;
+            this.feedback_Bike_Leisure_label.Text = "Feedback";
             // 
             // Award_Bike_Leisure_label
             // 
@@ -2230,14 +2266,17 @@
             this.Car_LeisureTravel_Layout.Controls.Add(this.FuelType_groupBox5, 4, 0);
             this.Car_LeisureTravel_Layout.Controls.Add(this.Car_LeisureTravel_PictureBox, 0, 0);
             this.Car_LeisureTravel_Layout.Controls.Add(this.CarType_groupBox4, 1, 0);
-            this.Car_LeisureTravel_Layout.Controls.Add(this.pictureBox7, 0, 1);
+            this.Car_LeisureTravel_Layout.Controls.Add(this.Award_Car_Leisure_picturebox, 0, 1);
             this.Car_LeisureTravel_Layout.Controls.Add(this.tableLayoutPanel13, 7, 0);
+            this.Car_LeisureTravel_Layout.Controls.Add(this.tableLayoutPanel46, 9, 1);
             this.Car_LeisureTravel_Layout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Car_LeisureTravel_Layout.Location = new System.Drawing.Point(3, 18);
             this.Car_LeisureTravel_Layout.Name = "Car_LeisureTravel_Layout";
             this.Car_LeisureTravel_Layout.RowCount = 2;
             this.Car_LeisureTravel_Layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Car_LeisureTravel_Layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.Car_LeisureTravel_Layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.Car_LeisureTravel_Layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.Car_LeisureTravel_Layout.Size = new System.Drawing.Size(1012, 225);
             this.Car_LeisureTravel_Layout.TabIndex = 0;
             // 
@@ -2249,7 +2288,7 @@
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel14.Controls.Add(this.Feedback_Car_Leisure_label, 0, 2);
+            this.tableLayoutPanel14.Controls.Add(this.feedback_Car_Leisure_label, 0, 2);
             this.tableLayoutPanel14.Controls.Add(this.Award_Car_Leisure_label, 0, 1);
             this.tableLayoutPanel14.Location = new System.Drawing.Point(104, 115);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
@@ -2262,17 +2301,17 @@
             this.tableLayoutPanel14.Size = new System.Drawing.Size(297, 102);
             this.tableLayoutPanel14.TabIndex = 15;
             // 
-            // Feedback_Car_Leisure_label
+            // feedback_Car_Leisure_label
             // 
-            this.Feedback_Car_Leisure_label.AutoSize = true;
-            this.tableLayoutPanel14.SetColumnSpan(this.Feedback_Car_Leisure_label, 3);
-            this.Feedback_Car_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_Car_Leisure_label.Location = new System.Drawing.Point(3, 50);
-            this.Feedback_Car_Leisure_label.Name = "Feedback_Car_Leisure_label";
-            this.tableLayoutPanel14.SetRowSpan(this.Feedback_Car_Leisure_label, 2);
-            this.Feedback_Car_Leisure_label.Size = new System.Drawing.Size(216, 52);
-            this.Feedback_Car_Leisure_label.TabIndex = 2;
-            this.Feedback_Car_Leisure_label.Text = "Feedback";
+            this.feedback_Car_Leisure_label.AutoSize = true;
+            this.tableLayoutPanel14.SetColumnSpan(this.feedback_Car_Leisure_label, 3);
+            this.feedback_Car_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.feedback_Car_Leisure_label.Location = new System.Drawing.Point(3, 50);
+            this.feedback_Car_Leisure_label.Name = "feedback_Car_Leisure_label";
+            this.tableLayoutPanel14.SetRowSpan(this.feedback_Car_Leisure_label, 2);
+            this.feedback_Car_Leisure_label.Size = new System.Drawing.Size(216, 52);
+            this.feedback_Car_Leisure_label.TabIndex = 2;
+            this.feedback_Car_Leisure_label.Text = "Feedback";
             // 
             // Award_Car_Leisure_label
             // 
@@ -2284,6 +2323,7 @@
             this.Award_Car_Leisure_label.Size = new System.Drawing.Size(216, 25);
             this.Award_Car_Leisure_label.TabIndex = 0;
             this.Award_Car_Leisure_label.Text = "Award Ceremony";
+            this.Award_Car_Leisure_label.Visible = false;
             // 
             // FuelType_groupBox5
             // 
@@ -2438,15 +2478,15 @@
             this.LeisureTravel_CarType_Large_RadioButton.UseVisualStyleBackColor = true;
             this.LeisureTravel_CarType_Large_RadioButton.CheckedChanged += new System.EventHandler(this.CarLeisureTravel_CalculateCarCarbon);
             // 
-            // pictureBox7
+            // Award_Car_Leisure_picturebox
             // 
-            this.pictureBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox7.Location = new System.Drawing.Point(3, 115);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(95, 107);
-            this.pictureBox7.TabIndex = 4;
-            this.pictureBox7.TabStop = false;
-            this.pictureBox7.Visible = false;
+            this.Award_Car_Leisure_picturebox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Award_Car_Leisure_picturebox.Location = new System.Drawing.Point(3, 115);
+            this.Award_Car_Leisure_picturebox.Name = "Award_Car_Leisure_picturebox";
+            this.Award_Car_Leisure_picturebox.Size = new System.Drawing.Size(95, 107);
+            this.Award_Car_Leisure_picturebox.TabIndex = 4;
+            this.Award_Car_Leisure_picturebox.TabStop = false;
+            this.Award_Car_Leisure_picturebox.Visible = false;
             // 
             // tableLayoutPanel13
             // 
@@ -2502,6 +2542,32 @@
             this.leisuretravel_car_emission_label.Size = new System.Drawing.Size(216, 16);
             this.leisuretravel_car_emission_label.TabIndex = 2;
             this.leisuretravel_car_emission_label.Text = "Total Emission:";
+            // 
+            // tableLayoutPanel46
+            // 
+            this.tableLayoutPanel46.ColumnCount = 1;
+            this.tableLayoutPanel46.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel46.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel46.Controls.Add(this.Help_LeisureTravel__Car_Button, 0, 1);
+            this.tableLayoutPanel46.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel46.Location = new System.Drawing.Point(912, 115);
+            this.tableLayoutPanel46.Name = "tableLayoutPanel46";
+            this.tableLayoutPanel46.RowCount = 2;
+            this.tableLayoutPanel46.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel46.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel46.Size = new System.Drawing.Size(97, 107);
+            this.tableLayoutPanel46.TabIndex = 17;
+            // 
+            // Help_LeisureTravel__Car_Button
+            // 
+            this.Help_LeisureTravel__Car_Button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Help_LeisureTravel__Car_Button.Location = new System.Drawing.Point(3, 56);
+            this.Help_LeisureTravel__Car_Button.Name = "Help_LeisureTravel__Car_Button";
+            this.Help_LeisureTravel__Car_Button.Size = new System.Drawing.Size(91, 48);
+            this.Help_LeisureTravel__Car_Button.TabIndex = 16;
+            this.Help_LeisureTravel__Car_Button.Text = "Help Click Me>";
+            this.Help_LeisureTravel__Car_Button.UseVisualStyleBackColor = true;
+            this.Help_LeisureTravel__Car_Button.Click += new System.EventHandler(this.HelpClickMe_CarLeisureTravel_button_Click);
             // 
             // HomeOffice_Commute_tabPage
             // 
@@ -4227,6 +4293,34 @@
             this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this.errorProvider1.ContainerControl = this;
             // 
+            // Bike_LeisureTravel_errorProvider2
+            // 
+            this.Bike_LeisureTravel_errorProvider2.ContainerControl = this;
+            // 
+            // Car_LeisureTravel_errorProvider
+            // 
+            this.Car_LeisureTravel_errorProvider.ContainerControl = this;
+            // 
+            // hotelStay_LeisureTravel_errorProvider
+            // 
+            this.hotelStay_LeisureTravel_errorProvider.ContainerControl = this;
+            // 
+            // LED_homeEnergy_errorProvider
+            // 
+            this.LED_homeEnergy_errorProvider.ContainerControl = this;
+            // 
+            // Fan_homeEnergy_errorProvider
+            // 
+            this.Fan_homeEnergy_errorProvider.ContainerControl = this;
+            // 
+            // Kettl_homeEnergy_errorProvider
+            // 
+            this.Kettl_homeEnergy_errorProvider.ContainerControl = this;
+            // 
+            // water_LeisureTravel_errorProvider
+            // 
+            this.water_LeisureTravel_errorProvider.ContainerControl = this;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -4287,12 +4381,12 @@
             this.groupBox8.ResumeLayout(false);
             this.tableLayoutPanel18.ResumeLayout(false);
             this.tableLayoutPanel18.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_Bike_Leisure_picturebox)).EndInit();
             this.HotelStay_groupBox7.ResumeLayout(false);
             this.tableLayoutPanel17.ResumeLayout(false);
             this.tableLayoutPanel17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_HotelStay_Leisure_picturebox)).EndInit();
             this.tableLayoutPanel16.ResumeLayout(false);
             this.tableLayoutPanel16.PerformLayout();
             this.tableLayoutPanel19.ResumeLayout(false);
@@ -4308,9 +4402,10 @@
             this.CarType_groupBox4.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Award_Car_Leisure_picturebox)).EndInit();
             this.tableLayoutPanel13.ResumeLayout(false);
             this.tableLayoutPanel13.PerformLayout();
+            this.tableLayoutPanel46.ResumeLayout(false);
             this.HomeOffice_Commute_tabPage.ResumeLayout(false);
             this.tableLayoutPanel22.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
@@ -4389,6 +4484,13 @@
             this.tableLayoutPanel45.ResumeLayout(false);
             this.tableLayoutPanel45.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Bike_LeisureTravel_errorProvider2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Car_LeisureTravel_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hotelStay_LeisureTravel_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LED_homeEnergy_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Fan_homeEnergy_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kettl_homeEnergy_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.water_LeisureTravel_errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4530,7 +4632,7 @@
         private System.Windows.Forms.RadioButton LeisureTravel_FuelType_Petrol_RadioButton;
         private System.Windows.Forms.RadioButton LeisureTravel_FuelType_Diesel_RadioButton;
         private System.Windows.Forms.RadioButton LeisureTravel_FuelType_EV_RadioButton;
-        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox Award_Car_Leisure_picturebox;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
         private System.Windows.Forms.PictureBox pictureBox8;
@@ -4539,16 +4641,16 @@
         private System.Windows.Forms.RadioButton LeisureTravel_BikeType_Small_RadioButton;
         private System.Windows.Forms.RadioButton LeisureTravel_BikeType_Medium_RadioButton;
         private System.Windows.Forms.RadioButton LeisureTravel_BikeType_Large_RadioButton;
-        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.PictureBox Award_Bike_Leisure_picturebox;
         private System.Windows.Forms.GroupBox HotelStay_groupBox7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel17;
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox LeisureTravel_HotelStay_Textbox;
         private System.Windows.Forms.Label leisuretravel_HotelStay_emission_label;
-        private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.PictureBox Award_HotelStay_Leisure_picturebox;
         private System.Windows.Forms.Label Award_HotelStay_Leisure_label;
-        private System.Windows.Forms.Label Feedback_HotelStay_Leisure_label;
+        private System.Windows.Forms.Label feedback_HotelStay_Leisure_label;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel20;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel21;
@@ -4674,10 +4776,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label leisuretravel_bike_emission_label;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
-        private System.Windows.Forms.Label Feedback_Car_Leisure_label;
+        private System.Windows.Forms.Label feedback_Car_Leisure_label;
         private System.Windows.Forms.Label Award_Car_Leisure_label;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel19;
-        private System.Windows.Forms.Label Feedback_Bike_Leisure_label;
+        private System.Windows.Forms.Label feedback_Bike_Leisure_label;
         private System.Windows.Forms.Label Award_Bike_Leisure_label;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel44;
         private System.Windows.Forms.Panel panel2;
@@ -4690,6 +4792,17 @@
         private System.Windows.Forms.Button ExitApp_button;
         private System.Windows.Forms.Button privacyPolicy_button;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button Help_LeisureTravel_HotelStay_Button;
+        private System.Windows.Forms.ToolTip TotalNights_HotelStay_Leisure_toolTip;
+        private System.Windows.Forms.Button Help_LeisureTravel__Car_Button;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel46;
+        private System.Windows.Forms.ErrorProvider Bike_LeisureTravel_errorProvider2;
+        private System.Windows.Forms.ErrorProvider Car_LeisureTravel_errorProvider;
+        private System.Windows.Forms.ErrorProvider hotelStay_LeisureTravel_errorProvider;
+        private System.Windows.Forms.ErrorProvider LED_homeEnergy_errorProvider;
+        private System.Windows.Forms.ErrorProvider Fan_homeEnergy_errorProvider;
+        private System.Windows.Forms.ErrorProvider Kettl_homeEnergy_errorProvider;
+        private System.Windows.Forms.ErrorProvider water_LeisureTravel_errorProvider;
     }
 }
 
