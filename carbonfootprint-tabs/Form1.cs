@@ -70,6 +70,7 @@ namespace carbonfootprint_tabs
         private bool isBikeLeisureMilesErrorSet = false;
 
         private bool isCommuteMilesErrorSet = false;
+        private bool isHomeOfficeWorkHoursErrorSet = false;
 
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
         private Random random = new Random();
@@ -313,11 +314,15 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
                 return false;
             }
-            else if (!double.TryParse(CommuteTravel_MilesTravelled_Textbox.Text, out double miles) || miles < 1 || miles > 5000)
+            else if (!double.TryParse(CommuteTravel_MilesTravelled_Textbox.Text, out double miles) || miles < 1 || miles > 100)
             {
                 if (!isCommuteMilesErrorSet)
                 {
-                    CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, "Please enter a valid number of miles between 1 and 5,000.");
+                    CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox,
+                        "Please enter a valid number of miles between 1 and 100.\n" +
+                        "   - Car: The average one-way distance is approximately 19.5 miles.\n" +
+                        "   - Train: The average one-way distance is approximately 36.3 miles.\n" +
+                        "   - Bus: The average one-way distance is approximately 9.7 miles.");
                     isCommuteMilesErrorSet = true;
                 }
                 totalCommuteTravelCarEmission = "";
@@ -390,7 +395,6 @@ namespace carbonfootprint_tabs
             Debug.WriteLine($"Total emission: {totalCommuteTravelTrainEmission} kg CO2e");
 
         }
-
         void HandleBusSelection()
         {
             if (!TryGetMilesTravelledCommute(out double milesTravelled))
@@ -408,7 +412,6 @@ namespace carbonfootprint_tabs
             Debug.WriteLine($"Total emission: {totalCommuteTravelBusEmission} kg CO2e");
 
         }
-
         private void OfficeCommute_CalculateCarbon(object sender, EventArgs e)
         {
             if (Commute_Car.Checked)
@@ -459,6 +462,242 @@ namespace carbonfootprint_tabs
                 fuelType_groupBox.Enabled = false;  // Disable the car type group box
                 HandleBusSelection();
             }
+        }
+        private void HelpClickMe_CommuteTravel_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message for commute travel
+            MessageBox.Show(
+                "Annual Commute Travel Data:\n\n" +
+                "1. Enter the total number of miles traveled for your commute in a year. Use realistic values based on the one-way distance to your workplace.\n" +
+                "   - Car: The average one-way distance is approximately 19.5 miles.\n" +
+                "   - Train: The average one-way distance is approximately 36.3 miles.\n" +
+                "   - Bus: The average one-way distance is approximately 9.7 miles.\n" +
+                "2. Ensure that the value reflects your typical commuting pattern, such as daily trips.\n" +
+                "3. This data will be used to calculate your annual carbon emission for commute travel.\n\n" +
+                "Commuting can significantly contribute to your carbon footprint. Understanding the impact of different transport modes can help you make more sustainable choices.\n\n" +
+                "This section calculates the carbon emission based on your commute travel, using data specific to the UK.",
+                "Help Information - Commute Travel",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+        //WorkFromHome carbon emission calculation
+        private void LeisureTravel_CalculateHomeOfficeCarbon(object sender, EventArgs e)
+        {
+            double totalworkhours = 0;
+
+            // Validate inputs
+            bool isValid = true;
+
+            // Default feedback and UI reset
+            HomeOffice_Emission_label.Text = "Emission"; // Assign default value
+            feedback_homeOffice_Commute_label.Text = "Feedback"; // Assign default value
+
+            // Clear the picturebox and label
+            Award_homeOffice_commute_picturebox.Image = null;
+            Award_homeOffice_commute_picturebox.Visible = false; // Hide the picturebox
+
+            Award_homeOffice_Commute_label.Text = string.Empty;
+            Award_homeOffice_Commute_label.Visible = false; // Hide the label
+            feedback_homeOffice_Commute_label.Text = string.Empty;
+            feedback_homeOffice_Commute_label.Visible = false; // Hide the label
+
+            // Validate Working Hours
+            if (string.IsNullOrWhiteSpace(HomeOffice_WorkingHours_Textbox.Text))
+            {
+                if (isHomeOfficeWorkHoursErrorSet)
+                {
+                    homeOffice_errorProvider.SetError(HomeOffice_WorkingHours_Textbox, string.Empty);
+                    isHomeOfficeWorkHoursErrorSet = false;
+                }
+                totalWorkHoursEmission = "";
+                feedback_homeOffice_Commute_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else if (!double.TryParse(HomeOffice_WorkingHours_Textbox.Text, out totalworkhours) || totalworkhours < 1 || totalworkhours > 8)
+            {
+                isValid = false;
+                if (!isHomeOfficeWorkHoursErrorSet)
+                {
+                    homeOffice_errorProvider.SetError(HomeOffice_WorkingHours_Textbox, "Please enter a valid number of work hours between 1 and 8.");
+                    isHomeOfficeWorkHoursErrorSet = true;
+                }
+                totalWorkHoursEmission = "";
+                feedback_homeOffice_Commute_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else
+            {
+                if (isHomeOfficeWorkHoursErrorSet)
+                {
+                    homeOffice_errorProvider.SetError(HomeOffice_WorkingHours_Textbox, string.Empty);
+                    isHomeOfficeWorkHoursErrorSet = false;
+                }
+            }
+
+            // If validation fails, return
+            if (!isValid)
+            {
+                totalWorkHoursEmission = "";
+                feedback_homeOffice_Commute_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+
+            // Perform the calculation only if all inputs are valid
+            if (!string.IsNullOrWhiteSpace(HomeOffice_WorkingHours_Textbox.Text))
+            {
+                totalWorkHoursEmission = CalculateTotalCarbonEmissionWorkHours(totalworkhours);
+
+                HomeOffice_Emission_label.Text = $"Emission: {ExtractEmissionValue(totalWorkHoursEmission):F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average work hours or thresholds
+                double averageWorkHours = 5; // Example average number of work hours per year
+                if (totalworkhours > averageWorkHours)
+                {
+                    feedback_homeOffice_Commute_label.Text = $"Feedback: Your work hours of {totalworkhours} exceed the average of {averageWorkHours} hours/year.";
+                    feedback_homeOffice_Commute_label.Visible = true;
+
+                }
+                else
+                {
+                    feedback_homeOffice_Commute_label.Text = $"Feedback: Your work hours of {totalworkhours} are within the average range of {averageWorkHours} hours/year.";
+                    feedback_homeOffice_Commute_label.Visible = true;
+                }
+
+                UpdateHomeOfficeBadge(totalworkhours, averageWorkHours); // Update UI with badges or rewards based on user input
+            }
+        }
+        private void UpdateHomeOfficeBadge(double userWorkHours, double averageWorkHours)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userWorkHours <= averageWorkHours)
+            {
+                // Show the "Eco Warrior" badge
+                Award_homeOffice_commute_picturebox.Image = goodPerformanceImages[goodImageIndex];
+                Award_homeOffice_Commute_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_homeOffice_commute_picturebox.Image = improvementImages[improvementImageIndex];
+                Award_homeOffice_Commute_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_homeOffice_commute_picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_homeOffice_commute_picturebox.Visible = true;
+            Award_homeOffice_Commute_label.Visible = true;
+        }
+        private string CalculateTotalCarbonEmissionWorkHours(double totalworkhours)
+        {
+            double homeworkingEmissionFactor = 0;
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Homeworking (office equipment + heating)");
+                    command.Parameters.AddWithValue("@Type", "NA");
+                    command.Parameters.AddWithValue("@Unit", "per FTE Working Hour");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Carbon emission factors per kWh for electricity generation in the UK
+                            homeworkingEmissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                        }
+                    }
+                }
+            }
+            // Emission factor for homeworking (office equipment + heating)
+            //double homeworkingEmissionFactor = 0.33378; // kg CO2e per FTE Working Hour
+
+            // Calculate total carbon emissions from generation
+            double totalGenerationEmission = totalworkhours * homeworkingEmissionFactor;
+
+            // Output or use these values as needed
+            Debug.WriteLine($"Total Carbon Emission for Work Hours: {totalGenerationEmission} kg CO2e");
+
+            // Optionally update UI or store these values
+            // resultLabel.Text = $"Total Carbon Emission: {overallTotalEmission} kg CO2e";
+            //led_op_Total_KWh_label.Text = $"Total Emission: {overallTotalEmission} kg CO2e (CO2: {overallCO2Emission}, CH4: {overallCH4Emission}, N2O: {overallN2OEmission})";
+            // Create the result string
+            //string result = $"Total Emission: {overallTotalEmission} kg CO2e (CO2: {overallCO2Emission}, CH4: {overallCH4Emission}, N2O: {overallN2OEmission})";
+            string result = $"Total Emission: {totalGenerationEmission:F6} kg CO2e (CO2: {0:F6}, CH4: {0:F6}, N2O: {0:F6})";
+
+            // Output for debugging purposes
+            Debug.WriteLine(result);
+
+            // Return the result string
+            return result;
+        }
+        private void HelpClickMe_WorkingHours_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message for home office working hours
+            MessageBox.Show(
+                "Home Office Working Hours Data:\n\n" +
+                "1. Enter the total number of hours you work from home each day. E.g., 8\n" +
+                "2. Make sure to enter a realistic value, typically based on your daily work schedule.\n" +
+                "3. This data will be used to calculate your daily carbon emission from working at home.\n\n" +
+                "On average, a typical workday is about 8 hours long. Your input will help estimate your carbon footprint based on the energy usage during these hours.",
+                "Help Information - Home Office Working Hours",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         //Leisure Car Emission
@@ -886,7 +1125,12 @@ namespace carbonfootprint_tabs
                 UpdateBikeLeisureBadge(milesTravelled, averageMiles);
             }
         }
+        private void LeisureTravel_CalculateMotorHotelCarbon(object sender, EventArgs e)
+        {
 
+        }
+        
+        
         // Leisure hotel room carbon emission calculation
         private void LeisureTravel_CalculateHotelRoomCarbon(object sender, EventArgs e)
         {
@@ -1993,7 +2237,7 @@ namespace carbonfootprint_tabs
 
                 if (isHoursFanErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
+                    homeOffice_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
                     isHoursFanErrorSet = false;
                 }
                 totalFanEmission = "";
@@ -2006,7 +2250,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHoursFanErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Fan_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
+                    homeOffice_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
 
                     isHoursFanErrorSet = true;
                 }
@@ -2030,7 +2274,7 @@ namespace carbonfootprint_tabs
             {
                 if (isHoursFanErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
+                    homeOffice_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
                     isHoursFanErrorSet = false;
                 }
                 wattHoursResult = wattHoursNumber;
@@ -2052,7 +2296,7 @@ namespace carbonfootprint_tabs
 
                 if (isQtyFanErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
+                    homeOffice_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
                     isQtyFanErrorSet = false;
                 }
                 //return;
@@ -2065,7 +2309,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isQtyFanErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Fan_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    homeOffice_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
                     isQtyFanErrorSet = true;
                 }
                 EnergyUsage_Fan_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -2087,7 +2331,7 @@ namespace carbonfootprint_tabs
             {
                 if (isQtyFanErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
+                    homeOffice_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
                     isQtyFanErrorSet = false;
                 }
                 wattQty = wattqty;
