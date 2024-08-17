@@ -29,10 +29,12 @@ namespace carbonfootprint_tabs
         private string totalLeisureTravelCarEmission = "";
         private string totalLeisureTravelBikeEmission = "";
         private string totalHotelStayEmission = "";
+
         private string totalCommuteTravelCarEmission = "";
         private string totalCommuteTravelTrainEmission = "";
         private string totalCommuteTravelBusEmission = "";
         private string totalWorkHoursEmission = "";
+        
         private string totalOrganicGardenWasteEmission = "";
         private string totalHouseholdResidualWasteEmission = "";
         private string totalOrganicFoodWasteEmission = "";
@@ -66,6 +68,8 @@ namespace carbonfootprint_tabs
         private bool isHotelStayErrorSet = false;
         private bool isCarLeisureMilesErrorSet = false;
         private bool isBikeLeisureMilesErrorSet = false;
+
+        private bool isCommuteMilesErrorSet = false;
 
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
         private Random random = new Random();
@@ -194,10 +198,11 @@ namespace carbonfootprint_tabs
             //HouseholdResidualWaste_CalculateCarbon(sender, e);
             //OrganicFoodWaste_CalculateCarbon(sender, e);
             //HomeOffice_CalculateCarbon(sender, e);
+
             BikeLeisureTravel_CalculateBikeCarbon(sender, e);
             CarLeisureTravel_CalculateCarCarbon(sender, e);
             LeisureTravel_CalculateHotelRoomCarbon(sender, e);
-            //LeisureTravel_CalculateHomeOfficeCarbon(sender, e);
+
             HomeEnergy_CalculateWaterCarbon(sender, e);
             Kettle_HomeEnergy_Carbon_Calculation(sender, e);
             Fan_HomeEnergy_Carbon_Calculation(sender, e);
@@ -245,6 +250,215 @@ namespace carbonfootprint_tabs
         private void ExitApp_button_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        //Homeoffice commute
+        private string HomeOfficeGetCarType()
+        {
+            if (CommuteTravel_CarType_Small_RadioButton.Checked)
+            {
+                return "small";
+            }
+            else if (CommuteTravel_CarType_Medium_RadioButton.Checked)
+            {
+                return "medium";
+            }
+            else if (CommuteTravel_CarType_Large_RadioButton.Checked)
+            {
+                return "large";
+            }
+            else
+            {
+                return "unknown";
+            }
+        }
+        private string HomeOfficeGetFuelType()
+        {
+            if (CommuteTravel_FuelType_Petrol_RadioButton.Checked)
+            {
+                return "petrol";
+            }
+            else if (CommuteTravel_FuelType_Diesel_RadioButton.Checked)
+            {
+                return "diesel";
+            }
+            else if (CommuteTravel_FuelType_EV_RadioButton.Checked)
+            {
+                return "EV";
+            }
+            else
+            {
+                return "unknown";
+            }
+        }
+        private bool TryGetMilesTravelledCommute(out double milesTravelled)
+        {
+            milesTravelled = 0;
+
+            // Default feedback and UI reset
+            CommuteTravel_emission_label.Text = "Emission"; // Assign default value
+            feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+            // Validate Miles Travelled
+            if (string.IsNullOrWhiteSpace(CommuteTravel_MilesTravelled_Textbox.Text))
+            {
+                if (isCommuteMilesErrorSet)
+                {
+                    CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isCommuteMilesErrorSet = false;
+                }
+                totalCommuteTravelCarEmission = "";
+                feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return false;
+            }
+            else if (!double.TryParse(CommuteTravel_MilesTravelled_Textbox.Text, out double miles) || miles < 1 || miles > 5000)
+            {
+                if (!isCommuteMilesErrorSet)
+                {
+                    CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, "Please enter a valid number of miles between 1 and 5,000.");
+                    isCommuteMilesErrorSet = true;
+                }
+                totalCommuteTravelCarEmission = "";
+                feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return false;
+            }
+            else
+            {
+                if (isCommuteMilesErrorSet)
+                {
+                    CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isCommuteMilesErrorSet = false;
+                }
+                milesTravelled = miles;
+                return true;
+            }
+
+        }
+        void HandleCarSelection()
+        {
+            string carType = HomeOfficeGetCarType();
+            string fuelType = HomeOfficeGetFuelType();
+
+            if (!TryGetMilesTravelledCommute(out double milesTravelled))
+            {
+                return; // Exit the method if the input is invalid
+            }
+
+            if (carType == "unknown" || fuelType == "unknown")
+            {
+                Debug.WriteLine("Invalid car type or fuel type.");
+                return; // Exit the method if car type or fuel type is unknown
+            }
+
+
+            // Use the carType, fuelType, and milesTravelled variables as needed
+            Debug.WriteLine($"Selected car type: {carType}");
+            Debug.WriteLine($"Selected fuel type: {fuelType}");
+            Debug.WriteLine($"Miles travelled: {milesTravelled}");
+
+            // Further calculation logic here
+            string emissionFactor = GetEmissionFactor(carType, fuelType);
+            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
+            //string result = $"Total Emission: {overallTotalEmission:F6} kg CO2e (CO2: {overallCO2Emission:F6}, CH4: {overallCH4Emission:F6}, N2O: {overallN2OEmission:F6})";
+
+            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+            CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+            totalCommuteTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
+            updateGlobalLabel(this, EventArgs.Empty);
+
+            Debug.WriteLine($"Total emission: {totalLeisureTravelCarEmission} kg CO2e");
+
+        }
+        void HandleTrainSelection()
+        {
+            if (!TryGetMilesTravelledCommute(out double milesTravelled))
+            {
+                return; // Exit the method if the input is invalid
+            }
+            string emissionFactorTrain = GetEmissionFactorTrain();
+            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorTrain);
+            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+
+            CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+            totalCommuteTravelTrainEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
+            updateGlobalLabel(this, EventArgs.Empty);
+
+            Debug.WriteLine($"Total emission: {totalCommuteTravelTrainEmission} kg CO2e");
+
+        }
+
+        void HandleBusSelection()
+        {
+            if (!TryGetMilesTravelledCommute(out double milesTravelled))
+            {
+                return; // Exit the method if the input is invalid
+            }
+            string emissionFactorBus = GetEmissionFactorBus();
+            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorBus);
+            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+
+            CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+            totalCommuteTravelBusEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
+            updateGlobalLabel(this, EventArgs.Empty);
+
+            Debug.WriteLine($"Total emission: {totalCommuteTravelBusEmission} kg CO2e");
+
+        }
+
+        private void OfficeCommute_CalculateCarbon(object sender, EventArgs e)
+        {
+            if (Commute_Car.Checked)
+            {
+                totalCommuteTravelTrainEmission = "";
+                totalCommuteTravelBusEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+                // Clear car type and fuel type radio buttons
+                carType_groupBox.Enabled = true;  // Disable the car type group box
+                fuelType_groupBox.Enabled = true;  // Disable the car type group box
+
+
+                HandleCarSelection();
+            }
+            else if (Commute_Train.Checked)
+            {
+                totalCommuteTravelCarEmission = "";
+                totalCommuteTravelBusEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Clear car type and fuel type radio buttons
+                CommuteTravel_CarType_Small_RadioButton.Checked = false;
+                CommuteTravel_CarType_Medium_RadioButton.Checked = false;
+                CommuteTravel_CarType_Large_RadioButton.Checked = false;
+                CommuteTravel_FuelType_Petrol_RadioButton.Checked = false;
+                CommuteTravel_FuelType_Diesel_RadioButton.Checked = false;
+                CommuteTravel_FuelType_EV_RadioButton.Checked = false;
+
+                carType_groupBox.Enabled = false;  // Disable the car type group box
+                fuelType_groupBox.Enabled = false;  // Disable the car type group box
+                HandleTrainSelection();
+            }
+            else if (Commute_Bus.Checked)
+            {
+                totalCommuteTravelCarEmission = "";
+                totalCommuteTravelTrainEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Clear car type and fuel type radio buttons
+                CommuteTravel_CarType_Small_RadioButton.Checked = false;
+                CommuteTravel_CarType_Medium_RadioButton.Checked = false;
+                CommuteTravel_CarType_Large_RadioButton.Checked = false;
+                CommuteTravel_FuelType_Petrol_RadioButton.Checked = false;
+                CommuteTravel_FuelType_Diesel_RadioButton.Checked = false;
+                CommuteTravel_FuelType_EV_RadioButton.Checked = false;
+
+                carType_groupBox.Enabled = false;  // Disable the car type group box
+                fuelType_groupBox.Enabled = false;  // Disable the car type group box
+                HandleBusSelection();
+            }
         }
 
         //Leisure Car Emission
@@ -1033,6 +1247,82 @@ namespace carbonfootprint_tabs
                 }
             }
             string emission_factors = $"Emission Factors: {BikeTotalFactor:F6} kg CO2e (CO2: {BikeCO2Factor:F6}, CH4: {BikeCH4Factor:F6}, N2O: {BikeN2OFactor:F6})";
+            return emission_factors; // Small car, petrol, miles
+        }
+        private string GetEmissionFactorTrain()
+        {
+            // Emission factors for national rail per passenger.km
+            double nationalRailCO2Factor = 0; // kg CO2e of CO2 per unit
+            double nationalRailCH4Factor = 0; // kg CO2e of CH4 per unit
+            double nationalRailN2OFactor = 0; // kg CO2e of N2O per unit
+            double nationalRailTotalFactor = 0; // kg CO2e per passenger.km
+
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Rail");
+                    command.Parameters.AddWithValue("@Type", "National rail");
+                    command.Parameters.AddWithValue("@Unit", "passenger.km");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Emission factors for national rail per passenger.km
+                            nationalRailTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e")); // total kg CO2e per mile
+                            nationalRailCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit")); // kg CO2e of CO2 per mile
+                            nationalRailCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit")); // kg CO2e of CH4 per mile
+                            nationalRailN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit")); // kg CO2e of N2O per mile
+                        }
+                    }
+                }
+            }
+            string emission_factors = $"Emission Factors: {nationalRailTotalFactor:F6} kg CO2e (CO2: {nationalRailCO2Factor:F6}, CH4: {nationalRailCH4Factor:F6}, N2O: {nationalRailN2OFactor:F6})";
+            return emission_factors; // Small car, petrol, miles
+        }
+        private string GetEmissionFactorBus()
+        {
+            // Emission factors for average local bus per passenger.km
+            double localBusTotalFactor = 0; // kg CO2e per passenger.km
+            double localBusCO2Factor = 0; // kg CO2e of CO2 per unit
+            double localBusCH4Factor = 0; // kg CO2e of CH4 per unit
+            double localBusN2OFactor = 0; // kg CO2e of N2O per unit
+
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Bus");
+                    command.Parameters.AddWithValue("@Type", "Local bus (not London)");
+                    command.Parameters.AddWithValue("@Unit", "passenger.km");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Emission factors for national rail per passenger.km
+                            localBusTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e")); // total kg CO2e per mile
+                            localBusCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit")); // kg CO2e of CO2 per mile
+                            localBusCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit")); // kg CO2e of CH4 per mile
+                            localBusN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit")); // kg CO2e of N2O per mile
+                        }
+                    }
+                }
+            }
+            string emission_factors = $"Emission Factors: {localBusTotalFactor:F6} kg CO2e (CO2: {localBusCO2Factor:F6}, CH4: {localBusCH4Factor:F6}, N2O: {localBusN2OFactor:F6})";
             return emission_factors; // Small car, petrol, miles
         }
 
@@ -2256,7 +2546,7 @@ namespace carbonfootprint_tabs
 
                 if (isWattHeaterErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Heater_HomeEnergy_textBox, string.Empty);
+                    heater_LeisureTravel_errorProvider.SetError(Watt_Heater_HomeEnergy_textBox, string.Empty);
                     isWattHeaterErrorSet = false;
                 }
                 totalElectricHeaterEmission = "";
@@ -2269,7 +2559,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isWattHeaterErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Heater_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
+                    heater_LeisureTravel_errorProvider.SetError(Watt_Heater_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
                     isWattHeaterErrorSet = true;
                 }
                 EnergyUsage_Heater_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -2291,7 +2581,7 @@ namespace carbonfootprint_tabs
             {
                 if (isWattHeaterErrorSet)
                 {
-                    errorProvider1.SetError(Watt_Heater_HomeEnergy_textBox, string.Empty);
+                    heater_LeisureTravel_errorProvider.SetError(Watt_Heater_HomeEnergy_textBox, string.Empty);
                     isWattHeaterErrorSet = false;
                 }
                 wattResult = wattNumber;
@@ -2313,7 +2603,7 @@ namespace carbonfootprint_tabs
 
                 if (isHoursHeaterErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Heater_HomeEnergy_textBox, string.Empty);
+                    heater_LeisureTravel_errorProvider.SetError(HoursDay_Heater_HomeEnergy_textBox, string.Empty);
                     isHoursHeaterErrorSet = false;
                 }
                 totalElectricHeaterEmission = "";
@@ -2326,7 +2616,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHoursHeaterErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Heater_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 8.");
+                    heater_LeisureTravel_errorProvider.SetError(HoursDay_Heater_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 8.");
                     isHoursHeaterErrorSet = true;
                 }
 
@@ -2348,7 +2638,7 @@ namespace carbonfootprint_tabs
             {
                 if (isHoursHeaterErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_Heater_HomeEnergy_textBox, string.Empty);
+                    heater_LeisureTravel_errorProvider.SetError(HoursDay_Heater_HomeEnergy_textBox, string.Empty);
                     isHoursHeaterErrorSet = false;
                 }
                 wattHoursResult = wattHoursNumber;
@@ -2370,7 +2660,7 @@ namespace carbonfootprint_tabs
 
                 if (isQtyHeaterErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Heater_HomeEnergy_textBox, string.Empty);
+                    heater_LeisureTravel_errorProvider.SetError(Qty_Heater_HomeEnergy_textBox, string.Empty);
                     isQtyHeaterErrorSet = false;
                 }
                 totalElectricHeaterEmission = "";
@@ -2383,7 +2673,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isQtyHeaterErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Heater_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    heater_LeisureTravel_errorProvider.SetError(Qty_Heater_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
                     isQtyHeaterErrorSet = true;
                 }
                 EnergyUsage_Heater_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -2405,7 +2695,7 @@ namespace carbonfootprint_tabs
             {
                 if (isQtyHeaterErrorSet)
                 {
-                    errorProvider1.SetError(Qty_Heater_HomeEnergy_textBox, string.Empty);
+                    heater_LeisureTravel_errorProvider.SetError(Qty_Heater_HomeEnergy_textBox, string.Empty);
                     isQtyKettleErrorSet = false;
                 }
                 wattQty = wattqty;
@@ -2562,7 +2852,7 @@ namespace carbonfootprint_tabs
 
                 if (isWattCustomErrorSet)
                 {
-                    errorProvider1.SetError(Watt_CustomEntry_HomeEnergy_textBox, string.Empty);
+                    customEntry_LeisureTravel_errorProvider.SetError(Watt_CustomEntry_HomeEnergy_textBox, string.Empty);
                     isWattCustomErrorSet = false;
                 }
             }
@@ -2571,7 +2861,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isWattCustomErrorSet)
                 {
-                    errorProvider1.SetError(Watt_CustomEntry_HomeEnergy_textBox, "Please enter a valid wattage between 1 and 100.");
+                    customEntry_LeisureTravel_errorProvider.SetError(Watt_CustomEntry_HomeEnergy_textBox, "Please enter a valid wattage between 1 and 100.");
                     isWattCustomErrorSet = true;
                 }
                 EnergyUsage_CustomEntry_HomeEnergy_label.Text = "kWh"; // Assign default value
@@ -2591,7 +2881,7 @@ namespace carbonfootprint_tabs
             {
                 if (isWattCustomErrorSet)
                 {
-                    errorProvider1.SetError(Watt_CustomEntry_HomeEnergy_textBox, string.Empty);
+                    customEntry_LeisureTravel_errorProvider.SetError(Watt_CustomEntry_HomeEnergy_textBox, string.Empty);
                     isWattCustomErrorSet = false;
                 }
                 wattResult = wattNumber;
@@ -2615,7 +2905,7 @@ namespace carbonfootprint_tabs
 
                 if (isHoursCustomErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_CustomEntry_HomeEnergy_textBox, string.Empty);
+                    customEntry_LeisureTravel_errorProvider.SetError(HoursDay_CustomEntry_HomeEnergy_textBox, string.Empty);
                     isHoursCustomErrorSet = false;
                 }
             }
@@ -2624,7 +2914,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHoursCustomErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_CustomEntry_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
+                    customEntry_LeisureTravel_errorProvider.SetError(HoursDay_CustomEntry_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
                     isHoursCustomErrorSet = true;
                 }
 
@@ -2645,7 +2935,7 @@ namespace carbonfootprint_tabs
             {
                 if (isHoursCustomErrorSet)
                 {
-                    errorProvider1.SetError(HoursDay_CustomEntry_HomeEnergy_textBox, string.Empty);
+                    customEntry_LeisureTravel_errorProvider.SetError(HoursDay_CustomEntry_HomeEnergy_textBox, string.Empty);
                     isHoursCustomErrorSet = false;
                 }
                 wattHoursResult = wattHoursNumber;
@@ -2669,7 +2959,7 @@ namespace carbonfootprint_tabs
 
                 if (isQtyCustomErrorSet)
                 {
-                    errorProvider1.SetError(Qty_CustomEntry_HomeEnergy_textBox, string.Empty);
+                    customEntry_LeisureTravel_errorProvider.SetError(Qty_CustomEntry_HomeEnergy_textBox, string.Empty);
                     isQtyCustomErrorSet = false;
                 }
             }
@@ -2678,7 +2968,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isQtyCustomErrorSet)
                 {
-                    errorProvider1.SetError(Qty_CustomEntry_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    customEntry_LeisureTravel_errorProvider.SetError(Qty_CustomEntry_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
                     isQtyCustomErrorSet = true;
                 }
                 EnergyUsage_CustomEntry_HomeEnergy_label.Text = "kWh"; // Assign default value
@@ -2698,7 +2988,7 @@ namespace carbonfootprint_tabs
             {
                 if (isQtyCustomErrorSet)
                 {
-                    errorProvider1.SetError(Qty_CustomEntry_HomeEnergy_textBox, string.Empty);
+                    customEntry_LeisureTravel_errorProvider.SetError(Qty_CustomEntry_HomeEnergy_textBox, string.Empty);
                     isQtyCustomErrorSet = false;
                 }
                 wattQty = wattqty;
@@ -3092,6 +3382,11 @@ namespace carbonfootprint_tabs
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox18_Click(object sender, EventArgs e)
         {
 
         }
