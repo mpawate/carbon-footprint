@@ -72,6 +72,9 @@ namespace carbonfootprint_tabs
         private bool isCommuteMilesErrorSet = false;
         private bool isHomeOfficeWorkHoursErrorSet = false;
 
+        private bool isWasteConsumptionErrorSet = false;
+        private bool isNumberPersonWasteErrorSet = false;
+
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
         private Random random = new Random();
 
@@ -195,10 +198,11 @@ namespace carbonfootprint_tabs
         }
         private void RecalculateCarbonEmissions(object sender, EventArgs e)
         {
-            //OrganicWaste_CalcuateCarbon(sender, e);
-            //HouseholdResidualWaste_CalculateCarbon(sender, e);
-            //OrganicFoodWaste_CalculateCarbon(sender, e);
-            //HomeOffice_CalculateCarbon(sender, e);
+            OrganicGardenWaste_CalculateCarbon(sender, e);
+            HouseholdResidualWaste_CalculateCarbon(sender, e);
+            OrganicFoodWaste_CalculateCarbon(sender, e);
+            OfficeCommute_CalculateCarbon(sender, e);
+            CalculateHomeOfficeCarbon(sender, e);
 
             BikeLeisureTravel_CalculateBikeCarbon(sender, e);
             CarLeisureTravel_CalculateCarCarbon(sender, e);
@@ -482,7 +486,7 @@ namespace carbonfootprint_tabs
         }
 
         //WorkFromHome carbon emission calculation
-        private void LeisureTravel_CalculateHomeOfficeCarbon(object sender, EventArgs e)
+        private void CalculateHomeOfficeCarbon(object sender, EventArgs e)
         {
             double totalworkhours = 0;
 
@@ -1228,7 +1232,6 @@ namespace carbonfootprint_tabs
                 UpdateHotelStayBadge(totalNights, averageNights); // Update UI with badges or rewards based on user input
             }
         }
-        // Function to update the badge and feedback for hotel stay
         private void UpdateHotelStayBadge(double userNights, double averageNights)
         {
             // Define arrays for the images
@@ -1570,6 +1573,863 @@ namespace carbonfootprint_tabs
             return emission_factors; // Small car, petrol, miles
         }
 
+        //Organic food and drink waste
+        private void OrganicFoodWaste_CalculateCarbon(object sender, EventArgs e)
+        {
+            double wasteConsumptionInKgsPerPerson = 0;
+            double numPersons = 0;
+
+            // Validate inputs
+            bool isValid = true;
+
+            // Validate Waste Consumption per Person
+            if (string.IsNullOrWhiteSpace(OrganicFoodWaste_InKgs_textbox.Text))
+            {
+                OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_OrganicFoodWaste_label.Text = "Feedback";
+                OrganicFoodWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicFoodWaste_picturebox.Image = null;
+                Award_OrganicFoodWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicFoodWaste_label.Text = string.Empty;
+                Award_OrganicFoodWaste_label.Visible = false; // Hide the label
+
+                totalOrganicFoodWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                if (isWasteConsumptionErrorSet)
+                {
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, string.Empty);
+                    isWasteConsumptionErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(OrganicFoodWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || wasteConsumptionInKgsPerPerson <= 0 || wasteConsumptionInKgsPerPerson > 200)
+            {
+                isValid = false;
+                if (!isWasteConsumptionErrorSet)
+                {
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, "Please enter a valid waste consumption value in kilograms per person. The value should be between 1 and 200 kg per year. Note: The average food waste is 95 kg per person per year.");
+                    isWasteConsumptionErrorSet = true;
+                }
+                OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_OrganicFoodWaste_label.Text = "Feedback";
+                OrganicFoodWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicFoodWaste_picturebox.Image = null;
+                Award_OrganicFoodWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicFoodWaste_label.Text = string.Empty;
+                Award_OrganicFoodWaste_label.Visible = false; // Hide the label
+
+                totalOrganicFoodWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isWasteConsumptionErrorSet)
+                {
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, string.Empty);
+                    isWasteConsumptionErrorSet = false;
+                }
+            }
+
+            // Validate Number of Persons
+            if (string.IsNullOrWhiteSpace(OrganicFoodWaste_NumberOfPerson_textbox.Text))
+            {
+                OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_OrganicFoodWaste_label.Text = "Feedback";
+                OrganicFoodWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicFoodWaste_picturebox.Image = null;
+                Award_OrganicFoodWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicFoodWaste_label.Text = string.Empty;
+                Award_OrganicFoodWaste_label.Visible = false; // Hide the label
+
+                totalOrganicFoodWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                if (isNumberPersonWasteErrorSet)
+                {
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_NumberOfPerson_textbox, string.Empty);
+                    isNumberPersonWasteErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(OrganicFoodWaste_NumberOfPerson_textbox.Text, out numPersons) || numPersons <= 0 || numPersons > 6)
+            {
+                isValid = false;
+                if (!isNumberPersonWasteErrorSet)
+                {
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+                    isNumberPersonWasteErrorSet = true;
+                }
+                OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_OrganicFoodWaste_label.Text = "Feedback";
+                OrganicFoodWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicFoodWaste_picturebox.Image = null;
+                Award_OrganicFoodWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicFoodWaste_label.Text = string.Empty;
+                Award_OrganicFoodWaste_label.Visible = false; // Hide the label
+
+                totalOrganicFoodWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isNumberPersonWasteErrorSet)
+                {
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_NumberOfPerson_textbox, string.Empty);
+                    isNumberPersonWasteErrorSet = false;
+                }
+            }
+
+            // If validation fails, return
+            if (!isValid)
+            {
+                OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_OrganicFoodWaste_label.Text = "Feedback";
+                OrganicFoodWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicFoodWaste_picturebox.Image = null;
+                Award_OrganicFoodWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicFoodWaste_label.Text = string.Empty;
+                Award_OrganicFoodWaste_label.Visible = false; // Hide the label
+
+                totalOrganicFoodWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                return;
+            }
+
+            // Perform the calculation only if all textboxes are non-empty
+            if (!string.IsNullOrWhiteSpace(OrganicFoodWaste_InKgs_textbox.Text) &&
+               !string.IsNullOrWhiteSpace(OrganicFoodWaste_NumberOfPerson_textbox.Text))
+            {
+                // Convert kg to tonne
+                double wasteInTonnePerPerson = wasteConsumptionInKgsPerPerson / 1000;
+                double totalWasteInTonne = wasteInTonnePerPerson * numPersons;
+
+                // Calculate total carbon emission from organic food waste
+                totalOrganicFoodWasteEmission = CalculateOrganicFoodWasteCarbonEmission(totalWasteInTonne);
+
+                // Update labels
+                OrganicFoodWaste_Emission_label.Text = $"Emission: {ExtractEmissionValue(totalOrganicFoodWasteEmission)} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average waste usage
+                double averageWastePerPerson = 95; // Example average waste in kg per person per year
+                double totalWasteKg = wasteConsumptionInKgsPerPerson * numPersons; // User's input for total waste
+                //Update totalWaste label
+                OrganicFoodWaste_TotalWaste_label.Text = $"TotalWaste: {totalWasteKg} kg";
+
+                // Calculate the average annual waste
+                double averageAnnualWaste = averageWastePerPerson * numPersons;
+
+                if (totalWasteKg > averageAnnualWaste)
+                {
+                    Feedback_OrganicFoodWaste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is higher than the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_OrganicFoodWaste_label.Visible = true;
+                }
+                else
+                {
+                    Feedback_OrganicFoodWaste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is within the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_OrganicFoodWaste_label.Visible = true;
+                }
+
+                // Update the picture box and label based on the user's performance
+                UpdateOrganicFoodWasteBadge(totalWasteKg, averageAnnualWaste);
+            }
+        }
+        private string CalculateOrganicFoodWasteCarbonEmission(double totalWasteInTonne)
+        {
+            double scalingFactorOrganicFoodWaste = 0; // kg CO2e/tonne
+
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Refuse");
+                    command.Parameters.AddWithValue("@Type", "Organic: food and drink waste");
+                    command.Parameters.AddWithValue("@Unit", "tonnes");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Carbon emission factors per kWh for electricity generation in the UK
+                            scalingFactorOrganicFoodWaste = reader.GetDouble(reader.GetOrdinal("Landfill"));
+                        }
+                    }
+                }
+            }
+            // Assuming the emission factor for organic food waste is 700.20961 kg CO2e per tonne
+            //double scalingFactorOrganicFoodWaste = 700.20961; // kg CO2e/tonne
+            double totalEmission = totalWasteInTonne * scalingFactorOrganicFoodWaste;
+            string result = $"Total Emission: {totalEmission:F6} kg CO2e";
+
+            // Output for debugging purposes
+            Debug.WriteLine(result);
+
+            return result; // Format the emission value to 6 decimal places
+        }
+        private void UpdateOrganicFoodWasteBadge(double userWasteKg, double averageWasteKg)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+                    Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+                    string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userWasteKg <= averageWasteKg)
+            {
+                // Show the "Eco Warrior" badge
+                Award_OrganicFoodWaste_picturebox.Image = goodPerformanceImages[goodImageIndex];
+                Award_OrganicFoodWaste_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_OrganicFoodWaste_picturebox.Image = improvementImages[improvementImageIndex];
+                Award_OrganicFoodWaste_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_OrganicFoodWaste_picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_OrganicFoodWaste_picturebox.Visible = true;
+            Award_OrganicFoodWaste_label.Visible = true;
+        }
+        private void HelpClickMe_OrganicFoodWaste_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message
+            MessageBox.Show(
+                "Annual Organic Food Waste Data:\n\n" +
+                "1. Please enter a valid waste consumption value in kilograms per person. Ex: 95 kg per year (average).\n" +
+                "   - The valid range for waste consumption per person is between 1 kg and 200 kg.\n" +
+                "2. Please enter the number of persons in the family (between 1 and 6).\n" +
+                "   - This data will help calculate the annual carbon emission related to organic food waste.\n\n" +
+                "Note: The average annual food waste per person is around 95 kg in the UK, according to WRAP. For more details, refer to the source: https://www.wrap.ngo/sites/default/files/2024-05/WRAP-Household-Food-and-Drink-Waste-in-the-United-Kingdom-2021-22-v6.1.pdf",
+                "Help Information - Organic Food Waste",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+        //Organic GardenWaste
+        private void OrganicGardenWaste_CalculateCarbon(object sender, EventArgs e)
+        {
+            double wasteConsumptionInKgsPerPerson = 0;
+            double numPersons = 0;
+
+            // Validate inputs
+            bool isValid = true;
+
+            // Validate Waste Consumption per Person
+            if (string.IsNullOrWhiteSpace(OrganicGardenWaste_InKgs_textbox.Text))
+            {
+                GardenWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Garden_Waste_label.Text = "Feedback";
+                OrganicGardenWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicGardenWaste_picturebox.Image = null;
+                Award_OrganicGardenWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicGardenWaste_label.Text = string.Empty;
+                Award_OrganicGardenWaste_label.Visible = false; // Hide the label
+
+                totalOrganicGardenWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                if (isWasteConsumptionErrorSet)
+                {
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_InKgs_textbox, string.Empty);
+                    isWasteConsumptionErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(OrganicGardenWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || wasteConsumptionInKgsPerPerson <= 0 || wasteConsumptionInKgsPerPerson > 240)
+            {
+                isValid = false;
+                if (!isWasteConsumptionErrorSet)
+                {
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_InKgs_textbox, "Please enter a valid garden waste consumption value in kilograms per person. The value should be between 1 and 240 kg per year. Note: The average garden waste is 120 kg per person per year.");
+                    isWasteConsumptionErrorSet = true;
+                }
+                GardenWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Garden_Waste_label.Text = "Feedback";
+                OrganicGardenWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicGardenWaste_picturebox.Image = null;
+                Award_OrganicGardenWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicGardenWaste_label.Text = string.Empty;
+                Award_OrganicGardenWaste_label.Visible = false; // Hide the label
+
+                totalOrganicGardenWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isWasteConsumptionErrorSet)
+                {
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_InKgs_textbox, string.Empty);
+                    isWasteConsumptionErrorSet = false;
+                }
+            }
+
+            // Validate Number of Persons
+            if (string.IsNullOrWhiteSpace(OrganicGardenWaste_NumberOfPerson_textbox.Text))
+            {
+                GardenWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Garden_Waste_label.Text = "Feedback";
+                OrganicGardenWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicGardenWaste_picturebox.Image = null;
+                Award_OrganicGardenWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicGardenWaste_label.Text = string.Empty;
+                Award_OrganicGardenWaste_label.Visible = false; // Hide the label
+
+                totalOrganicGardenWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                if (isNumberPersonWasteErrorSet)
+                {
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_NumberOfPerson_textbox, string.Empty);
+                    isNumberPersonWasteErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(OrganicGardenWaste_NumberOfPerson_textbox.Text, out numPersons) || numPersons <= 0 || numPersons > 6)
+            {
+                isValid = false;
+                if (!isNumberPersonWasteErrorSet)
+                {
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+                    isNumberPersonWasteErrorSet = true;
+                }
+                GardenWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Garden_Waste_label.Text = "Feedback";
+                OrganicGardenWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicGardenWaste_picturebox.Image = null;
+                Award_OrganicGardenWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicGardenWaste_label.Text = string.Empty;
+                Award_OrganicGardenWaste_label.Visible = false; // Hide the label
+
+                totalOrganicGardenWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isNumberPersonWasteErrorSet)
+                {
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_NumberOfPerson_textbox, string.Empty);
+                    isNumberPersonWasteErrorSet = false;
+                }
+            }
+
+            // If validation fails, return
+            if (!isValid)
+            {
+                GardenWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Garden_Waste_label.Text = "Feedback";
+                OrganicGardenWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_OrganicGardenWaste_picturebox.Image = null;
+                Award_OrganicGardenWaste_picturebox.Visible = false; // Hide the picturebox
+                Award_OrganicGardenWaste_label.Text = string.Empty;
+                Award_OrganicGardenWaste_label.Visible = false; // Hide the label
+
+                totalOrganicGardenWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                return;
+            }
+
+            // Perform the calculation only if all textboxes are non-empty
+            if (!string.IsNullOrWhiteSpace(OrganicGardenWaste_InKgs_textbox.Text) &&
+               !string.IsNullOrWhiteSpace(OrganicGardenWaste_NumberOfPerson_textbox.Text))
+            {
+                // Convert kg to tonne
+                double wasteInTonnePerPerson = wasteConsumptionInKgsPerPerson / 1000;
+                double totalWasteInTonne = wasteInTonnePerPerson * numPersons;
+
+                // Calculate total carbon emission from organic garden waste
+                totalOrganicGardenWasteEmission = CalculateOrganicGardenWasteCarbonEmission(totalWasteInTonne);
+
+                // Update labels
+                GardenWaste_Emission_label.Text = $"Emission: {ExtractEmissionValue(totalOrganicGardenWasteEmission)} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average waste usage
+                double averageWastePerPerson = 120; // Example average waste in kg per person per year
+                double totalWasteKg = wasteConsumptionInKgsPerPerson * numPersons; // User's input for total waste
+                                                                                   //Update totalWaste label
+                OrganicGardenWaste_TotalWaste_label.Text = $"TotalWaste: {totalWasteKg} kg";
+
+                // Calculate the average annual waste
+                double averageAnnualWaste = averageWastePerPerson * numPersons;
+
+                if (totalWasteKg > averageAnnualWaste)
+                {
+                    Feedback_Garden_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is higher than the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_Garden_Waste_label.Visible = true;
+                }
+                else
+                {
+                    Feedback_Garden_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is within the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_Garden_Waste_label.Visible = true;
+                }
+
+                // Update the picture box and label based on the user's performance
+                UpdateOrganicGardenWasteBadge(totalWasteKg, averageAnnualWaste);
+            }
+        }
+        private string CalculateOrganicGardenWasteCarbonEmission(double organicGardenwasteConinKgsPerPerson)
+        {
+            double scalingFactorOrganicGardenWasteLandfill = 0;
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //string query = "SELECT * FROM conversion_factor WHERE Unit = @Unit";
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
+                //string query = input;
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Refuse");
+                    command.Parameters.AddWithValue("@Type", "Organic: garden waste");
+                    command.Parameters.AddWithValue("@Unit", "tonnes");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Carbon emission factors per kWh for electricity generation in the UK
+                            scalingFactorOrganicGardenWasteLandfill = reader.GetDouble(reader.GetOrdinal("Landfill"));
+                        }
+                    }
+                }
+            }
+
+            // Assuming the emission factor for water supply is 0.177 kg CO2e per cubic meter
+            //double scalingFactorOrganicGardenWasteLandfill = 646.60632; // kg CO2e/tonne
+            double totalEmission = organicGardenwasteConinKgsPerPerson * scalingFactorOrganicGardenWasteLandfill;
+            string result = $"Total Emission: {totalEmission:F6} kg CO2e)";
+
+            // Output for debugging purposes
+            Debug.WriteLine(result);
+
+            return result; // Format the emission value to 6 decimal places
+
+        }
+        private void UpdateOrganicGardenWasteBadge(double userWasteKg, double averageWasteKg)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+        Properties.Resources.crown1,
+        Properties.Resources.crown2,
+        Properties.Resources.trophy_star,
+        Properties.Resources.award,
+        Properties.Resources.trophy,
+        Properties.Resources.ribbon
+    };
+
+            Bitmap[] improvementImages = {
+        Properties.Resources.target,
+        Properties.Resources.person,
+        Properties.Resources.business,
+        Properties.Resources.fail
+    };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+        "Eco Star",
+        "Great Job",
+        "Top Performer",
+        "Keep Going",
+        "Well Done"
+    };
+
+            string[] improvementPhrases = {
+        "Try Harder",
+        "Improve More",
+        "Keep Going",
+        "Almost There",
+        "Step Up"
+    };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userWasteKg <= averageWasteKg)
+            {
+                // Show the "Eco Star" badge
+                Award_OrganicGardenWaste_picturebox.Image = goodPerformanceImages[goodImageIndex];
+                Award_OrganicGardenWaste_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_OrganicGardenWaste_picturebox.Image = improvementImages[improvementImageIndex];
+                Award_OrganicGardenWaste_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_OrganicGardenWaste_picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_OrganicGardenWaste_picturebox.Visible = true;
+            Award_OrganicGardenWaste_label.Visible = true;
+        }
+        private void HelpClickMe_OrganicGardenWaste_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message for organic garden waste
+            MessageBox.Show(
+                "Annual Organic Garden Waste Data:\n\n" +
+                "1. Please enter a valid garden waste consumption value in kilograms per person. Ex: 120 kg per year (average).\n" +
+                "   - The valid range for garden waste consumption per person is between 1 kg and 200 kg.\n" +
+                "2. Please enter the number of persons in the family (between 1 and 6).\n" +
+                "   - This data will help calculate the annual carbon emission related to organic garden waste.\n\n" +
+                "Note: The average annual garden waste per person is approximately 120 kg, according to the study published in MDPI. For more details, refer to the source: https://www.mdpi.com/2079-9276/9/1/8#:~:text=Considering%20the%20average%20household%20size,person%E2%88%921%20year%E2%88%921.",
+                "Help Information - Organic Garden Waste",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+        //Residual Waste
+        private void HouseholdResidualWaste_CalculateCarbon(object sender, EventArgs e)
+        {
+            double wasteConsumptionInKgsPerPerson = 0;
+            double numPersons = 0;
+
+            // Validate inputs
+            bool isValid = true;
+
+            // Validate Waste Consumption per Person
+            if (string.IsNullOrWhiteSpace(HouseResidualWaste_InKgs_textbox.Text))
+            {
+                HouseholdResidualWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Residul_Waste_label.Text = "Feedback";
+                ResidualWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_Residual_Waste_pictureBox.Image = null;
+                Award_Residual_Waste_pictureBox.Visible = false; // Hide the picturebox
+                Award_Residual_Waste_label.Text = string.Empty;
+                Award_Residual_Waste_label.Visible = false; // Hide the label
+
+                totalHouseholdResidualWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                if (isWasteConsumptionErrorSet)
+                {
+                    ResidualWaste_errorProvider.SetError(HouseResidualWaste_InKgs_textbox, string.Empty);
+                    isWasteConsumptionErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(HouseResidualWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || wasteConsumptionInKgsPerPerson <= 0 || wasteConsumptionInKgsPerPerson > 1000)
+            {
+                isValid = false;
+                if (!isWasteConsumptionErrorSet)
+                {
+                    ResidualWaste_errorProvider.SetError(HouseResidualWaste_InKgs_textbox,
+                        "Please enter a valid residual waste consumption value in kilograms per person/Annual. The value should be between 1 and 1000 kg per year. Note: The average residual waste is 465 kg per person per year.");
+                    isWasteConsumptionErrorSet = true;
+                }
+                HouseholdResidualWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Residul_Waste_label.Text = "Feedback";
+                ResidualWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_Residual_Waste_pictureBox.Image = null;
+                Award_Residual_Waste_pictureBox.Visible = false; // Hide the picturebox
+                Award_Residual_Waste_label.Text = string.Empty;
+                Award_Residual_Waste_label.Visible = false; // Hide the label
+
+                totalHouseholdResidualWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isWasteConsumptionErrorSet)
+                {
+                    ResidualWaste_errorProvider.SetError(HouseResidualWaste_InKgs_textbox, string.Empty);
+                    isWasteConsumptionErrorSet = false;
+                }
+            }
+
+            // Validate Number of Persons
+            if (string.IsNullOrWhiteSpace(HouseholdResidualWaste_NumberOfPerson_textbox.Text))
+            {
+                HouseholdResidualWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Residul_Waste_label.Text = "Feedback";
+                ResidualWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_Residual_Waste_pictureBox.Image = null;
+                Award_Residual_Waste_pictureBox.Visible = false; // Hide the picturebox
+                Award_Residual_Waste_label.Text = string.Empty;
+                Award_Residual_Waste_label.Visible = false; // Hide the label
+
+                totalHouseholdResidualWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                if (isNumberPersonWasteErrorSet)
+                {
+                    ResidualWaste_errorProvider.SetError(HouseholdResidualWaste_NumberOfPerson_textbox, string.Empty);
+                    isNumberPersonWasteErrorSet = false;
+                }
+            }
+            else if (!double.TryParse(HouseholdResidualWaste_NumberOfPerson_textbox.Text, out numPersons) || numPersons <= 0 || numPersons > 6)
+            {
+                isValid = false;
+                if (!isNumberPersonWasteErrorSet)
+                {
+                    ResidualWaste_errorProvider.SetError(HouseholdResidualWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+                    isNumberPersonWasteErrorSet = true;
+                }
+                HouseholdResidualWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Residul_Waste_label.Text = "Feedback";
+                ResidualWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_Residual_Waste_pictureBox.Image = null;
+                Award_Residual_Waste_pictureBox.Visible = false; // Hide the picturebox
+                Award_Residual_Waste_label.Text = string.Empty;
+                Award_Residual_Waste_label.Visible = false; // Hide the label
+
+                totalHouseholdResidualWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (isNumberPersonWasteErrorSet)
+                {
+                    ResidualWaste_errorProvider.SetError(HouseholdResidualWaste_NumberOfPerson_textbox, string.Empty);
+                    isNumberPersonWasteErrorSet = false;
+                }
+            }
+
+            // If validation fails, return
+            if (!isValid)
+            {
+                HouseholdResidualWaste_Emission_label.Text = "Emission"; // Assign default value
+                Feedback_Residul_Waste_label.Text = "Feedback";
+                ResidualWaste_TotalWaste_label.Text = "TotalWaste";
+
+                // Clear the picturebox and label
+                Award_Residual_Waste_pictureBox.Image = null;
+                Award_Residual_Waste_pictureBox.Visible = false; // Hide the picturebox
+                Award_Residual_Waste_label.Text = string.Empty;
+                Award_Residual_Waste_label.Visible = false; // Hide the label
+
+                totalHouseholdResidualWasteEmission = "";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                return;
+            }
+
+            // Perform the calculation only if all textboxes are non-empty
+            if (!string.IsNullOrWhiteSpace(HouseResidualWaste_InKgs_textbox.Text) &&
+               !string.IsNullOrWhiteSpace(HouseholdResidualWaste_NumberOfPerson_textbox.Text))
+            {
+                // Convert kg to tonne
+                double wasteInTonnePerPerson = wasteConsumptionInKgsPerPerson / 1000;
+                double totalWasteInTonne = wasteInTonnePerPerson * numPersons;
+
+                // Calculate total carbon emission from household residual waste
+                totalHouseholdResidualWasteEmission = CalculateHouseholdResidualWasteCarbonEmission(totalWasteInTonne);
+
+                // Update labels
+                HouseholdResidualWaste_Emission_label.Text = $"Emission: {ExtractEmissionValue(totalHouseholdResidualWasteEmission)} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average waste usage
+                double averageWastePerPerson = 465; // Example average waste in kg per person per year
+                double totalWasteKg = wasteConsumptionInKgsPerPerson * numPersons; // User's input for total waste
+                                                                                   //Update totalWaste label
+                ResidualWaste_TotalWaste_label.Text = $"TotalWaste: {totalWasteKg} kg";
+
+                // Calculate the average annual waste
+                double averageAnnualWaste = averageWastePerPerson * numPersons;
+
+                if (totalWasteKg > averageAnnualWaste)
+                {
+                    Feedback_Residul_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is higher than the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_Residul_Waste_label.Visible = true;
+                }
+                else
+                {
+                    Feedback_Residul_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is within the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_Residul_Waste_label.Visible = true;
+                }
+
+                // Update the picture box and label based on the user's performance
+                UpdateHouseholdResidualWasteBadge(totalWasteKg, averageAnnualWaste);
+            }
+        }
+        private void HelpClickMe_HouseholdResidualWaste_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message
+            MessageBox.Show(
+                "Annual Household Residual Waste Data:\n\n" +
+                "1. Please enter a valid residual waste consumption value in kilograms per person. Ex: 465 kg per year (average).\n" +
+                "   - The valid range for residual waste consumption per person is between 1 kg and 1000 kg.\n" +
+                "2. Please enter the number of persons in the family (between 1 and 6).\n" +
+                "   - This data will help calculate the annual carbon emission related to household residual waste.\n\n" +
+                "Note: The average annual residual waste per person is around 465 kg, according to UK government statistics. For more details, refer to the source: https://www.gov.uk/government/statistics/estimates-of-residual-waste-excluding-major-mineral-wastes-and-municipal-residual-waste-in-england/estimates-of-residual-waste-excluding-major-mineral-wastes-and-municipal-residual-waste-in-england",
+                "Help Information - Household Residual Waste",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+        private string CalculateHouseholdResidualWasteCarbonEmission(double totalWasteInTonne)
+        {
+            double scalingFactorHouseholdResidualWasteLandfill = 0;
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Activity", "Refuse");
+                    command.Parameters.AddWithValue("@Type", "Household residual waste");
+                    command.Parameters.AddWithValue("@Unit", "tonnes");
+                    command.Parameters.AddWithValue("@Year", selectedYear);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            scalingFactorHouseholdResidualWasteLandfill = reader.GetDouble(reader.GetOrdinal("Landfill"));
+                        }
+                    }
+                }
+            }
+
+            double totalEmission = totalWasteInTonne * scalingFactorHouseholdResidualWasteLandfill;
+            string result = $"Total Emission: {totalEmission:F6} kg CO2e";
+
+            // Output for debugging purposes
+            Debug.WriteLine(result);
+
+            return result; // Format the emission value to 6 decimal places
+        }
+        private void UpdateHouseholdResidualWasteBadge(double userWasteKg, double averageWasteKg)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (userWasteKg <= averageWasteKg)
+            {
+                // Show the "Eco Warrior" badge
+                Award_Residual_Waste_pictureBox.Image = goodPerformanceImages[goodImageIndex];
+                Award_Residual_Waste_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_Residual_Waste_pictureBox.Image = improvementImages[improvementImageIndex];
+                Award_Residual_Waste_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_Residual_Waste_pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_Residual_Waste_pictureBox.Visible = true;
+            Award_Residual_Waste_label.Visible = true;
+        }
 
         //Water supply carbon emission calculations
         private void HomeEnergy_CalculateWaterCarbon(object sender, EventArgs e)
@@ -3504,7 +4364,7 @@ namespace carbonfootprint_tabs
 
             // Define number of days in a year and working days for commute
             int daysInYear = 365;
-            int workingDaysInYear = 260;
+            int workingDaysInYear = 254; //https://timetastic.co.uk/blog/how-many-working-days-are-in-a-year/
 
             // Convert the extracted parts to doubles
             // Extract and parse the total emission part for daily inputs
@@ -3540,22 +4400,15 @@ namespace carbonfootprint_tabs
                 waterEmission *= daysInYear;
                 customEntryEmission *= daysInYear;
 
-                //LeiTravelCarEmission *= daysInYear;
-                //LeiTravelBikeEmission *= daysInYear;
-                //LeiTravelHotelStayEmission *= daysInYear;
-                WorkHrsEmission *= workingDaysInYear;
-
                 // Use working days for commute emissions
                 CommuTravelCarEmission *= workingDaysInYear;
                 CommuTravelTrainEmission *= workingDaysInYear;
                 CommuTravelBusEmission *= workingDaysInYear;
+                WorkHrsEmission *= workingDaysInYear;
             }
             else
             {
                 // Convert annual emissions to daily if in daily mode
-                CommuTravelCarEmission /= workingDaysInYear;
-                CommuTravelTrainEmission /= workingDaysInYear;
-                CommuTravelBusEmission /= workingDaysInYear;
                 LeiTravelCarEmission /= daysInYear;
                 LeiTravelBikeEmission /= daysInYear;
                 LeiTravelHotelStayEmission /= daysInYear;
@@ -3580,10 +4433,10 @@ namespace carbonfootprint_tabs
                 double totalEmissionPersonalWasteTonnes = totalEmissionPersonalWaste / 1000;
 
                 // Assign the result to the global label with appropriate formatting
-                HomeEnergyGlobalLabel.Text = $"Total Emission: {totalEmissionTonnes:F6} tonnes CO2e";
-                LeisureEnergyGlobalLabel.Text = $"Total Emission: {totalEmissionLeisureTravelTonnes:F6} tonnes CO2e";
-                HomeOfficeCommuteEnergyGlobalLabel.Text = $"Total Emission: {totalEmissionCommuteTravelTonnes:F6} tonnes CO2e";
-                PersonalHouseholdWasteEnergyGlobalLabel.Text = $"Total Emission: {totalEmissionPersonalWasteTonnes:F6} tonnes CO2e";
+                HomeEnergyGlobalLabel.Text = $"HomeEnergy Emission: {totalEmissionTonnes:F6} tonnes CO2e";
+                LeisureEnergyGlobalLabel.Text = $"Leisure Emission: {totalEmissionLeisureTravelTonnes:F6} tonnes CO2e";
+                HomeOfficeCommuteEnergyGlobalLabel.Text = $"Homeoffice/Commute Emission: {totalEmissionCommuteTravelTonnes:F6} tonnes CO2e";
+                PersonalHouseholdWasteEnergyGlobalLabel.Text = $"Oragnic waste Emission: {totalEmissionPersonalWasteTonnes:F6} tonnes CO2e";
 
                 // Calculate the total carbon emission in tonnes
                 Carbon = totalEmissionTonnes + totalEmissionLeisureTravelTonnes + totalEmissionCommuteTravelTonnes + totalEmissionPersonalWasteTonnes;
@@ -3592,10 +4445,10 @@ namespace carbonfootprint_tabs
             else
             {
                 // Assign the result to the global label with appropriate formatting for daily mode
-                HomeEnergyGlobalLabel.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
-                LeisureEnergyGlobalLabel.Text = $"Total Emission: {totalEmissionLeisureTravel:F6} kg CO2e";
-                HomeOfficeCommuteEnergyGlobalLabel.Text = $"Total Emission: {totalEmissionCommuteTravel:F6} kg CO2e";
-                PersonalHouseholdWasteEnergyGlobalLabel.Text = $"Total Emission: {totalEmissionPersonalWaste:F6} kg CO2e";
+                HomeEnergyGlobalLabel.Text = $"HomeEnergy Emission: {totalEmission:F6} Kg CO2e";
+                LeisureEnergyGlobalLabel.Text = $"Leisure Emission: {totalEmissionLeisureTravel:F6} Kg CO2e";
+                HomeOfficeCommuteEnergyGlobalLabel.Text = $"Homeoffice/Commute Emission: {totalEmissionCommuteTravel:F6} Kg CO2e";
+                PersonalHouseholdWasteEnergyGlobalLabel.Text = $"Oragnic waste Emission: {totalEmissionPersonalWaste:F6} Kg CO2e";
 
                 Carbon = totalEmission + totalEmissionLeisureTravel + totalEmissionCommuteTravel + totalEmissionPersonalWaste;
                 CarbonLabel.Text = $"Total Emission: {Carbon:F6} kg CO2e";
@@ -3631,6 +4484,11 @@ namespace carbonfootprint_tabs
         }
 
         private void pictureBox18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fuelType_groupBox_Enter(object sender, EventArgs e)
         {
 
         }
