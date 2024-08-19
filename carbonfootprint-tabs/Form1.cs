@@ -83,6 +83,7 @@ namespace carbonfootprint_tabs
         {
             InitializeComponent();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             CheckDatabaseConnection();
@@ -220,8 +221,6 @@ namespace carbonfootprint_tabs
             bool isConnected = false;
             string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
             string connectionString = $"Data Source={dbPath};Version=3;";
-            //using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-
 
             try
             {
@@ -252,6 +251,47 @@ namespace carbonfootprint_tabs
                 database_status_button.ForeColor = Color.White; // Optional: To make the text readable
             }
         }
+        /*
+        private void CheckDatabaseConnection()
+        {
+            bool isConnected = false;
+            string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
+            string connectionString = $"Data Source={dbPath};Version=3;";
+
+            // Display the database path and connection string for debugging
+            MessageBox.Show($"Attempting to connect to database at: {dbPath}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Connection String: {connectionString}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    isConnected = true;
+                    MessageBox.Show("Database connection successful!", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions related to the connection check
+                MessageBox.Show($"Database connection failed: {ex.Message}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // Update the button based on connection status
+            if (isConnected)
+            {
+                database_status_button.Text = "DB Connected";
+                database_status_button.BackColor = Color.Green;
+                database_status_button.ForeColor = Color.White; // Optional: To make the text readable
+            }
+            else
+            {
+                database_status_button.Text = "DB Disconnected";
+                database_status_button.BackColor = Color.Red;
+                database_status_button.ForeColor = Color.White; // Optional: To make the text readable
+            }
+        }*/
+
         private void ExitApp_button_Click(object sender, EventArgs e)
         {
             Application.Exit();
