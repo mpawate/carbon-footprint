@@ -3678,12 +3678,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(Watt_Fan_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 5 || wattNumber > 100)
+            else if (!double.TryParse(Watt_Fan_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 5 || wattNumber > 50)
             {
                 isValid = false;
                 if (!isWattFanErrorSet)
                 {
-                    Fan_homeEnergy_errorProvider.SetError(Watt_Fan_HomeEnergy_textBox, "Please enter a valid wattage between 5 and 100.");
+                    Fan_homeEnergy_errorProvider.SetError(Watt_Fan_HomeEnergy_textBox, "Enter a value between 5 W and 50 W. Click help for more details.");
                     isWattFanErrorSet = true;
                 }
                 EnergyUsage_Fan_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -3727,7 +3727,7 @@ namespace carbonfootprint_tabs
 
                 if (isHoursFanErrorSet)
                 {
-                    homeOffice_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
+                    Fan_homeEnergy_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
                     isHoursFanErrorSet = false;
                 }
                 totalFanEmission = "";
@@ -3740,7 +3740,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHoursFanErrorSet)
                 {
-                    homeOffice_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
+                    Fan_homeEnergy_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, "Enter a value between 1 and 24 hours. Click help for more details.");
 
                     isHoursFanErrorSet = true;
                 }
@@ -3764,7 +3764,7 @@ namespace carbonfootprint_tabs
             {
                 if (isHoursFanErrorSet)
                 {
-                    homeOffice_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
+                    Fan_homeEnergy_errorProvider.SetError(HoursDay_Fan_HomeEnergy_textBox, string.Empty);
                     isHoursFanErrorSet = false;
                 }
                 wattHoursResult = wattHoursNumber;
@@ -3786,7 +3786,7 @@ namespace carbonfootprint_tabs
 
                 if (isQtyFanErrorSet)
                 {
-                    homeOffice_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
+                    Fan_homeEnergy_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
                     isQtyFanErrorSet = false;
                 }
                 //return;
@@ -3794,12 +3794,12 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
             }
-            else if (!double.TryParse(Qty_Fan_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1)
+            else if (!double.TryParse(Qty_Fan_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1 || wattqty > 10)
             {
                 isValid = false;
                 if (!isQtyFanErrorSet)
                 {
-                    homeOffice_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    Fan_homeEnergy_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, "Enter a quantity between 1 and 10. Click help for more details..");
                     isQtyFanErrorSet = true;
                 }
                 EnergyUsage_Fan_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -3821,7 +3821,7 @@ namespace carbonfootprint_tabs
             {
                 if (isQtyFanErrorSet)
                 {
-                    homeOffice_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
+                    Fan_homeEnergy_errorProvider.SetError(Qty_Fan_HomeEnergy_textBox, string.Empty);
                     isQtyFanErrorSet = false;
                 }
                 wattQty = wattqty;
@@ -3859,24 +3859,36 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average usage
-                double averageUsageHours = 8; // Average usage in hours per day
-                double averageWattage = 12; // Average wattage in watts
+                double averageUsageHours = 6; // Average usage in hours per day
+                double averageWattage = 50; // Average wattage in watts
                 double dailyUsageHours = wattHoursResult; // User's input for usage hours
 
                 // Calculate the average daily energy consumption in watts
-                double averageDailyUsage = averageUsageHours * averageWattage;
-                double userDailyUsage = wattHoursResult * wattResult; // User's input for daily usage
+                double averageDailyUsage = averageUsageHours * averageWattage * wattQty;
+                double userDailyUsage = wattHoursResult * wattResult * wattQty; // User's input for daily usage
+
+                string improvementTips = "";
+                string youTubeLink = "";
 
                 if (userDailyUsage > averageDailyUsage)
                 {
-                    Feedback_Fan_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts.";
+                    Feedback_Fan_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} Fan(s) is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} Fan(s).";
+                    improvementTips = "Consider switching to more energy-efficient Fans or reducing usage duration.";
+                    youTubeLink = "https://www.youtube.com/watch?v=LwX0FK1Z5QE";
+
                 }
                 else
                 {
-                    Feedback_Fan_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is within the average range of {averageUsageHours} hours/day with {averageWattage} watts.";
-                }
+                    Feedback_Fan_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} Fan(s) is within the average range of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} Fan(s).";
+                    improvementTips = "Keep up the good work! Consider sharing your efficient practices with others.";
+                    youTubeLink = "No suggestions";
 
+                }
                 UpdateFanUsageBadge(userDailyUsage, averageDailyUsage);
+                if (shouldAppend)
+                {
+                    AppendReport("HomeEnergy", "FAN", userDailyUsage, averageDailyUsage, Feedback_Fan_HomeEnergy_label.Text, improvementTips, youTubeLink, "Watt");
+                }
             }
         }
         private void UpdateFanUsageBadge(double userUsage, double averageUsage)
@@ -3939,13 +3951,17 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_Fan_HomeEnergy_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message
+            // Show detailed help message for Fan usage
             MessageBox.Show(
-                "Daily Usage Data:\n\n" +
-                "1. Enter the power consumption of the Fan in watts (W). E.g., 40\n" +
-                "2. Enter the number of Fans unit used. E.g., 1\n" +
-                "3. Enter the number of hours the Fan is used per day. E.g., 10",
-                "Help Information",
+                "Daily Fan Usage Data:\n\n" +
+                "1. Please enter the power consumption of the Fan in watts (W). E.g., 50 W.\n" +
+                "   - The valid range for fan power consumption is between 5 W and 50 W.\n" +
+                "2. Please enter the number of Fan units used. E.g., 3 units.\n" +
+                "   - The valid range for the number of Fan units is between 1 and 10.\n" +
+                "3. Please enter the number of hours the Fan is used per day. E.g., 6 hours.\n" +
+                "   - The valid range for daily usage hours is between 1 and 24 hours.\n\n" +
+                "Note: The average power consumption of a typical fan is around 50 W, with an average daily usage of approximately 6 hours. For more details, refer to reliable sources on energy consumption.",
+                "Help Information - Fan Usage",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
@@ -5126,6 +5142,7 @@ namespace carbonfootprint_tabs
         {
             shouldAppend = true;
             LED_HomeEnergy_Carbon_Calculation(sender, e);
+            Fan_HomeEnergy_Carbon_Calculation(sender, e);
 
             // Display all reports in the message box
             DisplayAllReportsInMessageBox();

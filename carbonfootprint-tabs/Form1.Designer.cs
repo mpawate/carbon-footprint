@@ -1150,7 +1150,7 @@
             this.Watt_Fan_HomeEnergy_textBox.Name = "Watt_Fan_HomeEnergy_textBox";
             this.Watt_Fan_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Watt_Fan_HomeEnergy_textBox.TabIndex = 1;
-            this.Watt_Fan_HomeEnergy_toolTip.SetToolTip(this.Watt_Fan_HomeEnergy_textBox, "Please enter a valid wattage between 5 and 100.");
+            this.Watt_Fan_HomeEnergy_toolTip.SetToolTip(this.Watt_Fan_HomeEnergy_textBox, "Enter a value between 5 W and 50 W. Click help for more details.");
             this.Watt_Fan_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Fan_HomeEnergy_Carbon_Calculation);
             // 
             // Watt_Fan_HomeEnergy_label
@@ -1171,7 +1171,7 @@
             this.Qty_Fan_HomeEnergy_textBox.Name = "Qty_Fan_HomeEnergy_textBox";
             this.Qty_Fan_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Qty_Fan_HomeEnergy_textBox.TabIndex = 3;
-            this.Qty_Fan_HomeEnergy_toolTip.SetToolTip(this.Qty_Fan_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+            this.Qty_Fan_HomeEnergy_toolTip.SetToolTip(this.Qty_Fan_HomeEnergy_textBox, "Enter a quantity between 1 and 10. Click help for more details..");
             this.Qty_Fan_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Fan_HomeEnergy_Carbon_Calculation);
             // 
             // Qty_Fan_HomeEnergy_label
@@ -1192,7 +1192,7 @@
             this.HoursDay_Fan_HomeEnergy_textBox.Name = "HoursDay_Fan_HomeEnergy_textBox";
             this.HoursDay_Fan_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.HoursDay_Fan_HomeEnergy_textBox.TabIndex = 5;
-            this.HoursUsage_Fan_HomeEnergy_toolTip.SetToolTip(this.HoursDay_Fan_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
+            this.HoursUsage_Fan_HomeEnergy_toolTip.SetToolTip(this.HoursDay_Fan_HomeEnergy_textBox, "Enter a value between 1 and 24 hours. Click help for more details.");
             this.HoursDay_Fan_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Fan_HomeEnergy_Carbon_Calculation);
             // 
             // HoursDay_Fan_HomeEnergy_label
