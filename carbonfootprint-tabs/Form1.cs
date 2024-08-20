@@ -173,6 +173,36 @@ namespace carbonfootprint_tabs
                     MessageBox.Show(privacyPolicy, "Privacy Policy", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
+
+        public class EnergyReport
+        {
+            public string Category { get; set; } // HomeEnergy, Commute, Waste, Leisure
+            public string Item { get; set; } // LED, Fan, Kettle, Heater, etc.
+            public double Usage { get; set; }
+            public double AverageUsage { get; set; }
+            public string Unit { get; set; }  // Added Unit property
+            public string Feedback { get; set; }
+            public string ImprovementTips { get; set; }
+            public string YouTubeLink { get; set; }
+        }
+        private List<EnergyReport> energyReports = new List<EnergyReport>();
+        public void AppendReport(string category, string item, double usage, double averageUsage, string feedback, string improvementTips, string youTubeLink, string unit)
+        {
+            var report = new EnergyReport
+            {
+                Category = category,
+                Item = item,
+                Usage = usage,
+                AverageUsage = averageUsage,
+                Feedback = feedback,
+                ImprovementTips = improvementTips,
+                YouTubeLink = youTubeLink,
+                Unit = unit  // Set the unit
+            };
+
+            energyReports.Add(report);
+        }
+
         // Updated method to show badge and random phrase based on energy usage
         private void database_list_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -3526,37 +3556,6 @@ namespace carbonfootprint_tabs
             // Clear the data after generating the report
             energyReports.Clear();
         }
-
-        public class EnergyReport
-        {
-            public string Category { get; set; } // HomeEnergy, Commute, Waste, Leisure
-            public string Item { get; set; } // LED, Fan, Kettle, Heater, etc.
-            public double Usage { get; set; }
-            public double AverageUsage { get; set; }
-            public string Unit { get; set; }  // Added Unit property
-            public string Feedback { get; set; }
-            public string ImprovementTips { get; set; }
-            public string YouTubeLink { get; set; }
-        }
-
-        private List<EnergyReport> energyReports = new List<EnergyReport>();
-        public void AppendReport(string category, string item, double usage, double averageUsage, string feedback, string improvementTips, string youTubeLink, string unit)
-        {
-            var report = new EnergyReport
-            {
-                Category = category,
-                Item = item,
-                Usage = usage,
-                AverageUsage = averageUsage,
-                Feedback = feedback,
-                ImprovementTips = improvementTips,
-                YouTubeLink = youTubeLink,
-                Unit = unit  // Set the unit
-            };
-
-            energyReports.Add(report);
-        }
-
         private void UpdateLEDUsageBadge(double userUsage, double averageUsage)
         {
             // Define arrays for the images
@@ -3626,7 +3625,7 @@ namespace carbonfootprint_tabs
                 "Daily LED Usage Data:\n\n" +
                 "1. **Power Consumption (W):**\n" +
                 "   - Enter the power consumption of the LED in watts.\n" +
-                "   - Example: 40 W is a typical value.\n" +
+                "   - Example: 12 W is a typical value.\n" +
                 "   - Valid range: 5 W to 50 W.\n\n" +
                 "2. **Number of LED Units:**\n" +
                 "   - Enter the number of LED units used.\n" +
@@ -3637,7 +3636,8 @@ namespace carbonfootprint_tabs
                 "   - Example: 10 hours per day.\n" +
                 "   - Valid range: 1 to 24 hours.\n" +
                 "   - The average daily usage is approximately 8 hours, according to [LED Lighting Usage](https://www.linkedin.com/pulse/how-many-watts-led-lights-good-home-use-winny-wen/).\n\n" +
-                "Note: Accurate data entry will help calculate your daily energy consumption and carbon emissions related to LED usage.",
+                "Note: The typical power consumption of an LED bulb is around 12 W, as noted by [Crompton LED Light Power Consumption](https://www.crompton.co.in/blogs/lights/led-light-power-consumption).\n" +
+                "Accurate data entry will help calculate your daily energy consumption and carbon emissions related to LED usage.",
                 "Help Information - LED Usage",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -3954,17 +3954,25 @@ namespace carbonfootprint_tabs
             // Show detailed help message for Fan usage
             MessageBox.Show(
                 "Daily Fan Usage Data:\n\n" +
-                "1. Please enter the power consumption of the Fan in watts (W). E.g., 50 W.\n" +
-                "   - The valid range for fan power consumption is between 5 W and 50 W.\n" +
-                "2. Please enter the number of Fan units used. E.g., 3 units.\n" +
-                "   - The valid range for the number of Fan units is between 1 and 10.\n" +
-                "3. Please enter the number of hours the Fan is used per day. E.g., 6 hours.\n" +
-                "   - The valid range for daily usage hours is between 1 and 24 hours.\n\n" +
-                "Note: The average power consumption of a typical fan is around 50 W, with an average daily usage of approximately 6 hours. For more details, refer to reliable sources on energy consumption.",
+                "1. **Power Consumption (W):**\n" +
+                "   - Enter the power consumption of the Fan in watts.\n" +
+                "   - Example: 50 W is a typical value.\n" +
+                "   - Valid range: 5 W to 50 W.\n\n" +
+                "2. **Number of Fan Units:**\n" +
+                "   - Enter the number of Fan units used.\n" +
+                "   - Example: 3 units.\n" +
+                "   - Valid range: 1 to 10 units.\n\n" +
+                "3. **Daily Usage Hours:**\n" +
+                "   - Enter the number of hours the Fan is used per day.\n" +
+                "   - Example: 6 hours per day.\n" +
+                "   - Valid range: 1 to 24 hours.\n" +
+                "   - The average daily usage is approximately 6 hours.\n\n" +
+                "Note: Accurate data entry will help calculate your daily energy consumption and carbon emissions related to Fan usage.",
                 "Help Information - Fan Usage",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
 
         //Kettle carbon emission calculation
         private void Kettle_HomeEnergy_Carbon_Calculation(object sender, EventArgs e)
@@ -4000,12 +4008,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(Watt_Kettle_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 1300 || wattNumber > 1500)
+            else if (!double.TryParse(Watt_Kettle_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 1300 || wattNumber > 3000)
             {
                 isValid = false;
                 if (!isWattKettleErrorSet)
                 {
-                    Kettl_homeEnergy_errorProvider.SetError(Watt_Kettle_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
+                    Kettl_homeEnergy_errorProvider.SetError(Watt_Kettle_HomeEnergy_textBox, "Enter a value between 1300 W and 3000 W. Click help for more details..");
                     isWattKettleErrorSet = true;
                 }
                 EnergyUsage_Kettle_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -4057,12 +4065,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(HoursDay_Kettle_HomeEnergy_textBox.Text, out double wattHoursNumber) || wattHoursNumber < 1 || wattHoursNumber > 2)
+            else if (!double.TryParse(HoursDay_Kettle_HomeEnergy_textBox.Text, out double wattHoursNumber) || wattHoursNumber < 1 || wattHoursNumber > 3)
             {
                 isValid = false;
                 if (!isHoursKettleErrorSet)
                 {
-                    Kettl_homeEnergy_errorProvider.SetError(HoursDay_Kettle_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 2.");
+                    Kettl_homeEnergy_errorProvider.SetError(HoursDay_Kettle_HomeEnergy_textBox, "Enter a value between 1 and 3 hours. Click help for more details.");
                     isHoursKettleErrorSet = true;
                 }
 
@@ -4114,12 +4122,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(Qty_Kettle_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1)
+            else if (!double.TryParse(Qty_Kettle_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1 || wattqty > 3)
             {
                 isValid = false;
                 if (!isQtyKettleErrorSet)
                 {
-                    Kettl_homeEnergy_errorProvider.SetError(Qty_Kettle_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    Kettl_homeEnergy_errorProvider.SetError(Qty_Kettle_HomeEnergy_textBox, "Enter a quantity between 1 and 3. Click help for more details.");
                     isQtyKettleErrorSet = true;
                 }
                 EnergyUsage_Kettle_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -4179,24 +4187,37 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average usage
-                double averageUsageHours = 8; // Average usage in hours per day
-                double averageWattage = 12; // Average wattage in watts
+                double averageUsageHours = 1; // Average usage in hours per day
+                double averageWattage = 1300; // Average wattage in watts
                 double dailyUsageHours = wattHoursResult; // User's input for usage hours
 
                 // Calculate the average daily energy consumption in watts
-                double averageDailyUsage = averageUsageHours * averageWattage;
-                double userDailyUsage = wattHoursResult * wattResult; // User's input for daily usage
-
+                double averageDailyUsage = averageUsageHours * averageWattage * wattQty;
+                double userDailyUsage = wattHoursResult * wattResult * wattQty; // User's input for daily usage
+                string improvementTips = "";
+                string youTubeLink = "";
                 if (userDailyUsage > averageDailyUsage)
                 {
-                    Feedback_Kettle_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts.";
+                    Feedback_Kettle_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} Kettle(s) is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} Kettle(s).";
+                    improvementTips = "Consider switching to more energy-efficient Kettles or reducing usage duration.";
+                    youTubeLink = "https://www.youtube.com/watch?v=yioVEC6oi74";
+
                 }
                 else
                 {
-                    Feedback_Kettle_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is within the average range of {averageUsageHours} hours/day with {averageWattage} watts.";
+                    Feedback_Kettle_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} Kettle(s) is within the average range of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} Kettle(s).";
+                    improvementTips = "Keep up the good work! Consider sharing your efficient practices with others.";
+                    youTubeLink = "No suggestions";
+
                 }
 
                 UpdateKettleUsageBadge(userDailyUsage, averageDailyUsage);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("HomeEnergy", "Kettle", userDailyUsage, averageDailyUsage, Feedback_Kettle_HomeEnergy_label.Text, improvementTips, youTubeLink, "Watt");
+                }
             }
         }
         private void UpdateKettleUsageBadge(double userUsage, double averageUsage)
@@ -4259,16 +4280,28 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_Kettle_HomeEnergy_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message
+            // Show detailed help message for Kettle usage
             MessageBox.Show(
-                "Daily Usage Data:\n\n" +
-                "1. Enter the power consumption of the Kettle in watts (W). E.g., 1300\n" +
-                "2. Enter the number of Kettle unit used. E.g., 1\n" +
-                "3. Enter the number of hours the Kettle is used per day. E.g., 1",
-                "Help Information",
+                "Daily Kettle Usage Data:\n\n" +
+                "1. **Power Consumption (W):**\n" +
+                "   - Enter the power consumption of the Kettle in watts.\n" +
+                "   - Example: 1300 W is a typical value.\n" +
+                "   - Valid range: 1300 W to 3000 W.\n\n" +
+                "2. **Number of Kettle Units:**\n" +
+                "   - Enter the number of Kettle units used.\n" +
+                "   - Example: 1 unit.\n" +
+                "   - Valid range: 1 to 3 units.\n\n" +
+                "3. **Daily Usage Hours:**\n" +
+                "   - Enter the number of hours the Kettle is used per day.\n" +
+                "   - Example: 1 hour per day.\n" +
+                "   - Valid range: 1 to 3 hours.\n" +
+                "   - The average daily usage is approximately 1 hour, according to [Kettle Power Consumption](https://www.daftlogic.com/information-appliance-power-consumption.htm).\n\n" +
+                "Note: Accurate data entry will help calculate your daily energy consumption and carbon emissions related to Kettle usage.",
+                "Help Information - Kettle Usage",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
 
         //Heater carbon emission calculation 
         private void Heater_HomeEnergy_Carbon_Calculation(object sender, EventArgs e)
@@ -5143,7 +5176,7 @@ namespace carbonfootprint_tabs
             shouldAppend = true;
             LED_HomeEnergy_Carbon_Calculation(sender, e);
             Fan_HomeEnergy_Carbon_Calculation(sender, e);
-
+            Kettle_HomeEnergy_Carbon_Calculation(sender, e);
             // Display all reports in the message box
             DisplayAllReportsInMessageBox();
             shouldAppend = false;

@@ -954,7 +954,7 @@
             this.Watt_Kettle_HomeEnergy_textBox.Name = "Watt_Kettle_HomeEnergy_textBox";
             this.Watt_Kettle_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.Watt_Kettle_HomeEnergy_textBox.TabIndex = 1;
-            this.Watt_Kettle_HomeEnergy_toolTip.SetToolTip(this.Watt_Kettle_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
+            this.Watt_Kettle_HomeEnergy_toolTip.SetToolTip(this.Watt_Kettle_HomeEnergy_textBox, "Enter a value between 1300 W and 3000 W. Click help for more details.");
             this.Watt_Kettle_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Kettle_HomeEnergy_Carbon_Calculation);
             // 
             // Watt_Kettle_HomeEnergy_label
@@ -975,7 +975,7 @@
             this.Qty_Kettle_HomeEnergy_textBox.Name = "Qty_Kettle_HomeEnergy_textBox";
             this.Qty_Kettle_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.Qty_Kettle_HomeEnergy_textBox.TabIndex = 3;
-            this.Qty_Kettle_HomeEnergy_toolTip.SetToolTip(this.Qty_Kettle_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+            this.Qty_Kettle_HomeEnergy_toolTip.SetToolTip(this.Qty_Kettle_HomeEnergy_textBox, "Enter a quantity between 1 and 3. Click help for more details");
             this.Qty_Kettle_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Kettle_HomeEnergy_Carbon_Calculation);
             // 
             // Qty_Kettle_HomeEnergy_label
@@ -996,7 +996,7 @@
             this.HoursDay_Kettle_HomeEnergy_textBox.Name = "HoursDay_Kettle_HomeEnergy_textBox";
             this.HoursDay_Kettle_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.HoursDay_Kettle_HomeEnergy_textBox.TabIndex = 5;
-            this.HoursUsage_Kettle_HomeEnergy_toolTip.SetToolTip(this.HoursDay_Kettle_HomeEnergy_textBox, "Enter the number of hours the Kettle is used per day. E.g., 1");
+            this.HoursUsage_Kettle_HomeEnergy_toolTip.SetToolTip(this.HoursDay_Kettle_HomeEnergy_textBox, "Enter a value between 1 and 3 hours. Click help for more details.");
             this.HoursDay_Kettle_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Kettle_HomeEnergy_Carbon_Calculation);
             // 
             // HoursDay_Kettle_HomeEnergy_label
