@@ -3342,7 +3342,7 @@
             this.HouseholdResidualWaste_NumberOfPerson_textbox.Name = "HouseholdResidualWaste_NumberOfPerson_textbox";
             this.HouseholdResidualWaste_NumberOfPerson_textbox.Size = new System.Drawing.Size(51, 22);
             this.HouseholdResidualWaste_NumberOfPerson_textbox.TabIndex = 5;
-            this.HouseholdResidualWaste_NumberOfPerson_toolTip.SetToolTip(this.HouseholdResidualWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+            this.HouseholdResidualWaste_NumberOfPerson_toolTip.SetToolTip(this.HouseholdResidualWaste_NumberOfPerson_textbox, "Enter a number between 1 and 6. Click for Help.");
             this.HouseholdResidualWaste_NumberOfPerson_textbox.TextChanged += new System.EventHandler(this.HouseholdResidualWaste_CalculateCarbon);
             // 
             // HouseResidualWaste_InKgs_textbox
@@ -3353,7 +3353,8 @@
             this.HouseResidualWaste_InKgs_textbox.Name = "HouseResidualWaste_InKgs_textbox";
             this.HouseResidualWaste_InKgs_textbox.Size = new System.Drawing.Size(51, 22);
             this.HouseResidualWaste_InKgs_textbox.TabIndex = 1;
-            this.HouseResidualWaste_InKgs_toolTip.SetToolTip(this.HouseResidualWaste_InKgs_textbox, resources.GetString("HouseResidualWaste_InKgs_textbox.ToolTip"));
+            this.HouseResidualWaste_InKgs_toolTip.SetToolTip(this.HouseResidualWaste_InKgs_textbox, "Enter a value between 1 kg and 1000 kg per person per year. Average value is 465 " +
+        "kg. Click for Help.");
             this.HouseResidualWaste_InKgs_textbox.TextChanged += new System.EventHandler(this.HouseholdResidualWaste_CalculateCarbon);
             // 
             // label31

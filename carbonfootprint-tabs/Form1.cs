@@ -2792,7 +2792,7 @@ namespace carbonfootprint_tabs
                 if (!isWasteConsumptionErrorSet)
                 {
                     ResidualWaste_errorProvider.SetError(HouseResidualWaste_InKgs_textbox,
-                        "Please enter a valid residual waste consumption value in kilograms per person/Annual. The value should be between 1 and 1000 kg per year. Note: The average residual waste is 465 kg per person per year.");
+                        "Enter a value between 1 kg and 1000 kg per person per year. Average value is 465 kg. Click for Help.");
                     isWasteConsumptionErrorSet = true;
                 }
                 HouseholdResidualWaste_Emission_label.Text = "Emission"; // Assign default value
@@ -2844,7 +2844,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isNumberPersonWasteErrorSet)
                 {
-                    ResidualWaste_errorProvider.SetError(HouseholdResidualWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+                    ResidualWaste_errorProvider.SetError(HouseholdResidualWaste_NumberOfPerson_textbox, "Enter a number between 1 and 6. Click for Help.");
                     isNumberPersonWasteErrorSet = true;
                 }
                 HouseholdResidualWaste_Emission_label.Text = "Emission"; // Assign default value
@@ -2912,35 +2912,52 @@ namespace carbonfootprint_tabs
                 // Calculate the average annual waste
                 double averageAnnualWaste = averageWastePerPerson * numPersons;
 
+                string improvementTips = "";
+                string youTubeLink = "";
                 if (totalWasteKg > averageAnnualWaste)
                 {
-                    Feedback_Residul_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is higher than the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_Residul_Waste_label.Text = $"Your annual residual waste of {totalWasteKg} kg for {numPersons} person(s) is higher than the expected average of {averageAnnualWaste} kg for {numPersons} person(s).";
+                    improvementTips = "Consider reducing waste by recycling more.";
+                    youTubeLink = "https://www.youtube.com/watch?v=waste_reduction_tips"; // Example link
                     Feedback_Residul_Waste_label.Visible = true;
                 }
                 else
                 {
-                    Feedback_Residul_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is within the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    Feedback_Residul_Waste_label.Text = $"Your annual residual waste of {totalWasteKg} kg for {numPersons} person(s) is within the expected average of {averageAnnualWaste} kg for {numPersons} person(s).";
+                    improvementTips = "Great job! Continue your waste management practices and consider sharing them with others.";
+                    youTubeLink = "No suggestions";
                     Feedback_Residul_Waste_label.Visible = true;
                 }
-
                 // Update the picture box and label based on the user's performance
                 UpdateHouseholdResidualWasteBadge(totalWasteKg, averageAnnualWaste);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("Waste", "Residual Waste", totalWasteKg, averageAnnualWaste, Feedback_Residul_Waste_label.Text, improvementTips, youTubeLink, "Kg");
+                }
             }
         }
         private void HelpClickMe_HouseholdResidualWaste_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message
+            // Show detailed help message for household residual waste
             MessageBox.Show(
                 "Annual Household Residual Waste Data:\n\n" +
-                "1. Please enter a valid residual waste consumption value in kilograms per person. Ex: 465 kg per year (average).\n" +
-                "   - The valid range for residual waste consumption per person is between 1 kg and 1000 kg.\n" +
-                "2. Please enter the number of persons in the family (between 1 and 6).\n" +
-                "   - This data will help calculate the annual carbon emission related to household residual waste.\n\n" +
-                "Note: The average annual residual waste per person is around 465 kg, according to UK government statistics. For more details, refer to the source: https://www.gov.uk/government/statistics/estimates-of-residual-waste-excluding-major-mineral-wastes-and-municipal-residual-waste-in-england/estimates-of-residual-waste-excluding-major-mineral-wastes-and-municipal-residual-waste-in-england",
+                "1. **Residual Waste Consumption (kg):**\n" +
+                "   - Enter a valid residual waste consumption value in kilograms per person.\n" +
+                "   - Example: 465 kg per year (average).\n" +
+                "   - Valid range: 1 kg to 1000 kg.\n\n" +
+                "2. **Number of Persons:**\n" +
+                "   - Enter the number of persons in the family.\n" +
+                "   - Example: 4 persons.\n" +
+                "   - Valid range: 1 to 6 persons.\n\n" +
+                "Note: The average annual residual waste per person is around 465 kg, according to UK government statistics. For more details, refer to the source: [UK Government Residual Waste Statistics](https://www.gov.uk/government/statistics/estimates-of-residual-waste-excluding-major-mineral-wastes-and-municipal-residual-waste-in-england/estimates-of-residual-waste-excluding-major-mineral-wastes-and-municipal-residual-waste-in-england).\n\n" +
+                "Accurate data entry will help calculate your annual carbon emissions related to household residual waste.",
                 "Help Information - Household Residual Waste",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
         private string CalculateHouseholdResidualWasteCarbonEmission(double totalWasteInTonne)
         {
             double scalingFactorHouseholdResidualWasteLandfill = 0;
@@ -5260,6 +5277,7 @@ namespace carbonfootprint_tabs
             //Waste/Organic/Residual/Garden wasts
             OrganicFoodWaste_CalculateCarbon(sender, e);
             OrganicGardenWaste_CalculateCarbon(sender, e);
+            HouseholdResidualWaste_CalculateCarbon(sender, e);
             // Display all reports in the message box
             DisplayAllReportsInMessageBox();
             shouldAppend = false;
