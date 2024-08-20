@@ -149,12 +149,12 @@
             this.CommuteTravel_MilesTravelled_Textbox = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.CommuteTravel_emission_label = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.fuelType_groupBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel40 = new System.Windows.Forms.TableLayoutPanel();
             this.CommuteTravel_FuelType_Petrol_RadioButton = new System.Windows.Forms.RadioButton();
             this.CommuteTravel_FuelType_Diesel_RadioButton = new System.Windows.Forms.RadioButton();
             this.CommuteTravel_FuelType_EV_RadioButton = new System.Windows.Forms.RadioButton();
+            this.Help_Commute__Button = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel43 = new System.Windows.Forms.TableLayoutPanel();
             this.Award_officeCommute_Leisure_label = new System.Windows.Forms.Label();
@@ -281,6 +281,7 @@
             this.database_status_button = new System.Windows.Forms.Button();
             this.ExitApp_button = new System.Windows.Forms.Button();
             this.privacyPolicy_button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Watt_LED_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Qty_LED_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HoursUsage_LED_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -321,6 +322,9 @@
             this.ResidualWaste_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.HouseResidualWaste_InKgs_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HouseholdResidualWaste_NumberOfPerson_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.Car_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.Train_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.Bus_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel20.SuspendLayout();
@@ -435,6 +439,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.organicFoodWaste_errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organicGardenWaste_errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ResidualWaste_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Car_CommuteTravel_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Train_CommuteTravel_errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Bus_CommuteTravel_errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -1339,7 +1346,7 @@
             this.Watt_LED_HomeEnergy_textBox.Name = "Watt_LED_HomeEnergy_textBox";
             this.Watt_LED_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Watt_LED_HomeEnergy_textBox.TabIndex = 1;
-            this.Watt_LED_HomeEnergy_toolTip.SetToolTip(this.Watt_LED_HomeEnergy_textBox, "1. Please enter a valid wattage between 5 and 100  on Daily basis. Ex: 20");
+            this.Watt_LED_HomeEnergy_toolTip.SetToolTip(this.Watt_LED_HomeEnergy_textBox, "Enter a value between 5 W and 50 W. Click help for more details.");
             this.Watt_LED_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.LED_HomeEnergy_Carbon_Calculation);
             // 
             // Watt_LED_HomeEnergy_label
@@ -1360,7 +1367,7 @@
             this.Qty_LED_HomeEnergy_textBox.Name = "Qty_LED_HomeEnergy_textBox";
             this.Qty_LED_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Qty_LED_HomeEnergy_textBox.TabIndex = 3;
-            this.Qty_LED_HomeEnergy_toolTip.SetToolTip(this.Qty_LED_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+            this.Qty_LED_HomeEnergy_toolTip.SetToolTip(this.Qty_LED_HomeEnergy_textBox, "Enter a quantity between 1 and 15. Click help for more details.");
             this.Qty_LED_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.LED_HomeEnergy_Carbon_Calculation);
             // 
             // Qty_LED_HomeEnergy_label
@@ -1381,7 +1388,7 @@
             this.HoursDay_LED_HomeEnergy_textBox.Name = "HoursDay_LED_HomeEnergy_textBox";
             this.HoursDay_LED_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.HoursDay_LED_HomeEnergy_textBox.TabIndex = 5;
-            this.HoursUsage_LED_HomeEnergy_toolTip.SetToolTip(this.HoursDay_LED_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24. Ex: 10");
+            this.HoursUsage_LED_HomeEnergy_toolTip.SetToolTip(this.HoursDay_LED_HomeEnergy_textBox, "Enter a value between 1 and 24 hours. Click help for more details.");
             this.HoursDay_LED_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.LED_HomeEnergy_Carbon_Calculation);
             // 
             // HoursDay_LED_HomeEnergy_label
@@ -1887,6 +1894,7 @@
             this.tableLayoutPanel33.Controls.Add(this.groupBox5, 0, 0);
             this.tableLayoutPanel33.Controls.Add(this.tableLayoutPanel37, 0, 1);
             this.tableLayoutPanel33.Controls.Add(this.fuelType_groupBox, 7, 0);
+            this.tableLayoutPanel33.Controls.Add(this.Help_Commute__Button, 3, 1);
             this.tableLayoutPanel33.Controls.Add(this.panel4, 6, 1);
             this.tableLayoutPanel33.Controls.Add(this.carType_groupBox, 4, 0);
             this.tableLayoutPanel33.Controls.Add(this.Award_officeCommute_Leisure_pictureBox, 5, 1);
@@ -2027,7 +2035,6 @@
             this.tableLayoutPanel37.Controls.Add(this.CommuteTravel_MilesTravelled_Textbox, 0, 1);
             this.tableLayoutPanel37.Controls.Add(this.label20, 1, 1);
             this.tableLayoutPanel37.Controls.Add(this.CommuteTravel_emission_label, 0, 2);
-            this.tableLayoutPanel37.Controls.Add(this.button1, 3, 2);
             this.tableLayoutPanel37.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel37.Location = new System.Drawing.Point(3, 115);
             this.tableLayoutPanel37.Name = "tableLayoutPanel37";
@@ -2048,42 +2055,31 @@
             this.CommuteTravel_MilesTravelled_Textbox.Name = "CommuteTravel_MilesTravelled_Textbox";
             this.CommuteTravel_MilesTravelled_Textbox.Size = new System.Drawing.Size(68, 22);
             this.CommuteTravel_MilesTravelled_Textbox.TabIndex = 1;
-            this.office_Commute_toolTip.SetToolTip(this.CommuteTravel_MilesTravelled_Textbox, resources.GetString("CommuteTravel_MilesTravelled_Textbox.ToolTip"));
+            this.office_Commute_toolTip.SetToolTip(this.CommuteTravel_MilesTravelled_Textbox, "\"1. Enter the one-way distance (in miles) for your daily commute to work. Allowed" +
+        " values are between 1 and 100 miles.\"");
             this.CommuteTravel_MilesTravelled_Textbox.TextChanged += new System.EventHandler(this.OfficeCommute_CalculateCarbon);
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.tableLayoutPanel37.SetColumnSpan(this.label20, 3);
-            this.label20.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label20.Location = new System.Drawing.Point(77, 26);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(146, 26);
+            this.label20.Size = new System.Drawing.Size(217, 26);
             this.label20.TabIndex = 0;
-            this.label20.Text = "Daily Commute in Miles";
+            this.label20.Text = "Daily Commute in Miles (One way)";
             // 
             // CommuteTravel_emission_label
             // 
             this.CommuteTravel_emission_label.AutoSize = true;
-            this.tableLayoutPanel37.SetColumnSpan(this.CommuteTravel_emission_label, 3);
+            this.tableLayoutPanel37.SetColumnSpan(this.CommuteTravel_emission_label, 4);
             this.CommuteTravel_emission_label.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CommuteTravel_emission_label.Location = new System.Drawing.Point(3, 62);
             this.CommuteTravel_emission_label.Name = "CommuteTravel_emission_label";
-            this.CommuteTravel_emission_label.Size = new System.Drawing.Size(216, 16);
+            this.CommuteTravel_emission_label.Size = new System.Drawing.Size(291, 16);
             this.CommuteTravel_emission_label.TabIndex = 2;
             this.CommuteTravel_emission_label.Text = "Total Emission:";
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(225, 55);
-            this.button1.Name = "button1";
-            this.tableLayoutPanel37.SetRowSpan(this.button1, 2);
-            this.button1.Size = new System.Drawing.Size(69, 49);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Help Click>";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.HelpClickMe_CommuteTravel_button_Click);
             // 
             // fuelType_groupBox
             // 
@@ -2158,6 +2154,17 @@
             this.CommuteTravel_FuelType_EV_RadioButton.Text = "EV";
             this.CommuteTravel_FuelType_EV_RadioButton.UseVisualStyleBackColor = true;
             this.CommuteTravel_FuelType_EV_RadioButton.CheckedChanged += new System.EventHandler(this.OfficeCommute_CalculateCarbon);
+            // 
+            // Help_Commute__Button
+            // 
+            this.Help_Commute__Button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Help_Commute__Button.Location = new System.Drawing.Point(306, 173);
+            this.Help_Commute__Button.Name = "Help_Commute__Button";
+            this.Help_Commute__Button.Size = new System.Drawing.Size(95, 49);
+            this.Help_Commute__Button.TabIndex = 3;
+            this.Help_Commute__Button.Text = "Help Click>";
+            this.Help_Commute__Button.UseVisualStyleBackColor = true;
+            this.Help_Commute__Button.Click += new System.EventHandler(this.HelpClickMe_CommuteTravel_button_Click);
             // 
             // panel4
             // 
@@ -2339,7 +2346,6 @@
             // 
             // homeOffice_hours_help_button
             // 
-            this.homeOffice_hours_help_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.homeOffice_hours_help_button.Location = new System.Drawing.Point(243, 3);
             this.homeOffice_hours_help_button.Name = "homeOffice_hours_help_button";
             this.homeOffice_hours_help_button.Size = new System.Drawing.Size(45, 50);
@@ -3780,6 +3786,7 @@
             this.tableLayoutPanel44.Controls.Add(this.database_status_button, 7, 1);
             this.tableLayoutPanel44.Controls.Add(this.ExitApp_button, 9, 1);
             this.tableLayoutPanel44.Controls.Add(this.privacyPolicy_button, 8, 1);
+            this.tableLayoutPanel44.Controls.Add(this.button1, 5, 2);
             this.tableLayoutPanel44.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel44.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel44.Name = "tableLayoutPanel44";
@@ -3914,6 +3921,16 @@
             this.privacyPolicy_button.UseVisualStyleBackColor = true;
             this.privacyPolicy_button.Click += new System.EventHandler(this.btnPrivacyPolicy_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(523, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.RecalculateGenerateReport);
+            // 
             // homeOffice_errorProvider
             // 
             this.homeOffice_errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
@@ -3974,6 +3991,18 @@
             // ResidualWaste_errorProvider
             // 
             this.ResidualWaste_errorProvider.ContainerControl = this;
+            // 
+            // Car_CommuteTravel_errorProvider
+            // 
+            this.Car_CommuteTravel_errorProvider.ContainerControl = this;
+            // 
+            // Train_CommuteTravel_errorProvider
+            // 
+            this.Train_CommuteTravel_errorProvider.ContainerControl = this;
+            // 
+            // Bus_CommuteTravel_errorProvider
+            // 
+            this.Bus_CommuteTravel_errorProvider.ContainerControl = this;
             // 
             // Form1
             // 
@@ -4126,6 +4155,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.organicFoodWaste_errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organicGardenWaste_errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ResidualWaste_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Car_CommuteTravel_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Train_CommuteTravel_errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Bus_CommuteTravel_errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4408,7 +4440,7 @@
         private System.Windows.Forms.RadioButton Commute_Bus;
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.PictureBox pictureBox11;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Help_Commute__Button;
         private System.Windows.Forms.ToolTip office_Commute_toolTip;
         private System.Windows.Forms.ErrorProvider errorProvider2;
         private System.Windows.Forms.Label label3;
@@ -4423,6 +4455,10 @@
         private System.Windows.Forms.ToolTip HouseResidualWaste_InKgs_toolTip;
         private System.Windows.Forms.ToolTip HouseholdResidualWaste_NumberOfPerson_toolTip;
         private System.Windows.Forms.PictureBox Award_officeCommute_Leisure_pictureBox;
+        private System.Windows.Forms.ErrorProvider Car_CommuteTravel_errorProvider;
+        private System.Windows.Forms.ErrorProvider Train_CommuteTravel_errorProvider;
+        private System.Windows.Forms.ErrorProvider Bus_CommuteTravel_errorProvider;
+        private System.Windows.Forms.Button button1;
     }
 }
 

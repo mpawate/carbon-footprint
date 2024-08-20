@@ -13,6 +13,7 @@ using System.Data.SQLite;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
+using static System.Net.WebRequestMethods;
 
 namespace carbonfootprint_tabs
 {
@@ -39,6 +40,10 @@ namespace carbonfootprint_tabs
         private string totalHouseholdResidualWasteEmission = "";
         private string totalOrganicFoodWasteEmission = "";
         private string selectedYear = "";
+
+        // Define number of days in a year and working days for commute
+        int daysInYear = 365;
+        int workingDaysInYear = 254; //https://timetastic.co.uk/blog/how-many-working-days-are-in-a-year/
 
         // Boolean flags to track error state
         private bool isWattKettleErrorSet = false;
@@ -71,9 +76,12 @@ namespace carbonfootprint_tabs
 
         private bool isCommuteMilesErrorSet = false;
         private bool isHomeOfficeWorkHoursErrorSet = false;
+        private bool isCarCommuteMilesErrorSet = false;
 
         private bool isWasteConsumptionErrorSet = false;
         private bool isNumberPersonWasteErrorSet = false;
+        private bool isTrainCommuteMilesErrorSet = false;
+        private bool isBusCommuteMilesErrorSet = false;
 
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
         private Random random = new Random();
@@ -216,6 +224,7 @@ namespace carbonfootprint_tabs
             Heater_HomeEnergy_Carbon_Calculation(sender, e);
             CustomEntry_HomeEnergy_Carbon_Calculation(sender, e);
         }
+
         private void CheckDatabaseConnection()
         {
             bool isConnected = false;
@@ -387,7 +396,8 @@ namespace carbonfootprint_tabs
             }
 
         }
-        void HandleCarSelection()
+
+        /*void HandleCarSelection()
         {
             string carType = HomeOfficeGetCarType();
             string fuelType = HomeOfficeGetFuelType();
@@ -421,8 +431,170 @@ namespace carbonfootprint_tabs
 
             Debug.WriteLine($"Total emission: {totalLeisureTravelCarEmission} kg CO2e");
 
+        }*/
+        void HandleCarSelection()
+        {
+            // Default feedback and UI reset
+            CommuteTravel_emission_label.Text = "Emission"; // Assign default value
+            feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+            // Clear the picturebox and label (if applicable)
+            Award_Car_Leisure_picturebox.Image = null;
+            Award_Car_Leisure_picturebox.Visible = false; // Hide the picturebox
+
+            Award_Car_Leisure_label.Text = string.Empty;
+            Award_Car_Leisure_label.Visible = false; // Hide the label
+            feedback_Car_Leisure_label.Text = string.Empty;
+            feedback_Car_Leisure_label.Visible = false; // Assign default value
+
+            // Validate Inputs
+            if (!TryGetMilesTravelledCommute(out double milesTravelled))
+            {
+                if (isCarCommuteMilesErrorSet)
+                {
+                    Car_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isCarCommuteMilesErrorSet = false;
+                }
+                totalCommuteTravelCarEmission = "";
+                feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return; // Exit the method if the input is invalid
+            }
+            else if (milesTravelled < 1 || milesTravelled > 100)
+            {
+                if (!isCarCommuteMilesErrorSet)
+                {
+                    Car_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox,
+                        "Please enter a valid number of miles for one-way travel between 1 and 100 miles. The average one-way distance is approximately 19.5 miles."
+                    );
+                    isCarCommuteMilesErrorSet = true;
+                }
+                totalCommuteTravelCarEmission = "";
+                feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else
+            {
+                if (isCarCommuteMilesErrorSet)
+                {
+                    Car_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isCarCommuteMilesErrorSet = false;
+                }
+            }
+
+            // Validate Car Type and Fuel Type
+            string carType = HomeOfficeGetCarType();
+            string fuelType = HomeOfficeGetFuelType();
+
+            if (carType == "unknown" || fuelType == "unknown")
+            {
+                Debug.WriteLine("Invalid car type or fuel type.");
+                totalCommuteTravelCarEmission = "";
+                feedback_Car_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return; // Exit the method if car type or fuel type is unknown
+            }
+
+            // Perform the calculation only if all inputs are valid
+            if (milesTravelled >= 1 && milesTravelled <= 100 &&
+                carType != "unknown" && fuelType != "unknown")
+            {
+                // Use the carType, fuelType, and milesTravelled variables as needed
+                string emissionFactor = GetEmissionFactor(carType, fuelType);
+                string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
+
+                double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+                CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+                totalCommuteTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average mileage
+                double averageMiles = 9906; // Example average miles per person per year
+                if (milesTravelled > averageMiles)
+                {
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Visible = true;
+                }
+                else
+                {
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Visible = true;
+                }
+
+                UpdateCarCommuteBadge(milesTravelled, averageMiles);
+            }
+
+            Debug.WriteLine($"Total emission: {totalCommuteTravelCarEmission} kg CO2e");
         }
-        void HandleTrainSelection()
+        private void UpdateCarCommuteBadge(double milesTravelled, double averageMiles)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (milesTravelled <= averageMiles)
+            {
+                // Show the "Eco Warrior" badge
+                Award_officeCommute_Leisure_pictureBox.Image = goodPerformanceImages[goodImageIndex];
+                Award_officeCommute_Leisure_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_officeCommute_Leisure_pictureBox.Image = improvementImages[improvementImageIndex];
+                Award_officeCommute_Leisure_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_officeCommute_Leisure_pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_officeCommute_Leisure_pictureBox.Visible = true;
+            Award_officeCommute_Leisure_label.Visible = true;
+        }
+
+        /*void HandleTrainSelection()
         {
             if (!TryGetMilesTravelledCommute(out double milesTravelled))
             {
@@ -438,8 +610,156 @@ namespace carbonfootprint_tabs
 
             Debug.WriteLine($"Total emission: {totalCommuteTravelTrainEmission} kg CO2e");
 
+        }*/
+        void HandleTrainSelection()
+        {
+            // Default feedback and UI reset
+            CommuteTravel_emission_label.Text = "Emission"; // Assign default value
+            feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+            // Clear the picturebox and label (if applicable)
+            Award_officeCommute_Leisure_pictureBox.Image = null;
+            Award_officeCommute_Leisure_pictureBox.Visible = false; // Hide the picturebox
+
+            Award_officeCommute_Leisure_label.Text = string.Empty;
+            Award_officeCommute_Leisure_label.Visible = false; // Hide the label
+            feedback_officeCommute_Leisure_label.Text = string.Empty;
+            feedback_officeCommute_Leisure_label.Visible = false; // Assign default value
+
+            // Validate Inputs
+            if (!TryGetMilesTravelledCommute(out double milesTravelled))
+            {
+                if (isTrainCommuteMilesErrorSet)
+                {
+                    Train_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isTrainCommuteMilesErrorSet = false;
+                }
+                totalCommuteTravelTrainEmission = "";
+                feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return; // Exit the method if the input is invalid
+            }
+            else if (milesTravelled < 1 || milesTravelled > 100)
+            {
+                if (!isTrainCommuteMilesErrorSet)
+                {
+                    Train_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox,
+                        "Please enter a valid number of miles for one-way travel between 1 and 100 miles. The average one-way distance is approximately 36.3 miles for train travel."
+                    );
+                    isTrainCommuteMilesErrorSet = true;
+                }
+                totalCommuteTravelTrainEmission = "";
+                feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else
+            {
+                if (isTrainCommuteMilesErrorSet)
+                {
+                    Train_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isTrainCommuteMilesErrorSet = false;
+                }
+            }
+
+            // Perform the calculation only if all inputs are valid
+            if (milesTravelled >= 1 && milesTravelled <= 100)
+            {
+                //milesTravelled = (milesTravelled * 2) * workingDaysInYear; // Calculate the total annual miles
+                                                                           // Use the milesTravelled variable as needed
+                string emissionFactorTrain = GetEmissionFactorTrain();
+                string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorTrain);
+
+                double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+                CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+                totalCommuteTravelTrainEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average mileage
+                double averageMiles = 18440; // Corrected average miles per person per year for train travel
+                if (milesTravelled > averageMiles)
+                {
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Visible = true;
+                }
+                else
+                {
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Visible = true;
+                }
+
+                UpdateTrainCommuteBadge(milesTravelled, averageMiles);
+            }
+
+            Debug.WriteLine($"Total emission: {totalCommuteTravelTrainEmission} kg CO2e");
         }
-        void HandleBusSelection()
+        private void UpdateTrainCommuteBadge(double milesTravelled, double averageMiles)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+                    Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (milesTravelled <= averageMiles)
+            {
+                // Show the "Eco Warrior" badge
+                Award_officeCommute_Leisure_pictureBox.Image = goodPerformanceImages[goodImageIndex];
+                Award_officeCommute_Leisure_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_officeCommute_Leisure_pictureBox.Image = improvementImages[improvementImageIndex];
+                Award_officeCommute_Leisure_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_officeCommute_Leisure_pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_officeCommute_Leisure_pictureBox.Visible = true;
+            Award_officeCommute_Leisure_label.Visible = true;
+        }
+
+        /*void HandleBusSelection()
         {
             if (!TryGetMilesTravelledCommute(out double milesTravelled))
             {
@@ -455,7 +775,154 @@ namespace carbonfootprint_tabs
 
             Debug.WriteLine($"Total emission: {totalCommuteTravelBusEmission} kg CO2e");
 
+        }*/
+        void HandleBusSelection()
+        {
+            // Default feedback and UI reset
+            CommuteTravel_emission_label.Text = "Emission"; // Assign default value
+            feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+            // Clear the picturebox and label (if applicable)
+            Award_officeCommute_Leisure_pictureBox.Image = null;
+            Award_officeCommute_Leisure_pictureBox.Visible = false; // Hide the picturebox
+
+            Award_officeCommute_Leisure_label.Text = string.Empty;
+            Award_officeCommute_Leisure_label.Visible = false; // Hide the label
+            feedback_officeCommute_Leisure_label.Text = string.Empty;
+            feedback_officeCommute_Leisure_label.Visible = false; // Assign default value
+
+            // Validate Inputs
+            if (!TryGetMilesTravelledCommute(out double milesTravelled))
+            {
+                if (isBusCommuteMilesErrorSet)
+                {
+                    Bus_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isBusCommuteMilesErrorSet = false;
+                }
+                totalCommuteTravelBusEmission = "";
+                feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return; // Exit the method if the input is invalid
+            }
+            else if (milesTravelled < 1 || milesTravelled > 100)
+            {
+                if (!isBusCommuteMilesErrorSet)
+                {
+                    Bus_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox,
+                        "Please enter a valid number of miles for one-way travel between 1 and 100 miles. The average one-way distance is approximately 9.7 miles for bus travel."
+                    );
+                    isBusCommuteMilesErrorSet = true;
+                }
+                totalCommuteTravelBusEmission = "";
+                feedback_officeCommute_Leisure_label.Text = "Feedback"; // Assign default value
+
+                updateGlobalLabel(this, EventArgs.Empty);
+                return;
+            }
+            else
+            {
+                if (isBusCommuteMilesErrorSet)
+                {
+                    Bus_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox, string.Empty);
+                    isBusCommuteMilesErrorSet = false;
+                }
+            }
+
+            // Perform the calculation only if all inputs are valid
+            if (milesTravelled >= 1 && milesTravelled <= 100)
+            {
+                string emissionFactorBus = GetEmissionFactorBus();
+                string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorBus);
+
+                double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+                CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
+                totalCommuteTravelBusEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
+                updateGlobalLabel(this, EventArgs.Empty);
+
+                // Provide feedback based on average mileage
+                double averageMiles = 4923.8; // Example average miles per person per year for bus travel
+                if (milesTravelled > averageMiles)
+                {
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Visible = true;
+                }
+                else
+                {
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Visible = true;
+                }
+
+                UpdateBusCommuteBadge(milesTravelled, averageMiles);
+            }
+
+            Debug.WriteLine($"Total emission: {totalCommuteTravelBusEmission} kg CO2e");
         }
+
+        private void UpdateBusCommuteBadge(double milesTravelled, double averageMiles)
+        {
+            // Define arrays for the images
+            Bitmap[] goodPerformanceImages = {
+                Properties.Resources.crown1,
+                Properties.Resources.crown2,
+                Properties.Resources.trophy_star,
+                Properties.Resources.award,
+                Properties.Resources.trophy,
+                Properties.Resources.ribbon
+            };
+
+            Bitmap[] improvementImages = {
+                Properties.Resources.target,
+                Properties.Resources.person,
+                Properties.Resources.business,
+                Properties.Resources.fail
+            };
+
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
+                "Eco Star",
+                "Great Job",
+                "Top Performer",
+                "Keep Going",
+                "Well Done"
+            };
+
+            string[] improvementPhrases = {
+                "Try Harder",
+                "Improve More",
+                "Keep Going",
+                "Almost There",
+                "Step Up"
+            };
+
+            // Generate random indexes for each array separately
+            int goodImageIndex = random.Next(goodPerformanceImages.Length);
+            int improvementImageIndex = random.Next(improvementImages.Length);
+
+            int goodPhraseIndex = random.Next(goodPerformancePhrases.Length);
+            int improvementPhraseIndex = random.Next(improvementPhrases.Length);
+
+            if (milesTravelled <= averageMiles)
+            {
+                // Show the "Eco Warrior" badge
+                Award_officeCommute_Leisure_pictureBox.Image = goodPerformanceImages[goodImageIndex];
+                Award_officeCommute_Leisure_label.Text = goodPerformancePhrases[goodPhraseIndex];
+            }
+            else
+            {
+                // Show the "You Can Do Better" feedback
+                Award_officeCommute_Leisure_pictureBox.Image = improvementImages[improvementImageIndex];
+                Award_officeCommute_Leisure_label.Text = improvementPhrases[improvementPhraseIndex];
+            }
+
+            // Set the PictureBox's SizeMode to StretchImage to ensure the image covers the entire PictureBox
+            Award_officeCommute_Leisure_pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // Make sure the PictureBox and Label are visible
+            Award_officeCommute_Leisure_pictureBox.Visible = true;
+            Award_officeCommute_Leisure_label.Visible = true;
+        }
+
         private void OfficeCommute_CalculateCarbon(object sender, EventArgs e)
         {
             if (Commute_Car.Checked)
@@ -466,6 +933,18 @@ namespace carbonfootprint_tabs
                 // Clear car type and fuel type radio buttons
                 carType_groupBox.Enabled = true;  // Disable the car type group box
                 fuelType_groupBox.Enabled = true;  // Disable the car type group box
+
+                // Default feedback and UI reset
+                CommuteTravel_emission_label.Text = "Total Emission:"; // Assign default value
+
+                // Clear the picturebox and label (if applicable)
+                Award_officeCommute_Leisure_pictureBox.Image = null;
+                Award_officeCommute_Leisure_pictureBox.Visible = false; // Hide the picturebox
+
+                Award_officeCommute_Leisure_label.Text = string.Empty;
+                Award_officeCommute_Leisure_label.Visible = false; // Hide the label
+                feedback_officeCommute_Leisure_label.Text = string.Empty;
+                feedback_officeCommute_Leisure_label.Visible = false; // Assign default value
 
 
                 HandleCarSelection();
@@ -483,6 +962,19 @@ namespace carbonfootprint_tabs
                 CommuteTravel_FuelType_Petrol_RadioButton.Checked = false;
                 CommuteTravel_FuelType_Diesel_RadioButton.Checked = false;
                 CommuteTravel_FuelType_EV_RadioButton.Checked = false;
+
+                // Default feedback and UI reset
+                CommuteTravel_emission_label.Text = "Total Emission:"; // Assign default value
+
+                // Clear the picturebox and label (if applicable)
+                Award_officeCommute_Leisure_pictureBox.Image = null;
+                Award_officeCommute_Leisure_pictureBox.Visible = false; // Hide the picturebox
+
+                Award_officeCommute_Leisure_label.Text = string.Empty;
+                Award_officeCommute_Leisure_label.Visible = false; // Hide the label
+                feedback_officeCommute_Leisure_label.Text = string.Empty;
+                feedback_officeCommute_Leisure_label.Visible = false; // Assign default value
+
 
                 carType_groupBox.Enabled = false;  // Disable the car type group box
                 fuelType_groupBox.Enabled = false;  // Disable the car type group box
@@ -502,6 +994,18 @@ namespace carbonfootprint_tabs
                 CommuteTravel_FuelType_Diesel_RadioButton.Checked = false;
                 CommuteTravel_FuelType_EV_RadioButton.Checked = false;
 
+                // Default feedback and UI reset
+                CommuteTravel_emission_label.Text = "Total Emission:"; // Assign default value
+
+                // Clear the picturebox and label (if applicable)
+                Award_officeCommute_Leisure_pictureBox.Image = null;
+                Award_officeCommute_Leisure_pictureBox.Visible = false; // Hide the picturebox
+
+                Award_officeCommute_Leisure_label.Text = string.Empty;
+                Award_officeCommute_Leisure_label.Visible = false; // Hide the label
+                feedback_officeCommute_Leisure_label.Text = string.Empty;
+                feedback_officeCommute_Leisure_label.Visible = false; // Assign default value
+
                 carType_groupBox.Enabled = false;  // Disable the car type group box
                 fuelType_groupBox.Enabled = false;  // Disable the car type group box
                 HandleBusSelection();
@@ -511,13 +1015,14 @@ namespace carbonfootprint_tabs
         {
             // Show detailed help message for commute travel
             MessageBox.Show(
-                "Annual Commute Travel Data:\n\n" +
-                "1. Enter the total number of miles traveled for your commute in a year. Use realistic values based on the one-way distance to your workplace.\n" +
-                "   - Car: The average one-way distance is approximately 19.5 miles.\n" +
+                "Daily Commute Travel Data:\n\n" +
+                "1. Enter the one-way distance (in miles) for your daily commute to work. Use realistic values that reflect your typical daily travel.\n" +
+                "   You may enter a value between 1 and 100 miles. \n" +
+                "   - Car: The average one-way distance is approximately 19.5 miles. \n" +
                 "   - Train: The average one-way distance is approximately 36.3 miles.\n" +
                 "   - Bus: The average one-way distance is approximately 9.7 miles.\n" +
-                "2. Ensure that the value reflects your typical commuting pattern, such as daily trips.\n" +
-                "3. This data will be used to calculate your annual carbon emission for commute travel.\n\n" +
+                "2. The one-way distance you enter will be doubled to account for round-trip travel and then multiplied by the number of working days in a year (typically 254 days) to calculate your total annual commuting distance.\n" +
+                "3. This data will be used to calculate your annual carbon emission for commute travel based on the mode of transport you select.\n\n" +
                 "Commuting can significantly contribute to your carbon footprint. Understanding the impact of different transport modes can help you make more sustainable choices.\n\n" +
                 "This section calculates the carbon emission based on your commute travel, using data specific to the UK.",
                 "Help Information - Commute Travel",
@@ -2743,7 +3248,7 @@ namespace carbonfootprint_tabs
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
-
+        int maxQtyLimit = 15; // or 20
         //LED carbon emission calculation
         private void LED_HomeEnergy_Carbon_Calculation(object sender, EventArgs e)
         {
@@ -2778,12 +3283,12 @@ namespace carbonfootprint_tabs
                 }
                 //return;
             }
-            else if (!double.TryParse(Watt_LED_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 5 || wattNumber > 100)
+            else if (!double.TryParse(Watt_LED_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 5 || wattNumber > 50)
             {
                 isValid = false;
                 if (!isWattLEDErrorSet)
                 {
-                    LED_homeEnergy_errorProvider.SetError(Watt_LED_HomeEnergy_textBox, "Please enter a valid wattage between 5 and 100.");
+                    LED_homeEnergy_errorProvider.SetError(Watt_LED_HomeEnergy_textBox, "Enter a value between 5 W and 50 W. Click help for more details.");
                     isWattLEDErrorSet = true;
                 }
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -2840,7 +3345,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHoursLEDErrorSet)
                 {
-                    LED_homeEnergy_errorProvider.SetError(HoursDay_LED_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 24.");
+                    LED_homeEnergy_errorProvider.SetError(HoursDay_LED_HomeEnergy_textBox, "Enter a value between 1 and 24 hours. Click help for more details");
 
                     isHoursLEDErrorSet = true;
                 }
@@ -2894,12 +3399,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(Qty_LED_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1)
+            else if (!double.TryParse(Qty_LED_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1 || wattqty > maxQtyLimit)
             {
                 isValid = false;
                 if (!isQtyLEDErrorSet)
                 {
-                    LED_homeEnergy_errorProvider.SetError(Qty_LED_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    LED_homeEnergy_errorProvider.SetError(Qty_LED_HomeEnergy_textBox, $"Please enter a valid quantity between 1 and {maxQtyLimit}.Click help for more details");
                     isQtyLEDErrorSet = true;
                 }
                 EnergyUsage_LED_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -2964,21 +3469,94 @@ namespace carbonfootprint_tabs
                 double dailyUsageHours = wattHoursResult; // User's input for usage hours
 
                 // Calculate the average daily energy consumption in watts
-                double averageDailyUsage = averageUsageHours * averageWattage;
-                double userDailyUsage = wattHoursResult * wattResult; // User's input for daily usage
-
+                double averageDailyUsage = averageUsageHours * averageWattage * wattQty;
+                double userDailyUsage = wattHoursResult * wattResult * wattQty; // User's input for daily usage
+                string improvementTips = "";
+                string youTubeLink = "";
                 if (userDailyUsage > averageDailyUsage)
                 {
-                    Feedback_LED_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts.";
+                    Feedback_LED_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} LED(s) is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} LED(s).";
+                    improvementTips = "Consider switching to more energy-efficient LEDs or reducing usage duration.";
+                    youTubeLink = "https://www.youtube.com/watch?v=LED_Usage_Tips";
+
                 }
                 else
                 {
-                    Feedback_LED_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is within the average range of {averageUsageHours} hours/day with {averageWattage} watts.";
+                    Feedback_LED_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} LED(s) is within the average range of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} LED(s).";
+                    improvementTips = "Keep up the good work! Consider sharing your efficient practices with others.";
+                    youTubeLink = "No suggestions";
+
                 }
 
                 UpdateLEDUsageBadge(userDailyUsage, averageDailyUsage);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("HomeEnergy", "LED", userDailyUsage, averageDailyUsage, Feedback_LED_HomeEnergy_label.Text, improvementTips, youTubeLink, "Watt");
+                }
             }
         }
+        private void DisplayAllReportsInMessageBox()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var groupedReports = energyReports.GroupBy(r => r.Category);
+
+            foreach (var categoryGroup in groupedReports)
+            {
+                sb.AppendLine($"Category: {categoryGroup.Key}");
+                sb.AppendLine(new string('-', 20));
+
+                foreach (var report in categoryGroup)
+                {
+                    sb.AppendLine($"Item: {report.Item}");
+                    sb.AppendLine($"Usage: {report.Usage:F2} {report.Unit}");  // Use the Unit property
+                    sb.AppendLine($"Average Usage: {report.AverageUsage:F2} {report.Unit}");  // Use the Unit property
+                    sb.AppendLine($"Feedback: {report.Feedback}");
+                    sb.AppendLine($"Improvement Tips: {report.ImprovementTips}");
+                    sb.AppendLine($"YouTube Link: {report.YouTubeLink}");
+                    sb.AppendLine();
+                }
+                sb.AppendLine(new string('=', 40)); // Separator between categories
+                sb.AppendLine();
+            }
+
+            MessageBox.Show(sb.ToString(), "Energy Reports", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Clear the data after generating the report
+            energyReports.Clear();
+        }
+
+        public class EnergyReport
+        {
+            public string Category { get; set; } // HomeEnergy, Commute, Waste, Leisure
+            public string Item { get; set; } // LED, Fan, Kettle, Heater, etc.
+            public double Usage { get; set; }
+            public double AverageUsage { get; set; }
+            public string Unit { get; set; }  // Added Unit property
+            public string Feedback { get; set; }
+            public string ImprovementTips { get; set; }
+            public string YouTubeLink { get; set; }
+        }
+
+        private List<EnergyReport> energyReports = new List<EnergyReport>();
+        public void AppendReport(string category, string item, double usage, double averageUsage, string feedback, string improvementTips, string youTubeLink, string unit)
+        {
+            var report = new EnergyReport
+            {
+                Category = category,
+                Item = item,
+                Usage = usage,
+                AverageUsage = averageUsage,
+                Feedback = feedback,
+                ImprovementTips = improvementTips,
+                YouTubeLink = youTubeLink,
+                Unit = unit  // Set the unit
+            };
+
+            energyReports.Add(report);
+        }
+
         private void UpdateLEDUsageBadge(double userUsage, double averageUsage)
         {
             // Define arrays for the images
@@ -3043,16 +3621,28 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_LED_HomeEnergy_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message
+            // Show detailed help message for LED usage
             MessageBox.Show(
-                "Daily Usage Data:\n\n" +
-                "1. Enter the power consumption of the LED in watts (W). E.g., 40\n" +
-                "2. Enter the number of LED units used. E.g., 5\n" +
-                "3. Enter the number of hours the LED is used per day. E.g., 10",
-                "Help Information",
+                "Daily LED Usage Data:\n\n" +
+                "1. **Power Consumption (W):**\n" +
+                "   - Enter the power consumption of the LED in watts.\n" +
+                "   - Example: 40 W is a typical value.\n" +
+                "   - Valid range: 5 W to 50 W.\n\n" +
+                "2. **Number of LED Units:**\n" +
+                "   - Enter the number of LED units used.\n" +
+                "   - Example: 5 units.\n" +
+                "   - Valid range: 1 to 15 units.\n\n" +
+                "3. **Daily Usage Hours:**\n" +
+                "   - Enter the number of hours the LED is used per day.\n" +
+                "   - Example: 10 hours per day.\n" +
+                "   - Valid range: 1 to 24 hours.\n" +
+                "   - The average daily usage is approximately 8 hours, according to [LED Lighting Usage](https://www.linkedin.com/pulse/how-many-watts-led-lights-good-home-use-winny-wen/).\n\n" +
+                "Note: Accurate data entry will help calculate your daily energy consumption and carbon emissions related to LED usage.",
+                "Help Information - LED Usage",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
 
         //Fan carbon emission calculation
         private void Fan_HomeEnergy_Carbon_Calculation(object sender, EventArgs e)
@@ -3877,12 +4467,14 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average usage
-                double averageUsageHours = 8; // Average usage in hours per day
+                double averageUsageHours = 10; // Average usage in hours per day
                 double averageWattage = 12; // Average wattage in watts
+                //https://www.linkedin.com/pulse/how-many-watts-led-lights-good-home-use-winny-wen/
                 double dailyUsageHours = wattHoursResult; // User's input for usage hours
 
+
                 // Calculate the average daily energy consumption in watts
-                double averageDailyUsage = averageUsageHours * averageWattage;
+                double averageDailyUsage = averageUsageHours * averageWattage * wattQty;
                 double userDailyUsage = wattHoursResult * wattResult; // User's input for daily usage
 
                 if (userDailyUsage > averageDailyUsage)
@@ -4402,10 +4994,6 @@ namespace carbonfootprint_tabs
             string OrganicGardenWasteEmissionPart = ExtractEmissionValue(OrganicGardenWasteEmission);
             Debug.WriteLine($"OrganicFoodWasteEmissionPart: {OrganicGardenWasteEmissionPart}");
 
-            // Define number of days in a year and working days for commute
-            int daysInYear = 365;
-            int workingDaysInYear = 254; //https://timetastic.co.uk/blog/how-many-working-days-are-in-a-year/
-
             // Convert the extracted parts to doubles
             // Extract and parse the total emission part for daily inputs
             double ledEmission = TryParseEmission(ledEmissionPart);
@@ -4441,9 +5029,9 @@ namespace carbonfootprint_tabs
                 customEntryEmission *= daysInYear;
 
                 // Use working days for commute emissions
-                CommuTravelCarEmission *= workingDaysInYear;
-                CommuTravelTrainEmission *= workingDaysInYear;
-                CommuTravelBusEmission *= workingDaysInYear;
+                CommuTravelCarEmission = (CommuTravelCarEmission * 2) *workingDaysInYear;
+                CommuTravelTrainEmission = (CommuTravelTrainEmission * 2) * workingDaysInYear;
+                CommuTravelBusEmission = (CommuTravelBusEmission * 2) * workingDaysInYear;
                 WorkHrsEmission *= workingDaysInYear;
             }
             else
@@ -4530,6 +5118,18 @@ namespace carbonfootprint_tabs
 
         private void fuelType_groupBox_Enter(object sender, EventArgs e)
         {
+
+        }
+
+        bool shouldAppend = false;
+        private void RecalculateGenerateReport(object sender, EventArgs e)
+        {
+            shouldAppend = true;
+            LED_HomeEnergy_Carbon_Calculation(sender, e);
+
+            // Display all reports in the message box
+            DisplayAllReportsInMessageBox();
+            shouldAppend = false;
 
         }
     }
