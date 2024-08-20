@@ -3518,7 +3518,8 @@
             this.OrganicFoodWaste_NumberOfPerson_textbox.Name = "OrganicFoodWaste_NumberOfPerson_textbox";
             this.OrganicFoodWaste_NumberOfPerson_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicFoodWaste_NumberOfPerson_textbox.TabIndex = 5;
-            this.OrganicFoodWaste_NumberOfPerson_toolTip.SetToolTip(this.OrganicFoodWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+            this.OrganicFoodWaste_NumberOfPerson_toolTip.SetToolTip(this.OrganicFoodWaste_NumberOfPerson_textbox, "Enter the number of people in your household. Valid range: 1 to 6 persons. Exampl" +
+        "e: 4 persons. Click for Help.");
             this.OrganicFoodWaste_NumberOfPerson_textbox.TextChanged += new System.EventHandler(this.OrganicFoodWaste_CalculateCarbon);
             // 
             // OrganicFoodWaste_InKgs_textbox
@@ -3529,9 +3530,8 @@
             this.OrganicFoodWaste_InKgs_textbox.Name = "OrganicFoodWaste_InKgs_textbox";
             this.OrganicFoodWaste_InKgs_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicFoodWaste_InKgs_textbox.TabIndex = 1;
-            this.OrganicFoodWaste_InKgs_toolTip.SetToolTip(this.OrganicFoodWaste_InKgs_textbox, "Please enter a valid waste consumption value in kilograms per person. The value s" +
-        "hould be between 1 and 200 kg per year. Note: The average food waste is 95 kg pe" +
-        "r person per year.");
+            this.OrganicFoodWaste_InKgs_toolTip.SetToolTip(this.OrganicFoodWaste_InKgs_textbox, "Enter the amount of organic food waste generated per person annually. Valid range" +
+        ": 1 kg to 200 kg. Example: 95 kg. Click for Help.");
             this.OrganicFoodWaste_InKgs_textbox.TextChanged += new System.EventHandler(this.OrganicFoodWaste_CalculateCarbon);
             // 
             // label43
@@ -3696,7 +3696,8 @@
             this.OrganicGardenWaste_NumberOfPerson_textbox.Name = "OrganicGardenWaste_NumberOfPerson_textbox";
             this.OrganicGardenWaste_NumberOfPerson_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicGardenWaste_NumberOfPerson_textbox.TabIndex = 5;
-            this.OrganicGardenWaste_NumberOfPerson_toolTip.SetToolTip(this.OrganicGardenWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+            this.OrganicGardenWaste_NumberOfPerson_toolTip.SetToolTip(this.OrganicGardenWaste_NumberOfPerson_textbox, "Enter the number of persons in the family. Valid range: 1 to 6 persons. Click for" +
+        " Help.");
             this.OrganicGardenWaste_NumberOfPerson_textbox.TextChanged += new System.EventHandler(this.OrganicGardenWaste_CalculateCarbon);
             // 
             // OrganicGardenWaste_InKgs_textbox
@@ -3707,9 +3708,8 @@
             this.OrganicGardenWaste_InKgs_textbox.Name = "OrganicGardenWaste_InKgs_textbox";
             this.OrganicGardenWaste_InKgs_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicGardenWaste_InKgs_textbox.TabIndex = 1;
-            this.OrganicGardenWaste_InKgs_toolTip.SetToolTip(this.OrganicGardenWaste_InKgs_textbox, "Please enter a valid garden waste consumption value in kilograms per person. The " +
-        "value should be between 1 and 240 kg per year. Note: The average garden waste is" +
-        " 120 kg per person per year.");
+            this.OrganicGardenWaste_InKgs_toolTip.SetToolTip(this.OrganicGardenWaste_InKgs_textbox, "Enter a valid value between 1 kg and 200 kg per person per year. Average: 120 kg." +
+        " Click for Help.");
             this.OrganicGardenWaste_InKgs_textbox.TextChanged += new System.EventHandler(this.OrganicGardenWaste_CalculateCarbon);
             // 
             // label38

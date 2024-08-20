@@ -2181,7 +2181,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isWasteConsumptionErrorSet)
                 {
-                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, "Please enter a valid waste consumption value in kilograms per person. The value should be between 1 and 200 kg per year. Note: The average food waste is 95 kg per person per year.");
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, "Enter the amount of organic food waste generated per person annually. Valid range: 1 kg to 200 kg. Example: 95 kg. Click for Help.");
                     isWasteConsumptionErrorSet = true;
                 }
                 OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
@@ -2233,7 +2233,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isNumberPersonWasteErrorSet)
                 {
-                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_NumberOfPerson_textbox, "Enter the number of people in your household. Valid range: 1 to 6 persons. Example: 4 persons. Click for Help.");
                     isNumberPersonWasteErrorSet = true;
                 }
                 OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
@@ -2300,20 +2300,30 @@ namespace carbonfootprint_tabs
 
                 // Calculate the average annual waste
                 double averageAnnualWaste = averageWastePerPerson * numPersons;
+                string improvementTips = "";
+                string youTubeLink = "";
 
                 if (totalWasteKg > averageAnnualWaste)
                 {
-                    Feedback_OrganicFoodWaste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is higher than the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
-                    Feedback_OrganicFoodWaste_label.Visible = true;
+                    Feedback_OrganicFoodWaste_label.Text = $"Your annual waste of {totalWasteKg:F2} kg for {numPersons} person(s) is higher than the expected average of {averageAnnualWaste:F2} kg for {numPersons} person(s).";
+                    improvementTips = "Consider reducing waste by composting, better meal planning, and understanding portion sizes.";
+                    youTubeLink = "https://www.youtube.com/watch?v=xyQ5ukvSRnA";
                 }
                 else
                 {
-                    Feedback_OrganicFoodWaste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is within the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
-                    Feedback_OrganicFoodWaste_label.Visible = true;
+                    Feedback_OrganicFoodWaste_label.Text = $"Your annual waste of {totalWasteKg:F2} kg for {numPersons} person(s) is within the expected average of {averageAnnualWaste:F2} kg for {numPersons} person(s).";
+                    improvementTips = "Great job! Keep maintaining your low waste levels and consider sharing your practices with others.";
+                    youTubeLink = "No suggestions";
                 }
 
                 // Update the picture box and label based on the user's performance
                 UpdateOrganicFoodWasteBadge(totalWasteKg, averageAnnualWaste);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("Waste", "Food and Organic Waste", totalWasteKg, averageAnnualWaste, Feedback_OrganicFoodWaste_label.Text, improvementTips, youTubeLink, "Kg");
+                }
             }
         }
         private string CalculateOrganicFoodWasteCarbonEmission(double totalWasteInTonne)
@@ -2419,14 +2429,21 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_OrganicFoodWaste_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message
+            // Show detailed help message for Organic Food Waste
             MessageBox.Show(
-                "Annual Organic Food Waste Data:\n\n" +
-                "1. Please enter a valid waste consumption value in kilograms per person. Ex: 95 kg per year (average).\n" +
-                "   - The valid range for waste consumption per person is between 1 kg and 200 kg.\n" +
-                "2. Please enter the number of persons in the family (between 1 and 6).\n" +
-                "   - This data will help calculate the annual carbon emission related to organic food waste.\n\n" +
-                "Note: The average annual food waste per person is around 95 kg in the UK, according to WRAP. For more details, refer to the source: https://www.wrap.ngo/sites/default/files/2024-05/WRAP-Household-Food-and-Drink-Waste-in-the-United-Kingdom-2021-22-v6.1.pdf",
+                "**Annual Organic Food Waste Data**\n\n" +
+                "1. **Waste Consumption per Person (kg):**\n" +
+                "   - Enter the amount of organic food waste generated **per person annually**.\n" +
+                "   - **Example:** 95 kg per year (average).\n" +
+                "   - **Valid Range:** 1 kg to 200 kg.\n\n" +
+                "2. **Number of Persons in Household:**\n" +
+                "   - Enter the total number of people in your household.\n" +
+                "   - **Example:** 4 persons.\n" +
+                "   - **Valid Range:** 1 to 6 persons.\n\n" +
+                " **Note:**\n" +
+                "The average annual food waste per person in the UK is approximately **95 kg**, according to WRAP.\n" +
+                "For more details, refer to the source: [WRAP Report](https://www.wrap.ngo/sites/default/files/2024-05/WRAP-Household-Food-and-Drink-Waste-in-the-United-Kingdom-2021-22-v6.1.pdf).\n\n" +
+                "Accurate data entry will help calculate your household's annual carbon emissions related to organic food waste.",
                 "Help Information - Organic Food Waste",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -2463,12 +2480,12 @@ namespace carbonfootprint_tabs
                     isWasteConsumptionErrorSet = false;
                 }
             }
-            else if (!double.TryParse(OrganicGardenWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || wasteConsumptionInKgsPerPerson <= 0 || wasteConsumptionInKgsPerPerson > 240)
+            else if (!double.TryParse(OrganicGardenWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || wasteConsumptionInKgsPerPerson <= 0 || wasteConsumptionInKgsPerPerson > 200)
             {
                 isValid = false;
                 if (!isWasteConsumptionErrorSet)
                 {
-                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_InKgs_textbox, "Please enter a valid garden waste consumption value in kilograms per person. The value should be between 1 and 240 kg per year. Note: The average garden waste is 120 kg per person per year.");
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_InKgs_textbox, "Enter a valid value between 1 kg and 200 kg per person per year. Average: 120 kg. Click for Help.");
                     isWasteConsumptionErrorSet = true;
                 }
                 GardenWaste_Emission_label.Text = "Emission"; // Assign default value
@@ -2520,7 +2537,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isNumberPersonWasteErrorSet)
                 {
-                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_NumberOfPerson_textbox, "Please enter a valid number of persons in the family (between 1 and 6).");
+                    organicGardenWaste_errorProvider.SetError(OrganicGardenWaste_NumberOfPerson_textbox, "Enter the number of persons in the family. Valid range: 1 to 6 persons. Click for Help.");
                     isNumberPersonWasteErrorSet = true;
                 }
                 GardenWaste_Emission_label.Text = "Emission"; // Assign default value
@@ -2588,19 +2605,31 @@ namespace carbonfootprint_tabs
                 // Calculate the average annual waste
                 double averageAnnualWaste = averageWastePerPerson * numPersons;
 
+                string improvementTips = "";
+                string youTubeLink = "";
+
                 if (totalWasteKg > averageAnnualWaste)
                 {
                     Feedback_Garden_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is higher than the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    improvementTips = "Consider composting organic waste or reducing garden waste through better planning.";
+                    youTubeLink = "https://www.youtube.com/watch?v=mcVQBtJyNIA";
                     Feedback_Garden_Waste_label.Visible = true;
                 }
                 else
                 {
                     Feedback_Garden_Waste_label.Text = $"Feedback: Your annual waste of {totalWasteKg} kg for {numPersons} persons is within the expected average of {averageAnnualWaste} kg for {numPersons} persons.";
+                    improvementTips = "Great job! Keep up the good work by continuing to manage your garden waste efficiently.";
+                    youTubeLink = "No suggestions";
                     Feedback_Garden_Waste_label.Visible = true;
                 }
-
                 // Update the picture box and label based on the user's performance
                 UpdateOrganicGardenWasteBadge(totalWasteKg, averageAnnualWaste);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("Waste", "Garden Waste", totalWasteKg, averageAnnualWaste, Feedback_Garden_Waste_label.Text, improvementTips, youTubeLink, "Kg");
+                }
             }
         }
         private string CalculateOrganicGardenWasteCarbonEmission(double organicGardenwasteConinKgsPerPerson)
@@ -2710,15 +2739,21 @@ namespace carbonfootprint_tabs
             // Show detailed help message for organic garden waste
             MessageBox.Show(
                 "Annual Organic Garden Waste Data:\n\n" +
-                "1. Please enter a valid garden waste consumption value in kilograms per person. Ex: 120 kg per year (average).\n" +
-                "   - The valid range for garden waste consumption per person is between 1 kg and 200 kg.\n" +
-                "2. Please enter the number of persons in the family (between 1 and 6).\n" +
-                "   - This data will help calculate the annual carbon emission related to organic garden waste.\n\n" +
-                "Note: The average annual garden waste per person is approximately 120 kg, according to the study published in MDPI. For more details, refer to the source: https://www.mdpi.com/2079-9276/9/1/8#:~:text=Considering%20the%20average%20household%20size,person%E2%88%921%20year%E2%88%921.",
+                "1. **Garden Waste Consumption (kg/person/year):**\n" +
+                "   - Enter a valid garden waste consumption value in kilograms per person.\n" +
+                "   - Example: 120 kg per year (average).\n" +
+                "   - Valid range: 1 kg to 200 kg.\n\n" +
+                "2. **Number of Persons:**\n" +
+                "   - Enter the number of persons in the family.\n" +
+                "   - Example: 4 persons.\n" +
+                "   - Valid range: 1 to 6 persons.\n\n" +
+                "Note: The average annual garden waste per person is approximately 120 kg, according to the study published in MDPI. For more details, refer to the source: https://www.mdpi.com/2079-9276/9/1/8#:~:text=Considering%20the%20average%20household%20size,person%E2%88%921%20year%E2%88%921.\n\n" +
+                "Accurate data entry will help calculate your annual carbon emissions related to organic garden waste.",
                 "Help Information - Organic Garden Waste",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
 
         //Residual Waste
         private void HouseholdResidualWaste_CalculateCarbon(object sender, EventArgs e)
@@ -5214,11 +5249,17 @@ namespace carbonfootprint_tabs
         private void RecalculateGenerateReport(object sender, EventArgs e)
         {
             shouldAppend = true;
+
+            //Home Energy
             LED_HomeEnergy_Carbon_Calculation(sender, e);
             Fan_HomeEnergy_Carbon_Calculation(sender, e);
             Kettle_HomeEnergy_Carbon_Calculation(sender, e);
             HomeEnergy_CalculateWaterCarbon(sender, e);
             Heater_HomeEnergy_Carbon_Calculation(sender, e);
+
+            //Waste/Organic/Residual/Garden wasts
+            OrganicFoodWaste_CalculateCarbon(sender, e);
+            OrganicGardenWaste_CalculateCarbon(sender, e);
             // Display all reports in the message box
             DisplayAllReportsInMessageBox();
             shouldAppend = false;
