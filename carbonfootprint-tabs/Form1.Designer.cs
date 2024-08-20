@@ -758,7 +758,8 @@
             this.Watt_Heater_HomeEnergy_textBox.Name = "Watt_Heater_HomeEnergy_textBox";
             this.Watt_Heater_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Watt_Heater_HomeEnergy_textBox.TabIndex = 1;
-            this.Watt_Heater_HomeEnergy_toolTip.SetToolTip(this.Watt_Heater_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
+            this.Watt_Heater_HomeEnergy_toolTip.SetToolTip(this.Watt_Heater_HomeEnergy_textBox, "Enter a value between 1500 W and 3000 W. Average value: 2500 W. Click help for mo" +
+        "re details..");
             this.Watt_Heater_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Heater_HomeEnergy_Carbon_Calculation);
             // 
             // Watt_Heater_HomeEnergy_label
@@ -779,7 +780,7 @@
             this.Qty_Heater_HomeEnergy_textBox.Name = "Qty_Heater_HomeEnergy_textBox";
             this.Qty_Heater_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Qty_Heater_HomeEnergy_textBox.TabIndex = 3;
-            this.Qty_Heater_HomeEnergy_toolTip.SetToolTip(this.Qty_Heater_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+            this.Qty_Heater_HomeEnergy_toolTip.SetToolTip(this.Qty_Heater_HomeEnergy_textBox, "Enter a quantity between 1 and 3. Example: 1 unit. Click help for more details.");
             this.Qty_Heater_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Heater_HomeEnergy_Carbon_Calculation);
             // 
             // Qty_Heater_HomeEnergy_label
@@ -800,7 +801,8 @@
             this.HoursDay_Heater_HomeEnergy_textBox.Name = "HoursDay_Heater_HomeEnergy_textBox";
             this.HoursDay_Heater_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.HoursDay_Heater_HomeEnergy_textBox.TabIndex = 5;
-            this.HoursUsage_Heater_HomeEnergy_toolTip.SetToolTip(this.HoursDay_Heater_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 8.");
+            this.HoursUsage_Heater_HomeEnergy_toolTip.SetToolTip(this.HoursDay_Heater_HomeEnergy_textBox, "Enter a value between 1 and 12 hours. Average value: 6 hours. Click help for more" +
+        " details.");
             this.HoursDay_Heater_HomeEnergy_textBox.TextChanged += new System.EventHandler(this.Heater_HomeEnergy_Carbon_Calculation);
             // 
             // HoursDay_Heater_HomeEnergy_label

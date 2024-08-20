@@ -263,7 +263,6 @@ namespace carbonfootprint_tabs
 
             try
             {
-                // Replace with your actual database connection check logic
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
                     connection.Open();
@@ -1947,7 +1946,6 @@ namespace carbonfootprint_tabs
             string fuelParam = "Petrol";
             string unitParam = "miles";
 
-            // Dummy values, replace with actual logic/data fetching based on the provided data.
             if (carType == "small")
             {
                 typeParam = "Small";
@@ -2025,7 +2023,6 @@ namespace carbonfootprint_tabs
             string fuelParam = "Petrol";
             string unitParam = "miles";
 
-            // Dummy values, replace with actual logic/data fetching based on the provided data.
             if (bikeType == "small")
             {
                 typeParam = "Small";
@@ -3037,12 +3034,12 @@ namespace carbonfootprint_tabs
                     isWattWaterErrorSet = false;
                 }
             }
-            else if (!double.TryParse(AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Text, out waterConsumptionLitersPerPerson) || waterConsumptionLitersPerPerson < 0)
+            else if (!double.TryParse(AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Text, out waterConsumptionLitersPerPerson) || waterConsumptionLitersPerPerson < 10 || waterConsumptionLitersPerPerson > 300)
             {
                 isValid = false;
                 if (!isWattWaterErrorSet)
                 {
-                    water_LeisureTravel_errorProvider.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, "Please enter a valid water consumption value in liters per person. Ex: 142 liters per day");
+                    water_LeisureTravel_errorProvider.SetError(AvgLitersDaily_WaterSupply_HomeEnergy_textbox, "Please enter a valid water consumption value between 10 and 300 liters per person.");
                     isWattWaterErrorSet = true;
                 }
                 EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -3088,12 +3085,12 @@ namespace carbonfootprint_tabs
                     isNumnerPersonWaterErrorSet = false;
                 }
             }
-            else if (!double.TryParse(NumberOfPersons_WaterSupply_HomeEnergy_textBox.Text, out numPersons) || numPersons <= 0)
+            else if (!double.TryParse(NumberOfPersons_WaterSupply_HomeEnergy_textBox.Text, out numPersons) || numPersons < 1 || numPersons > 5)
             {
                 isValid = false;
                 if (!isNumnerPersonWaterErrorSet)
                 {
-                    water_LeisureTravel_errorProvider.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, "Please enter a valid number of persons (at least 1).");
+                    water_LeisureTravel_errorProvider.SetError(NumberOfPersons_WaterSupply_HomeEnergy_textBox, "Please enter a valid number of persons between 1 and 5.");
                     isNumnerPersonWaterErrorSet = true;
                 }
                 EnergyUsage_WaterSupply_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -3152,24 +3149,34 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average water usage
-                double averageWaterConsumptionPerPerson = 150; // Average water consumption in liters per person per day
+                double averageWaterConsumptionPerPerson = 150; ; // Average water consumption in liters per person per day
                 double dailyWaterConsumption = waterConsumptionLitersPerPerson * numPersons; // User's input for daily water consumption
 
                 // Calculate the average daily water consumption
                 double averageDailyWaterConsumption = averageWaterConsumptionPerPerson * numPersons;
-
+                string improvementTips = "";
+                string youTubeLink = "";
                 if (dailyWaterConsumption > averageDailyWaterConsumption)
                 {
-                    Feedback_WaterSupply_HomeEnergy_label.Text = $"Feedback: Your daily water usage of {dailyWaterConsumption} liters for {numPersons} persons is higher than the average of {averageDailyWaterConsumption} liters.";
+                    Feedback_WaterSupply_HomeEnergy_label.Text = $"Your water consumption of {dailyWaterConsumption} liters/day for {numPersons} person(s) is higher than the average of {averageDailyWaterConsumption} liters/day for {numPersons} person(s).";
+                    improvementTips = "Consider reducing water usage by fixing leaks, installing water-saving devices, or taking shorter showers.";
+                    youTubeLink = "https://www.youtube.com/watch?v=8tA3GnlaX18";
                 }
                 else
                 {
-                    Feedback_WaterSupply_HomeEnergy_label.Text = $"Feedback: Your daily water usage of {dailyWaterConsumption} liters for {numPersons} persons is within the average range of {averageDailyWaterConsumption} liters.";
+                    Feedback_WaterSupply_HomeEnergy_label.Text = $"Your water consumption of {dailyWaterConsumption} liters/day for {numPersons} person(s) is within the average range of {averageDailyWaterConsumption} liters/day for {numPersons} person(s).";
+                    improvementTips = "Great job on maintaining efficient water usage! Keep it up.";
+                    youTubeLink = "No suggestions";
                 }
 
                 // Update the picture box and label based on the user's performance
                 UpdateWaterSupplyUsageBadge(dailyWaterConsumption, averageDailyWaterConsumption);
-
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("HomeEnergy", "Water", dailyWaterConsumption, averageDailyWaterConsumption, Feedback_WaterSupply_HomeEnergy_label.Text, improvementTips, youTubeLink, "Liters/day");
+                }
             }
         }
         private void UpdateWaterSupplyUsageBadge(double userUsage, double averageUsage)
@@ -3269,15 +3276,24 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_WaterSupply_HomeEnergy_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message
+            // Show detailed help message for Water usage
             MessageBox.Show(
-                "Daily Usage Data:\n\n" +
-                "1. Please enter a valid water consumption value in liters per person. Ex: 142 liters per day\n" +
-                "2. Please enter a valid number of persons (at least 1).",
-                "Help Information",
+                "Daily Water Usage Data:\n\n" +
+                "1. **Water Consumption (Liters):**\n" +
+                "   - Enter the water consumption per person in liters.\n" +
+                "   - Example: 142 liters per day is a typical value.\n" +
+                "   - Valid range: Please ensure the value is realistic based on your household's usage.\n\n" +
+                "2. **Number of Persons:**\n" +
+                "   - Enter the number of persons in your household.\n" +
+                "   - Example: 4 persons.\n" +
+                "   - Valid range: At least 1 person.\n\n" +
+                "Note: The average water usage per person is approximately 142 liters per day, according to [UK Household Water Usage](https://www.cladcodecking.co.uk/blog/post/uk-household-water-usage#:~:text=Average%20Water%20Use-,WHAT%20IS%20THE%20AVERAGE%20WATER%20USE%20PER%20PERSON%20IN%20THE,appliances%2C%20plumbing%20and%20bad%20habits).\n\n" +
+                "Accurate data entry will help calculate your daily water consumption and related carbon emissions.",
+                "Help Information - Water Usage",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
         int maxQtyLimit = 15; // or 20
         //LED carbon emission calculation
         private void LED_HomeEnergy_Carbon_Calculation(object sender, EventArgs e)
@@ -4337,12 +4353,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(Watt_Heater_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 1300 || wattNumber > 1500)
+            else if (!double.TryParse(Watt_Heater_HomeEnergy_textBox.Text, out double wattNumber) || wattNumber < 1500 || wattNumber > 3000)
             {
                 isValid = false;
                 if (!isWattHeaterErrorSet)
                 {
-                    heater_LeisureTravel_errorProvider.SetError(Watt_Heater_HomeEnergy_textBox, "Please enter a valid wattage between 1300 and 1500.");
+                    heater_LeisureTravel_errorProvider.SetError(Watt_Heater_HomeEnergy_textBox, "Enter a value between 1500 W and 3000 W. Average value: 2500 W. Click help for more details..");
                     isWattHeaterErrorSet = true;
                 }
                 EnergyUsage_Heater_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -4394,12 +4410,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(HoursDay_Heater_HomeEnergy_textBox.Text, out double wattHoursNumber) || wattHoursNumber < 1 || wattHoursNumber > 8)
+            else if (!double.TryParse(HoursDay_Heater_HomeEnergy_textBox.Text, out double wattHoursNumber) || wattHoursNumber < 1 || wattHoursNumber > 12)
             {
                 isValid = false;
                 if (!isHoursHeaterErrorSet)
                 {
-                    heater_LeisureTravel_errorProvider.SetError(HoursDay_Heater_HomeEnergy_textBox, "Please enter a valid number of hours between 1 and 8.");
+                    heater_LeisureTravel_errorProvider.SetError(HoursDay_Heater_HomeEnergy_textBox, "Enter a value between 1 and 12 hours. Average value: 6 hours. Click help for more details.");
                     isHoursHeaterErrorSet = true;
                 }
 
@@ -4451,12 +4467,12 @@ namespace carbonfootprint_tabs
 
                 //return;
             }
-            else if (!double.TryParse(Qty_Heater_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1)
+            else if (!double.TryParse(Qty_Heater_HomeEnergy_textBox.Text, out double wattqty) || wattqty < 1 || wattqty > 3)
             {
                 isValid = false;
                 if (!isQtyHeaterErrorSet)
                 {
-                    heater_LeisureTravel_errorProvider.SetError(Qty_Heater_HomeEnergy_textBox, "Please enter a valid quantity (at least 1).");
+                    heater_LeisureTravel_errorProvider.SetError(Qty_Heater_HomeEnergy_textBox, "Enter a quantity between 1 and 3. Example: 1 unit. Click help for more details.");
                     isQtyHeaterErrorSet = true;
                 }
                 EnergyUsage_Heater_HomeEnergy_label.Text = "kWh"; // Assogn default value
@@ -4516,26 +4532,38 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average usage
-                double averageUsageHours = 10; // Average usage in hours per day
-                double averageWattage = 12; // Average wattage in watts
-                //https://www.linkedin.com/pulse/how-many-watts-led-lights-good-home-use-winny-wen/
+                double averageUsageHours = 6; // Average usage in hours per day
+                double averageWattage = 2500; // Average wattage in watts
                 double dailyUsageHours = wattHoursResult; // User's input for usage hours
 
 
                 // Calculate the average daily energy consumption in watts
                 double averageDailyUsage = averageUsageHours * averageWattage * wattQty;
-                double userDailyUsage = wattHoursResult * wattResult; // User's input for daily usage
+                double userDailyUsage = wattHoursResult * wattResult * wattQty; // User's input for daily usage
 
+                string improvementTips = "";
+                string youTubeLink = "";
                 if (userDailyUsage > averageDailyUsage)
                 {
-                    Feedback_Heater_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts.";
+                    Feedback_Heater_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} Heater(s) is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} Heater(s).";
+                    improvementTips = "Consider reducing heater usage or insulating your home better to retain heat, reducing the need for prolonged heater use.";
+                    youTubeLink = "https://www.youtube.com/watch?v=l6XMuf2b0ag"; //
                 }
                 else
                 {
-                    Feedback_Heater_HomeEnergy_label.Text = $"Feedback: Your usage of {dailyUsageHours} hours/day with {wattResult} watts is within the average range of {averageUsageHours} hours/day with {averageWattage} watts.";
+                    Feedback_Heater_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} Heater(s) is within the average range of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} Heater(s).";
+                    improvementTips = "Great job! You’re efficiently using your heater. Consider sharing your energy-saving tips with others.";
+                    youTubeLink = "No suggestions";
                 }
 
+
                 UpdateHeaterUsageBadge(userDailyUsage, averageDailyUsage);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("HomeEnergy", "Heater", userDailyUsage, averageDailyUsage, Feedback_Heater_HomeEnergy_label.Text, improvementTips, youTubeLink, "Watt");
+                }
             }
         }
         private void UpdateHeaterUsageBadge(double userUsage, double averageUsage)
@@ -4598,16 +4626,28 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_Heater_HomeEnergy_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message
+            // Show detailed help message for Heater usage
             MessageBox.Show(
-                "Daily Usage Data:\n\n" +
-                "1. Enter the power consumption of the Space Heater in watts (W). E.g., 1500\n" +
-                "2. Enter the number of Space Heater unit used. E.g., 1\n" +
-                "3. Enter the number of hours the Space Heater is used per day. E.g., 5",
-                "Help Information",
+                "Daily Heater Usage Data:\n\n" +
+                "1. **Power Consumption (W):**\n" +
+                "   - Enter the power consumption of the electric heater in watts.\n" +
+                "   - Example: 2500 W is a typical value.\n" +
+                "   - Valid range: 1500 W to 3000 W.\n\n" +
+                "2. **Number of Heater Units:**\n" +
+                "   - Enter the number of heater units used.\n" +
+                "   - Example: 1 unit.\n" +
+                "   - Valid range: 1 to 3 units.\n\n" +
+                "3. **Daily Usage Hours:**\n" +
+                "   - Enter the number of hours the heater is used per day.\n" +
+                "   - Example: 6 hours per day.\n" +
+                "   - Valid range: 1 to 12 hours.\n\n" +
+                "Note: The typical power consumption for electric heaters is around 2500 W, as detailed in the [Electricity Usage of Heaters](https://www.cse.org.uk/advice/how-much-electricity-am-i-using/?gad_source=1&gclid=Cj0KCQjwt4a2BhD6ARIsALgH7DquYjZpqM0AwEtNpfPKcXwH1W7THSpOhI5S5upg6dXIYd1R1bxwZcwaAn2ZEALw_wcB).\n\n" +
+                "Accurate data entry will help calculate your daily energy consumption and carbon emissions related to heater usage.",
+                "Help Information - Heater Usage",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
 
         //CustomEntry carbon emission calculation
         private void CustomEntry_HomeEnergy_Carbon_Calculation(object sender, EventArgs e)
@@ -5177,6 +5217,8 @@ namespace carbonfootprint_tabs
             LED_HomeEnergy_Carbon_Calculation(sender, e);
             Fan_HomeEnergy_Carbon_Calculation(sender, e);
             Kettle_HomeEnergy_Carbon_Calculation(sender, e);
+            HomeEnergy_CalculateWaterCarbon(sender, e);
+            Heater_HomeEnergy_Carbon_Calculation(sender, e);
             // Display all reports in the message box
             DisplayAllReportsInMessageBox();
             shouldAppend = false;
