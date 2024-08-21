@@ -5416,6 +5416,122 @@ namespace carbonfootprint_tabs
             page.Size = PdfSharp.PageSize.A4;
 
             // Get an XGraphics object for drawing
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XTextFormatter tf = new XTextFormatter(gfx);  // Create XTextFormatter for text formatting
+
+            // Set up the font
+            var myFont = new XFont("Arial", 10, XFontStyleEx.Regular);
+            var boldFont = new XFont("Arial", 10, XFontStyleEx.Bold);
+
+            // Set up initial Y position for text drawing
+            double yPosition = 40;
+            double maxWidth = page.Width - 2 * PageMargin;
+            var groupedReports = energyReports.GroupBy(r => r.Category);
+
+            foreach (var categoryGroup in groupedReports)
+            {
+                yPosition = CheckForPageBreak(document, ref page, ref gfx, ref tf, yPosition);
+
+                gfx.DrawString($"Category: {categoryGroup.Key}", boldFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                yPosition += 20;
+
+                gfx.DrawString(new string('-', 20), myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                yPosition += 20;
+
+                foreach (var report in categoryGroup)
+                {
+                    yPosition = CheckForPageBreak(document, ref page, ref gfx, ref tf, yPosition);
+
+                    gfx.DrawString($"Item: {report.Item}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 15;
+
+                    gfx.DrawString($"Usage: {report.Usage:F2} {report.Unit}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 15;
+
+                    gfx.DrawString($"Average Usage: {report.AverageUsage:F2} {report.Unit}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 15;
+
+                    XRect feedbackRect = new XRect(40, yPosition, maxWidth, page.Height);
+                    tf.DrawString($"Feedback: {report.Feedback}", myFont, XBrushes.Black, feedbackRect);
+                    yPosition += CalculateTextHeight(gfx, report.Feedback, myFont, feedbackRect.Width);
+                    yPosition += 10;
+
+                    yPosition = CheckForPageBreak(document, ref page, ref gfx, ref tf, yPosition);
+
+                    XRect improvementTipsRect = new XRect(40, yPosition, maxWidth, page.Height);
+                    tf.DrawString($"Improvement Tips: {report.ImprovementTips}", myFont, XBrushes.Black, improvementTipsRect);
+                    yPosition += CalculateTextHeight(gfx, report.ImprovementTips, myFont, improvementTipsRect.Width);
+                    yPosition += 15; // Add some space after Improvement Tips
+
+                    gfx.DrawString($"YouTube Link: {report.YouTubeLink}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 20;
+                }
+
+                gfx.DrawString(new string('=', 40), myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                yPosition += 30; // Add extra space between categories
+            }
+
+            // Save the document to the specified file
+            document.Save(filename);
+
+            // Show success message with file path
+            MessageBox.Show($"PDF generated successfully: {filename}", "File Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Clear the energyReports list to avoid appending old data in the next report
+            energyReports.Clear();
+        }
+
+        private double CheckForPageBreak(PdfDocument document, ref PdfPage page, ref XGraphics gfx, ref XTextFormatter tf, double yPosition)
+        {
+            if (yPosition > page.Height - 100) // Adjust 100 as needed for bottom margin
+            {
+                // Create a new page
+                page = document.AddPage();
+                page.Size = PdfSharp.PageSize.A4;
+
+                // Get new XGraphics and XTextFormatter objects
+                gfx = XGraphics.FromPdfPage(page);
+                tf = new XTextFormatter(gfx);
+
+                // Reset Y position for the new page
+                yPosition = 40;
+            }
+            return yPosition;
+        }
+
+        private double CalculateTextHeight(XGraphics gfx, string text, XFont font, double maxWidth)
+        {
+            // Measure the height of the text when wrapped within the maxWidth
+            var size = gfx.MeasureString(text, font);
+            int lines = (int)Math.Ceiling(size.Width / maxWidth);
+            return lines * size.Height;
+        }
+
+        /*
+        private void GeneratePdfFromReports()
+        {
+            // Get the application directory path
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Generate a filename with a timestamp
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string filename = Path.Combine(appDirectory, $"EnergyReport_{timestamp}.pdf");
+
+            if (energyReports.Count == 0)
+            {
+                Console.WriteLine("No reports available to generate PDF.");
+                return;
+            }
+
+            // Create a new PDF document
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Energy Report";
+
+            // Create a new page
+            PdfPage page = document.AddPage();
+            page.Size = PdfSharp.PageSize.A4;
+
+            // Get an XGraphics object for drawing
             //XGraphics gfx = XGraphics.FromPdfPage(page);
             XGraphics gfx = XGraphics.FromPdfPage(page);
             XTextFormatter tf = new XTextFormatter(gfx);  // Create XTextFormatter for text formatting
@@ -5490,6 +5606,7 @@ namespace carbonfootprint_tabs
             int lines = (int)Math.Ceiling(size.Width / maxWidth);
             return lines * size.Height;
         }
+        */
         /*
         private void DisplayAllReportsInPDF()
         {
