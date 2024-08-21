@@ -2060,8 +2060,8 @@
             this.CommuteTravel_MilesTravelled_Textbox.Name = "CommuteTravel_MilesTravelled_Textbox";
             this.CommuteTravel_MilesTravelled_Textbox.Size = new System.Drawing.Size(68, 22);
             this.CommuteTravel_MilesTravelled_Textbox.TabIndex = 1;
-            this.office_Commute_toolTip.SetToolTip(this.CommuteTravel_MilesTravelled_Textbox, "\"1. Enter the one-way distance (in miles) for your daily commute to work. Allowed" +
-        " values are between 1 and 100 miles.\"");
+            this.office_Commute_toolTip.SetToolTip(this.CommuteTravel_MilesTravelled_Textbox, "Please enter a valid number of miles for one-way travel between 1 and 100 miles. " +
+        "Click Help for more information.");
             this.CommuteTravel_MilesTravelled_Textbox.TextChanged += new System.EventHandler(this.OfficeCommute_CalculateCarbon);
             // 
             // label20
@@ -2427,6 +2427,7 @@
             this.HomeOffice_WorkingHours_Textbox.Name = "HomeOffice_WorkingHours_Textbox";
             this.HomeOffice_WorkingHours_Textbox.Size = new System.Drawing.Size(42, 22);
             this.HomeOffice_WorkingHours_Textbox.TabIndex = 2;
+            this.office_Commute_toolTip.SetToolTip(this.HomeOffice_WorkingHours_Textbox, "Please enter a valid number of work hours between 1 and 8");
             this.HomeOffice_WorkingHours_Textbox.TextChanged += new System.EventHandler(this.CalculateHomeOfficeCarbon);
             // 
             // label3

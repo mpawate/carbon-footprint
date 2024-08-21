@@ -426,41 +426,6 @@ namespace carbonfootprint_tabs
 
         }
 
-        /*void HandleCarSelection()
-        {
-            string carType = HomeOfficeGetCarType();
-            string fuelType = HomeOfficeGetFuelType();
-
-            if (!TryGetMilesTravelledCommute(out double milesTravelled))
-            {
-                return; // Exit the method if the input is invalid
-            }
-
-            if (carType == "unknown" || fuelType == "unknown")
-            {
-                Debug.WriteLine("Invalid car type or fuel type.");
-                return; // Exit the method if car type or fuel type is unknown
-            }
-
-
-            // Use the carType, fuelType, and milesTravelled variables as needed
-            Debug.WriteLine($"Selected car type: {carType}");
-            Debug.WriteLine($"Selected fuel type: {fuelType}");
-            Debug.WriteLine($"Miles travelled: {milesTravelled}");
-
-            // Further calculation logic here
-            string emissionFactor = GetEmissionFactor(carType, fuelType);
-            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
-            //string result = $"Total Emission: {overallTotalEmission:F6} kg CO2e (CO2: {overallCO2Emission:F6}, CH4: {overallCH4Emission:F6}, N2O: {overallN2OEmission:F6})";
-
-            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
-            CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
-            totalCommuteTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
-            updateGlobalLabel(this, EventArgs.Empty);
-
-            Debug.WriteLine($"Total emission: {totalLeisureTravelCarEmission} kg CO2e");
-
-        }*/
         void HandleCarSelection()
         {
             // Default feedback and UI reset
@@ -495,7 +460,7 @@ namespace carbonfootprint_tabs
                 if (!isCarCommuteMilesErrorSet)
                 {
                     Car_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox,
-                        "Please enter a valid number of miles for one-way travel between 1 and 100 miles. The average one-way distance is approximately 19.5 miles."
+                        "Please enter a valid one-way travel distance between 1 and 100 miles. The average is 19.5 miles. Click 'Help' for more information."
                     );
                     isCarCommuteMilesErrorSet = true;
                 }
@@ -532,29 +497,43 @@ namespace carbonfootprint_tabs
             if (milesTravelled >= 1 && milesTravelled <= 100 &&
                 carType != "unknown" && fuelType != "unknown")
             {
+                milesTravelled = milesTravelled * 2;//doubling to get roundtrip miles.
+
                 // Use the carType, fuelType, and milesTravelled variables as needed
                 string emissionFactor = GetEmissionFactor(carType, fuelType);
                 string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
-
-                double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
+                double totalEmission = (milesTravelled)* Convert.ToDouble(extractedEmissionFactor);
                 CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
                 totalCommuteTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
                 updateGlobalLabel(this, EventArgs.Empty);
 
-                // Provide feedback based on average mileage
-                double averageMiles = 9906; // Example average miles per person per year
+                // Provide feedback based on average commute mileage
+                string improvementTips = "";
+                string youTubeLink = "";
+                double averageMiles = 19.5;
+
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
-                    feedback_officeCommute_Leisure_label.Visible = true;
+                    feedback_officeCommute_Leisure_label.Text = $"Your daily commute travel of {milesTravelled} miles is higher than the expected average of {averageMiles} miles/year for commuting purposes.";
+                    improvementTips = "Consider carpooling, using public transportation, or switching to a more fuel-efficient vehicle to reduce your carbon footprint.";
+                    youTubeLink = "https://www.youtube.com/watch?v=aQrzTrAh_bg";
                 }
                 else
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
-                    feedback_officeCommute_Leisure_label.Visible = true;
+                    feedback_officeCommute_Leisure_label.Text = $"Your daily commute travel of {milesTravelled} miles is within the expected average of {averageMiles} miles/year for commuting purposes.";
+                    improvementTips = "Great job! Keep up the efficient commuting practices.";
+                    youTubeLink = "No suggestions";
                 }
+                feedback_officeCommute_Leisure_label.Visible = true;
 
                 UpdateCarCommuteBadge(milesTravelled, averageMiles);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("HomeOffice/Commute", "OfficeCarCommute", milesTravelled, averageMiles, feedback_officeCommute_Leisure_label.Text, improvementTips, youTubeLink, "miles");
+                }
+
             }
 
             Debug.WriteLine($"Total emission: {totalCommuteTravelCarEmission} kg CO2e");
@@ -622,24 +601,6 @@ namespace carbonfootprint_tabs
             Award_officeCommute_Leisure_pictureBox.Visible = true;
             Award_officeCommute_Leisure_label.Visible = true;
         }
-
-        /*void HandleTrainSelection()
-        {
-            if (!TryGetMilesTravelledCommute(out double milesTravelled))
-            {
-                return; // Exit the method if the input is invalid
-            }
-            string emissionFactorTrain = GetEmissionFactorTrain();
-            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorTrain);
-            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
-
-            CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
-            totalCommuteTravelTrainEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
-            updateGlobalLabel(this, EventArgs.Empty);
-
-            Debug.WriteLine($"Total emission: {totalCommuteTravelTrainEmission} kg CO2e");
-
-        }*/
         void HandleTrainSelection()
         {
             // Default feedback and UI reset
@@ -674,7 +635,7 @@ namespace carbonfootprint_tabs
                 if (!isTrainCommuteMilesErrorSet)
                 {
                     Train_CommuteTravel_errorProvider.SetError(CommuteTravel_MilesTravelled_Textbox,
-                        "Please enter a valid number of miles for one-way travel between 1 and 100 miles. The average one-way distance is approximately 36.3 miles for train travel."
+                        "Please enter a valid number of miles for one-way travel between 1 and 100 miles. The average one-way distance is approximately 36.3 miles for train travel. Click Help for more information."
                     );
                     isTrainCommuteMilesErrorSet = true;
                 }
@@ -700,26 +661,37 @@ namespace carbonfootprint_tabs
                                                                            // Use the milesTravelled variable as needed
                 string emissionFactorTrain = GetEmissionFactorTrain();
                 string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorTrain);
-
+                milesTravelled = milesTravelled * 2;//doubling to get roundtrip miles.
                 double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
                 CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
                 totalCommuteTravelTrainEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average mileage
-                double averageMiles = 18440; // Corrected average miles per person per year for train travel
+                string improvementTips = "";
+                string youTubeLink = "";
+                double averageMiles = 36.3; // Corrected average miles per person per year for train travel
+
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
-                    feedback_officeCommute_Leisure_label.Visible = true;
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is higher than the average of {averageMiles} miles/year.";
+                    improvementTips = "Consider reducing train travel frequency or exploring remote work options.";
+                    youTubeLink = "https://www.youtube.com/watch?v=eco_travel_tips";
                 }
                 else
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
-                    feedback_officeCommute_Leisure_label.Visible = true;
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is within the average range of {averageMiles} miles/year.";
+                    improvementTips = "Great job! Keep up the efficient travel practices.";
+                    youTubeLink = "No suggestions";
                 }
 
+                feedback_officeCommute_Leisure_label.Visible = true;
+
                 UpdateTrainCommuteBadge(milesTravelled, averageMiles);
+                if (shouldAppend)
+                {
+                    AppendReport("HomeOffice/Commute", "OfficeTrainCommute", milesTravelled, averageMiles, feedback_officeCommute_Leisure_label.Text, improvementTips, youTubeLink, "miles");
+                }
             }
 
             Debug.WriteLine($"Total emission: {totalCommuteTravelTrainEmission} kg CO2e");
@@ -787,24 +759,6 @@ namespace carbonfootprint_tabs
             Award_officeCommute_Leisure_pictureBox.Visible = true;
             Award_officeCommute_Leisure_label.Visible = true;
         }
-
-        /*void HandleBusSelection()
-        {
-            if (!TryGetMilesTravelledCommute(out double milesTravelled))
-            {
-                return; // Exit the method if the input is invalid
-            }
-            string emissionFactorBus = GetEmissionFactorBus();
-            string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorBus);
-            double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
-
-            CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
-            totalCommuteTravelBusEmission = $"Total Emission: {totalEmission:F6} kg CO2e"; ;
-            updateGlobalLabel(this, EventArgs.Empty);
-
-            Debug.WriteLine($"Total emission: {totalCommuteTravelBusEmission} kg CO2e");
-
-        }*/
         void HandleBusSelection()
         {
             // Default feedback and UI reset
@@ -863,31 +817,42 @@ namespace carbonfootprint_tabs
             {
                 string emissionFactorBus = GetEmissionFactorBus();
                 string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorBus);
-
+                milesTravelled = milesTravelled * 2; //doubling to get too and fro data for roundtrip.
                 double totalEmission = milesTravelled * Convert.ToDouble(extractedEmissionFactor);
                 CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
                 totalCommuteTravelBusEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average mileage
-                double averageMiles = 4923.8; // Example average miles per person per year for bus travel
+                string improvementTips = "";
+                string youTubeLink = "";
+                double averageMiles = 9.7; // Example average miles per person per year for bus travel
+
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
-                    feedback_officeCommute_Leisure_label.Visible = true;
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is higher than the average of {averageMiles} miles/year.";
+                    improvementTips = "Consider reducing bus travel frequency or exploring more sustainable alternatives.";
+                    youTubeLink = "https://www.youtube.com/watch?v=eco_travel_tips";
                 }
                 else
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
-                    feedback_officeCommute_Leisure_label.Visible = true;
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is within the average range of {averageMiles} miles/year.";
+                    improvementTips = "Great job! Keep up the efficient travel practices.";
+                    youTubeLink = "No suggestions";
                 }
 
+                feedback_officeCommute_Leisure_label.Visible = true;
+
                 UpdateBusCommuteBadge(milesTravelled, averageMiles);
+                if (shouldAppend)
+                {
+                    AppendReport("HomeOffice/Commute", "OfficeBusCommute", milesTravelled, averageMiles, feedback_officeCommute_Leisure_label.Text, improvementTips, youTubeLink, "miles");
+                }
+
             }
 
             Debug.WriteLine($"Total emission: {totalCommuteTravelBusEmission} kg CO2e");
         }
-
         private void UpdateBusCommuteBadge(double milesTravelled, double averageMiles)
         {
             // Define arrays for the images
@@ -951,7 +916,6 @@ namespace carbonfootprint_tabs
             Award_officeCommute_Leisure_pictureBox.Visible = true;
             Award_officeCommute_Leisure_label.Visible = true;
         }
-
         private void OfficeCommute_CalculateCarbon(object sender, EventArgs e)
         {
             if (Commute_Car.Checked)
@@ -1045,19 +1009,26 @@ namespace carbonfootprint_tabs
             // Show detailed help message for commute travel
             MessageBox.Show(
                 "Daily Commute Travel Data:\n\n" +
-                "1. Enter the one-way distance (in miles) for your daily commute to work. Use realistic values that reflect your typical daily travel.\n" +
-                "   You may enter a value between 1 and 100 miles. \n" +
-                "   - Car: The average one-way distance is approximately 19.5 miles. \n" +
-                "   - Train: The average one-way distance is approximately 36.3 miles.\n" +
-                "   - Bus: The average one-way distance is approximately 9.7 miles.\n" +
-                "2. The one-way distance you enter will be doubled to account for round-trip travel and then multiplied by the number of working days in a year (typically 254 days) to calculate your total annual commuting distance.\n" +
-                "3. This data will be used to calculate your annual carbon emission for commute travel based on the mode of transport you select.\n\n" +
-                "Commuting can significantly contribute to your carbon footprint. Understanding the impact of different transport modes can help you make more sustainable choices.\n\n" +
-                "This section calculates the carbon emission based on your commute travel, using data specific to the UK.",
+                "1. **One-Way Distance (Miles):**\n" +
+                "   - Enter the one-way distance (in miles) for your daily commute to work.\n" +
+                "   - Example: The average one-way distance is approximately:\n" +
+                "       - Car: 19.5 miles\n" +
+                "       - Train: 36.3 miles\n" +
+                "       - Bus: 9.7 miles\n" +
+                "   - Valid range: 1 to 100 miles.\n\n" +
+                "2. **Annual Commute Calculation:**\n" +
+                "   - The one-way distance will be doubled to account for round-trip travel.\n" +
+                "   - It will then be multiplied by the number of working days in a year (typically 254 days) to calculate your total annual commuting distance.\n\n" +
+                "3. **Carbon Emission Calculation:**\n" +
+                "   - This data will be used to calculate your annual carbon emission for commute travel based on the mode of transport you select.\n\n" +
+                "Note: Accurate and realistic data entry is crucial for calculating your carbon footprint. Commuting can significantly contribute to your carbon footprint. Understanding the impact of different transport modes can help you make more sustainable choices.\n\n" +
+                "Source: The average one-way distances for different modes of transport are derived from the Commuter Census 2022 report. For more details, refer to the source: https://cdn.asp.events/CLIENT_Innovati_94A26F7C_B3C0_752F_CC179EFAFD17992A/sites/Innovation-Zero-2023/media/Reports/Commuter-Census-2022.pdf.\n\n" +
+                "The number of working days (254) is based on the analysis provided by Timetastic. For more details, refer to the source: https://timetastic.co.uk/blog/how-many-working-days-are-in-a-year/.",
                 "Help Information - Commute Travel",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
 
         //WorkFromHome carbon emission calculation
         private void CalculateHomeOfficeCarbon(object sender, EventArgs e)
@@ -1135,21 +1106,33 @@ namespace carbonfootprint_tabs
                 HomeOffice_Emission_label.Text = $"Emission: {ExtractEmissionValue(totalWorkHoursEmission):F6} kg CO2e";
                 updateGlobalLabel(this, EventArgs.Empty);
 
-                // Provide feedback based on average work hours or thresholds
-                double averageWorkHours = 5; // Example average number of work hours per year
-                if (totalworkhours > averageWorkHours)
-                {
-                    feedback_homeOffice_Commute_label.Text = $"Feedback: Your work hours of {totalworkhours} exceed the average of {averageWorkHours} hours/year.";
-                    feedback_homeOffice_Commute_label.Visible = true;
+                // Provide feedback based on average usage or thresholds
+                string improvementTips = "";
+                string youTubeLink = "";
+                double averageWorkingHours = 7; // Average number of working hours per day
 
+                if (totalworkhours > averageWorkingHours)
+                {
+                    feedback_homeOffice_Commute_label.Text = $"Your daily working hours of {totalworkhours} exceed the average of {averageWorkingHours} hours.";
+                    improvementTips = "Consider managing your work schedule to balance your working hours and reduce energy consumption during extended hours.";
+                    youTubeLink = "https://www.youtube.com/watch?v=work-life-balance";
                 }
                 else
                 {
-                    feedback_homeOffice_Commute_label.Text = $"Feedback: Your work hours of {totalworkhours} are within the average range of {averageWorkHours} hours/year.";
-                    feedback_homeOffice_Commute_label.Visible = true;
+                    feedback_homeOffice_Commute_label.Text = $"Your daily working hours of {totalworkhours} are within the average range of {averageWorkingHours} hours.";
+                    improvementTips = "Good job on maintaining a balanced work schedule! Continue practicing efficient energy use during your working hours.";
+                    youTubeLink = "No suggestions";
+                }
+                feedback_homeOffice_Commute_label.Visible = true;
+
+                UpdateHomeOfficeBadge(totalworkhours, averageWorkingHours); // Update UI with badges or rewards based on user input
+
+                // Example of using these variables further, like adding to a report or displaying elsewhere
+                if (shouldAppend)
+                {
+                    AppendReport("HomeOffice", "WorkingHours", totalworkhours, averageWorkingHours, feedback_homeOffice_Commute_label.Text, improvementTips, youTubeLink, "Hours");
                 }
 
-                UpdateHomeOfficeBadge(totalworkhours, averageWorkHours); // Update UI with badges or rewards based on user input
             }
         }
         private void UpdateHomeOfficeBadge(double userWorkHours, double averageWorkHours)
@@ -1266,13 +1249,14 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_WorkingHours_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message for home office working hours
+            // Show detailed help message for Home Office Working Hours
             MessageBox.Show(
                 "Home Office Working Hours Data:\n\n" +
-                "1. Enter the total number of hours you work from home each day. E.g., 8\n" +
-                "2. Make sure to enter a realistic value, typically based on your daily work schedule.\n" +
-                "3. This data will be used to calculate your daily carbon emission from working at home.\n\n" +
-                "On average, a typical workday is about 8 hours long. Your input will help estimate your carbon footprint based on the energy usage during these hours.",
+                "1. **Daily Working Hours:**\n" +
+                "   - Enter the total number of hours you work from home each day.\n" +
+                "   - Example: 7 hours is a typical value.\n" +
+                "   - Valid range: 4 hours to 8 hours.\n\n" +
+                "Note: A standard full-time workday typically lasts 8 hours. Entering accurate data will allow for a precise calculation of your daily carbon emissions from working at home, considering energy usage during these hours.",
                 "Help Information - Home Office Working Hours",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -5340,6 +5324,10 @@ namespace carbonfootprint_tabs
             CarLeisureTravel_CalculateCarCarbon(sender, e);
             BikeLeisureTravel_CalculateBikeCarbon(sender, e);
             LeisureTravel_CalculateHotelRoomCarbon(sender, e);
+
+            //HomeOffice/Commute
+            OfficeCommute_CalculateCarbon(sender, e);
+            CalculateHomeOfficeCarbon(sender, e);
             // Display all reports in the message box
             DisplayAllReportsInMessageBox();
             shouldAppend = false;
