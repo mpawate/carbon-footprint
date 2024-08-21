@@ -14,7 +14,16 @@ using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using static System.Net.WebRequestMethods;
-
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
+using System.Diagnostics;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing.Layout;
 namespace carbonfootprint_tabs
 {
     public partial class Form1 : Form
@@ -279,14 +288,14 @@ namespace carbonfootprint_tabs
             if (isConnected)
             {
                 database_status_button.Text = "DB Connected";
-                database_status_button.BackColor = Color.Green;
-                database_status_button.ForeColor = Color.White; // Optional: To make the text readable
+                //database_status_button.BackColor = Color.Green;
+                //database_status_button.ForeColor = Color.White; // Optional: To make the text readable
             }
             else
             {
                 database_status_button.Text = "DB Disconnected";
-                database_status_button.BackColor = Color.Red;
-                database_status_button.ForeColor = Color.White; // Optional: To make the text readable
+                //database_status_button.BackColor = Color.Red;
+                //database_status_button.ForeColor = Color.White; // Optional: To make the text readable
             }
         }
         /*
@@ -5329,9 +5338,230 @@ namespace carbonfootprint_tabs
             OfficeCommute_CalculateCarbon(sender, e);
             CalculateHomeOfficeCarbon(sender, e);
             // Display all reports in the message box
-            DisplayAllReportsInMessageBox();
+            //DisplayAllReportsInMessageBox();
+            //DisplayAllReportsInPDF();
+            //DisplayAllReportsInPDFSharp();
+            GeneratePdfFromReports();
             shouldAppend = false;
 
         }
+        private bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                return true; // The file is locked
+            }
+            return false; // The file is not locked
+        }
+        private void DisplayAllReportsInPDFSharp()
+        {
+            // Create a new PDF document
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Created with PDFsharp";
+
+            // Create an empty page
+            PdfPage page = document.AddPage();
+
+            // Get an XGraphics object for drawing
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Create a font using a supported typeface and style
+            //XFont font = new XFont("Arial", 20, XFontStyle.Normal);
+            var myFont = new XFont("Arial", 10, XFontStyleEx.Regular);
+
+            // Draw the text "Hello, World!" in the center of the page
+            gfx.DrawString("Hello, World!", myFont, XBrushes.Black,
+                new XRect(0, 0, page.Width, page.Height),
+                XStringFormats.Center);
+
+            // Save the document...
+            const string filename = "HelloWorld.pdf";
+            document.Save(filename);
+
+            // ...and start a viewer to display the file
+            Process.Start(new ProcessStartInfo(filename) { UseShellExecute = true });
+        }
+        private const double PageMargin = 40;
+        private const double LineHeight = 15;
+        private const double PageHeight = 842;  // A4 page height in points (approx.)
+
+        private void GeneratePdfFromReports()
+        {
+            // Get the application directory path
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Generate a filename with a timestamp
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string filename = Path.Combine(appDirectory, $"EnergyReport_{timestamp}.pdf");
+
+            if (energyReports.Count == 0)
+            {
+                Console.WriteLine("No reports available to generate PDF.");
+                return;
+            }
+
+            // Create a new PDF document
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Energy Report";
+
+            // Create a new page
+            PdfPage page = document.AddPage();
+            page.Size = PdfSharp.PageSize.A4;
+
+            // Get an XGraphics object for drawing
+            //XGraphics gfx = XGraphics.FromPdfPage(page);
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XTextFormatter tf = new XTextFormatter(gfx);  // Create XTextFormatter for text formatting
+
+            // Set up the font
+            var myFont = new XFont("Arial", 10, XFontStyleEx.Regular);
+            var boldFont = new XFont("Arial", 10, XFontStyleEx.Bold);
+
+            // Set up initial Y position for text drawing
+            //double yPosition = 40;
+            //double maxWidth = page.Width - 80;  // Define maxWidth within the context
+            double yPosition = PageMargin;
+            double maxWidth = page.Width - 2 * PageMargin;
+            var groupedReports = energyReports.GroupBy(r => r.Category);
+
+            foreach (var categoryGroup in groupedReports)
+            {
+                gfx.DrawString($"Category: {categoryGroup.Key}", boldFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                yPosition += 20;
+
+                gfx.DrawString(new string('-', 20), myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                yPosition += 20;
+
+                foreach (var report in categoryGroup)
+                {
+                    gfx.DrawString($"Item: {report.Item}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 15;
+
+                    gfx.DrawString($"Usage: {report.Usage:F2} {report.Unit}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 15;
+
+                    gfx.DrawString($"Average Usage: {report.AverageUsage:F2} {report.Unit}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 15;
+
+                    // Calculate feedback height and check for overflow
+                    XRect feedbackRect = new XRect(40, yPosition, maxWidth, page.Height);
+                    tf.DrawString($"Feedback: {report.Feedback}", myFont, XBrushes.Black, feedbackRect);
+                    yPosition += CalculateTextHeight(gfx, report.Feedback, myFont, feedbackRect.Width);
+                    yPosition += 10;
+
+                    // Handle Improvement Tips
+                    XRect improvementTipsRect = new XRect(40, yPosition, maxWidth, page.Height);
+                    tf.DrawString($"Improvement Tips: {report.ImprovementTips}", myFont, XBrushes.Black, improvementTipsRect);
+                    yPosition += CalculateTextHeight(gfx, report.ImprovementTips, myFont, improvementTipsRect.Width);
+                    yPosition += 15; // Add some space after Improvement Tips
+
+                    //gfx.DrawString($"Improvement Tips: {report.ImprovementTips}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    //yPosition += 15;
+
+                    gfx.DrawString($"YouTube Link: {report.YouTubeLink}", myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPosition += 20;
+
+                }
+
+                gfx.DrawString(new string('=', 40), myFont, XBrushes.Black, new XRect(40, yPosition, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                yPosition += 30; // Add extra space between categories
+            }
+
+            // Save the document to the specified file
+            document.Save(filename);
+
+            // Show success message with file path
+            MessageBox.Show($"PDF generated successfully: {filename}", "File Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Clear the energyReports list to avoid appending old data in the next report
+            energyReports.Clear();
+        }
+        private double CalculateTextHeight(XGraphics gfx, string text, XFont font, double maxWidth)
+        {
+            // Measure the height of the text when wrapped within the maxWidth
+            var size = gfx.MeasureString(text, font);
+            int lines = (int)Math.Ceiling(size.Width / maxWidth);
+            return lines * size.Height;
+        }
+        /*
+        private void DisplayAllReportsInPDF()
+        {
+            // Configure QuestPDF to use the community license
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            // Example data - you would typically call AppendReport from different parts of your application
+            //AppendReport("Home Energy", "LED", 10, 8, "Good job", "Switch to LED bulbs for better efficiency.", "https://example.com", "kWh");
+            //AppendReport("Commute", "Car", 50, 40, "Consider alternatives", "Try carpooling or using public transport.", "https://example.com", "miles");
+            //AppendReport("Waste", "Plastic", 30, 20, "Reduce usage", "Try to reduce plastic waste by reusing and recycling.", "https://example.com", "kg");
+
+            // Ensure there is content to generate
+            // Ensure the file is deleted before creating a new one
+            // Check if the file is locked
+            // Generate a filename with a timestamp
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            //string filename = $"EnergyReport_{timestamp}.pdf";
+            string filename = Path.Combine(appDirectory, $"EnergyReport_{timestamp}.pdf");
+
+
+            if (energyReports.Count == 0)
+            {
+                Console.WriteLine("No reports available to generate PDF.");
+                return;
+            }
+
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(12));
+
+                    page.Content().PaddingVertical(1, Unit.Centimetre).Column(column =>
+                    {
+                        var groupedReports = energyReports.GroupBy(r => r.Category);
+
+                        foreach (var categoryGroup in groupedReports)
+                        {
+                            column.Item().Text($"Category: {categoryGroup.Key}").Bold();
+                            column.Item().Text(new string('-', 20));
+
+                            foreach (var report in categoryGroup)
+                            {
+                                column.Item().Text($"Item: {report.Item}");
+                                column.Item().Text($"Usage: {report.Usage:F2} {report.Unit}");
+                                column.Item().Text($"Average Usage: {report.AverageUsage:F2} {report.Unit}");
+                                column.Item().Text($"Feedback: {report.Feedback}");
+                                column.Item().Text($"Improvement Tips: {report.ImprovementTips}");
+                                column.Item().Text($"YouTube Link: {report.YouTubeLink}");
+                                column.Item().Text(""); // Add a blank line
+                            }
+
+                            column.Item().Text(new string('=', 40)); // Separator between categories
+                            column.Item().Text(""); // Add a blank line
+                        }
+                    });
+                });
+            })
+            .GeneratePdf(filename);
+
+            Console.WriteLine("PDF generated successfully!");
+            // Show success message with file path
+            MessageBox.Show($"PDF generated successfully: {filename}", "File Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            energyReports.Clear();
+
+        }
+        */
     }
 }

@@ -203,6 +203,7 @@
             this.tableLayoutPanel19 = new System.Windows.Forms.TableLayoutPanel();
             this.feedback_Bike_Leisure_label = new System.Windows.Forms.Label();
             this.Award_Bike_Leisure_label = new System.Windows.Forms.Label();
+            this.Help_LeisureTravel__Bike_Button = new System.Windows.Forms.Button();
             this.CarGroupBox = new System.Windows.Forms.GroupBox();
             this.Car_LeisureTravel_Layout = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
@@ -327,7 +328,7 @@
             this.Bus_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.milesTravelledCarLeisure_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.milesTravelledBikeLeisure_toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.Help_LeisureTravel__Bike_Button = new System.Windows.Forms.Button();
+            this.pdf_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel20.SuspendLayout();
@@ -2837,6 +2838,18 @@
             this.Award_Bike_Leisure_label.TabIndex = 0;
             this.Award_Bike_Leisure_label.Text = "Award Ceremony";
             // 
+            // Help_LeisureTravel__Bike_Button
+            // 
+            this.Help_LeisureTravel__Bike_Button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Help_LeisureTravel__Bike_Button.Location = new System.Drawing.Point(225, 53);
+            this.Help_LeisureTravel__Bike_Button.Name = "Help_LeisureTravel__Bike_Button";
+            this.tableLayoutPanel19.SetRowSpan(this.Help_LeisureTravel__Bike_Button, 2);
+            this.Help_LeisureTravel__Bike_Button.Size = new System.Drawing.Size(69, 46);
+            this.Help_LeisureTravel__Bike_Button.TabIndex = 17;
+            this.Help_LeisureTravel__Bike_Button.Text = "Help Click Me>";
+            this.Help_LeisureTravel__Bike_Button.UseVisualStyleBackColor = true;
+            this.Help_LeisureTravel__Bike_Button.Click += new System.EventHandler(this.HelpClickMe_LeisureTravel_Bike_button_Click);
+            // 
             // CarGroupBox
             // 
             this.CarGroupBox.Controls.Add(this.Car_LeisureTravel_Layout);
@@ -3800,6 +3813,7 @@
             this.tableLayoutPanel44.Controls.Add(this.ExitApp_button, 9, 1);
             this.tableLayoutPanel44.Controls.Add(this.privacyPolicy_button, 8, 1);
             this.tableLayoutPanel44.Controls.Add(this.button1, 5, 2);
+            this.tableLayoutPanel44.Controls.Add(this.pdf_button, 6, 2);
             this.tableLayoutPanel44.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel44.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel44.Name = "tableLayoutPanel44";
@@ -4017,17 +4031,14 @@
             // 
             this.Bus_CommuteTravel_errorProvider.ContainerControl = this;
             // 
-            // Help_LeisureTravel__Bike_Button
+            // pdf_button
             // 
-            this.Help_LeisureTravel__Bike_Button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Help_LeisureTravel__Bike_Button.Location = new System.Drawing.Point(225, 53);
-            this.Help_LeisureTravel__Bike_Button.Name = "Help_LeisureTravel__Bike_Button";
-            this.tableLayoutPanel19.SetRowSpan(this.Help_LeisureTravel__Bike_Button, 2);
-            this.Help_LeisureTravel__Bike_Button.Size = new System.Drawing.Size(69, 46);
-            this.Help_LeisureTravel__Bike_Button.TabIndex = 17;
-            this.Help_LeisureTravel__Bike_Button.Text = "Help Click Me>";
-            this.Help_LeisureTravel__Bike_Button.UseVisualStyleBackColor = true;
-            this.Help_LeisureTravel__Bike_Button.Click += new System.EventHandler(this.HelpClickMe_LeisureTravel_Bike_button_Click);
+            this.pdf_button.Location = new System.Drawing.Point(627, 67);
+            this.pdf_button.Name = "pdf_button";
+            this.pdf_button.Size = new System.Drawing.Size(75, 23);
+            this.pdf_button.TabIndex = 9;
+            this.pdf_button.Text = "pdf";
+            this.pdf_button.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -4487,6 +4498,7 @@
         private System.Windows.Forms.ToolTip milesTravelledCarLeisure_toolTip;
         private System.Windows.Forms.ToolTip milesTravelledBikeLeisure_toolTip;
         private System.Windows.Forms.Button Help_LeisureTravel__Bike_Button;
+        private System.Windows.Forms.Button pdf_button;
     }
 }
 
