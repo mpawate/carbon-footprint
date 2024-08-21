@@ -325,6 +325,9 @@
             this.Car_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.Train_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.Bus_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.milesTravelledCarLeisure_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.milesTravelledBikeLeisure_toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.Help_LeisureTravel__Bike_Button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel20.SuspendLayout();
@@ -2668,7 +2671,8 @@
             this.LeisureTravel_HotelStay_Textbox.Name = "LeisureTravel_HotelStay_Textbox";
             this.LeisureTravel_HotelStay_Textbox.Size = new System.Drawing.Size(42, 22);
             this.LeisureTravel_HotelStay_Textbox.TabIndex = 2;
-            this.TotalNights_HotelStay_Leisure_toolTip.SetToolTip(this.LeisureTravel_HotelStay_Textbox, "Please enter a valid number of nights between 1 and 30.");
+            this.TotalNights_HotelStay_Leisure_toolTip.SetToolTip(this.LeisureTravel_HotelStay_Textbox, "Enter a value between 1 and 30 nights. The average hotel stay for a single leisur" +
+        "e trip is around 6.5 nights. Click for Help.");
             this.LeisureTravel_HotelStay_Textbox.TextChanged += new System.EventHandler(this.LeisureTravel_CalculateHotelRoomCarbon);
             // 
             // leisuretravel_HotelStay_emission_label
@@ -2761,6 +2765,8 @@
             this.MilesTravelled_Bike_LeisureTravel_Textbox.Name = "MilesTravelled_Bike_LeisureTravel_Textbox";
             this.MilesTravelled_Bike_LeisureTravel_Textbox.Size = new System.Drawing.Size(68, 22);
             this.MilesTravelled_Bike_LeisureTravel_Textbox.TabIndex = 1;
+            this.milesTravelledBikeLeisure_toolTip.SetToolTip(this.MilesTravelled_Bike_LeisureTravel_Textbox, "Enter a value between 100 miles and 5000 miles. Example: 1053 miles (average). Cl" +
+        "ick for Help..");
             this.MilesTravelled_Bike_LeisureTravel_Textbox.TextChanged += new System.EventHandler(this.BikeLeisureTravel_CalculateBikeCarbon);
             // 
             // label4
@@ -2795,6 +2801,7 @@
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel19.Controls.Add(this.feedback_Bike_Leisure_label, 0, 2);
             this.tableLayoutPanel19.Controls.Add(this.Award_Bike_Leisure_label, 0, 1);
+            this.tableLayoutPanel19.Controls.Add(this.Help_LeisureTravel__Bike_Button, 3, 2);
             this.tableLayoutPanel19.Location = new System.Drawing.Point(104, 116);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 4;
@@ -3110,6 +3117,8 @@
             this.MilesTravelled_Car_LeisureTravel_Textbox.Name = "MilesTravelled_Car_LeisureTravel_Textbox";
             this.MilesTravelled_Car_LeisureTravel_Textbox.Size = new System.Drawing.Size(68, 22);
             this.MilesTravelled_Car_LeisureTravel_Textbox.TabIndex = 1;
+            this.milesTravelledCarLeisure_toolTip.SetToolTip(this.MilesTravelled_Car_LeisureTravel_Textbox, "Enter a value between 100 miles and 5000 miles. Example: 1053 miles (average). Cl" +
+        "ick for Help.");
             this.MilesTravelled_Car_LeisureTravel_Textbox.TextChanged += new System.EventHandler(this.CarLeisureTravel_CalculateCarCarbon);
             // 
             // label2
@@ -4007,6 +4016,18 @@
             // 
             this.Bus_CommuteTravel_errorProvider.ContainerControl = this;
             // 
+            // Help_LeisureTravel__Bike_Button
+            // 
+            this.Help_LeisureTravel__Bike_Button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Help_LeisureTravel__Bike_Button.Location = new System.Drawing.Point(225, 53);
+            this.Help_LeisureTravel__Bike_Button.Name = "Help_LeisureTravel__Bike_Button";
+            this.tableLayoutPanel19.SetRowSpan(this.Help_LeisureTravel__Bike_Button, 2);
+            this.Help_LeisureTravel__Bike_Button.Size = new System.Drawing.Size(69, 46);
+            this.Help_LeisureTravel__Bike_Button.TabIndex = 17;
+            this.Help_LeisureTravel__Bike_Button.Text = "Help Click Me>";
+            this.Help_LeisureTravel__Bike_Button.UseVisualStyleBackColor = true;
+            this.Help_LeisureTravel__Bike_Button.Click += new System.EventHandler(this.HelpClickMe_LeisureTravel_Bike_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -4462,6 +4483,9 @@
         private System.Windows.Forms.ErrorProvider Train_CommuteTravel_errorProvider;
         private System.Windows.Forms.ErrorProvider Bus_CommuteTravel_errorProvider;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip milesTravelledCarLeisure_toolTip;
+        private System.Windows.Forms.ToolTip milesTravelledBikeLeisure_toolTip;
+        private System.Windows.Forms.Button Help_LeisureTravel__Bike_Button;
     }
 }
 

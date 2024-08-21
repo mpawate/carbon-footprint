@@ -1356,7 +1356,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isCarLeisureMilesErrorSet)
                 {
-                    Car_LeisureTravel_errorProvider.SetError(MilesTravelled_Car_LeisureTravel_Textbox, "Please enter a valid number of miles between 1 and 5,000.");
+                    Car_LeisureTravel_errorProvider.SetError(MilesTravelled_Car_LeisureTravel_Textbox, "Enter a value between 100 miles and 5000 miles. Example: 1053 miles (average). Click for Help..");
                     isCarLeisureMilesErrorSet = true;
                 }
                 totalLeisureTravelCarEmission = "";
@@ -1414,19 +1414,31 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average mileage
-                double averageMiles = 1053; // Example average miles per person per year
+                string improvementTips = "";
+                string youTubeLink = "";
+                double averageMiles = 1053; // Average distance in miles per person per year for leisure purposes
+
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_Car_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
-                    feedback_Car_Leisure_label.Visible = true;
+                    feedback_Car_Leisure_label.Text = $"Your annual leisure travel of {milesTravelled} miles is higher than the expected average of {averageMiles} miles/year for leisure purposes.";
+                    improvementTips = "Consider reducing car trips or using more fuel-efficient vehicles.";
+                    youTubeLink = "https://www.youtube.com/watch?v=coecYbPfKuk&t=573s";
                 }
                 else
                 {
-                    feedback_Car_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
-                    feedback_Car_Leisure_label.Visible = true;
+                    feedback_Car_Leisure_label.Text = $"Your annual leisure travel of {milesTravelled} miles is within the expected average of {averageMiles} miles/year for leisure purposes.";
+                    improvementTips = "Great job! Continue practicing efficient travel methods.";
+                    youTubeLink = "No suggestions";
                 }
+                feedback_Car_Leisure_label.Visible = true;
 
                 UpdateCarLeisureBadge(milesTravelled, averageMiles);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("Leisure", "Car", milesTravelled, averageMiles, feedback_Car_Leisure_label.Text, improvementTips, youTubeLink, "Miles/Year");
+                }
             }
         }
         private void UpdateCarLeisureBadge(double userMileage, double averageMileage)
@@ -1495,15 +1507,16 @@ namespace carbonfootprint_tabs
         }
         private void HelpClickMe_CarLeisureTravel_button_Click(object sender, EventArgs e)
         {
-            // Show detailed help message for car leisure travel
+            // Show detailed help message for Leisure Travel by Car
             MessageBox.Show(
-                "Annual Car Leisure Travel Data:\n\n" +
-                "1. Enter the total number of miles traveled by car for leisure purposes in a year. E.g., 1053\n" +
-                "2. Make sure to enter a realistic value, typically based on your leisure activities throughout the year.\n" +
-                "3. This data will be used to calculate your annual carbon emission for leisure car travel.\n\n" +
-                "In 2018, the average person in England traveled 1,053 miles per year for leisure purposes, such as visiting friends, entertainment, and holidays, primarily by car or van.\n\n" +
-                "This section calculates the carbon emission based on your car travel, using data specific to the UK.",
-                "Help Information - Leisure Car Travel",
+                "Annual Leisure Travel Data (Car):\n\n" +
+                "1. **Distance Travelled (Miles):**\n" +
+                "   - Enter the total distance you travel by car annually for leisure purposes.\n" +
+                "   - Example: 1053 miles is a typical value.\n" +
+                "   - Valid range: 100 miles to 5000 miles.\n\n" +
+                "Note: The average annual distance travelled by car for leisure purposes in the UK is approximately 1,053 miles per person, according to Statista. For more details, refer to the source: https://www.statista.com/statistics/467325/average-distance-travelled-for-leisure-purposes-by-mode-england/.\n\n" +
+                "Accurate data entry will help calculate your annual carbon emissions related to leisure travel.",
+                "Help Information - Leisure Travel (Car)",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
@@ -1627,12 +1640,12 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
                 return;
             }
-            else if (!double.TryParse(MilesTravelled_Bike_LeisureTravel_Textbox.Text, out milesTravelled) || milesTravelled < 1 || milesTravelled > 5000)
+            else if (!double.TryParse(MilesTravelled_Bike_LeisureTravel_Textbox.Text, out milesTravelled) || milesTravelled < 100 || milesTravelled > 5000)
             {
                 isValid = false;
                 if (!isBikeLeisureMilesErrorSet)
                 {
-                    Bike_LeisureTravel_errorProvider2.SetError(MilesTravelled_Bike_LeisureTravel_Textbox, "Please enter a valid number of miles between 1 and 5,000.");
+                    Bike_LeisureTravel_errorProvider2.SetError(MilesTravelled_Bike_LeisureTravel_Textbox, "Enter a value between 100 miles and 5000 miles. Example: 1053 miles (average). Click for Help..");
                     isBikeLeisureMilesErrorSet = true;
                 }
                 totalLeisureTravelBikeEmission = "";
@@ -1688,27 +1701,54 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average mileage
-                double averageMiles = 1053; // Example average miles per person per year
+                string improvementTips = "";
+                string youTubeLink = "";
+                double averageMiles = 1053; // Average distance in miles per person per year for leisure purposes
+
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_Bike_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is higher than the average of {averageMiles} miles/year.";
-                    feedback_Bike_Leisure_label.Visible = true;
+                    feedback_Bike_Leisure_label.Text = $"Your annual leisure travel of {milesTravelled} miles is higher than the expected average of {averageMiles} miles/year for leisure purposes.";
+                    improvementTips = "Consider reducing car trips or using more fuel-efficient vehicles.";
+                    youTubeLink = "https://www.youtube.com/watch?v=coecYbPfKuk&t=573s";
                 }
                 else
                 {
-                    feedback_Bike_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/year is within the average range of {averageMiles} miles/year.";
-                    feedback_Bike_Leisure_label.Visible = true;
+                    feedback_Bike_Leisure_label.Text = $"Your annual leisure travel of {milesTravelled} miles is within the expected average of {averageMiles} miles/year for leisure purposes.";
+                    improvementTips = "Great job! Continue practicing efficient travel methods.";
+                    youTubeLink = "No suggestions";
                 }
+                feedback_Bike_Leisure_label.Visible = true;
 
                 UpdateBikeLeisureBadge(milesTravelled, averageMiles);
+                // Append the report to the HomeEnergy category
+                // Conditionally append the report data
+                if (shouldAppend)
+                {
+                    AppendReport("Leisure", "Bike", milesTravelled, averageMiles, feedback_Bike_Leisure_label.Text, improvementTips, youTubeLink, "Miles/Year");
+                }
             }
         }
         private void LeisureTravel_CalculateMotorHotelCarbon(object sender, EventArgs e)
         {
 
         }
-        
-        
+        private void HelpClickMe_LeisureTravel_Bike_button_Click(object sender, EventArgs e)
+        {
+            // Show detailed help message for Leisure Travel by Motorbike
+            MessageBox.Show(
+                "Annual Leisure Travel Data (Motorbike):\n\n" +
+                "1. **Distance Travelled (Miles):**\n" +
+                "   - Enter the total distance you travel by motorbike annually for leisure purposes.\n" +
+                "   - Example: 4,000 miles is a typical value.\n" +
+                "   - Valid range: 500 miles to 10,000 miles.\n\n" +
+                "Note: The average annual distance traveled by motorbike for leisure purposes in the UK is assumed to be similar to car travel, around 4,000 miles per person. This assumption is based on similar patterns of leisure travel as observed for cars.\n\n" +
+                "Accurate data entry will help calculate your annual carbon emissions related to motorbike leisure travel.",
+                "Help Information - Leisure Travel (Motorbike)",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+
         // Leisure hotel room carbon emission calculation
         private void LeisureTravel_CalculateHotelRoomCarbon(object sender, EventArgs e)
         {
@@ -1743,7 +1783,7 @@ namespace carbonfootprint_tabs
                 isValid = false;
                 if (!isHotelStayErrorSet)
                 {
-                    hotelStay_LeisureTravel_errorProvider.SetError(LeisureTravel_HotelStay_Textbox, "Please enter a valid number of nights between 1 and 30.");
+                    hotelStay_LeisureTravel_errorProvider.SetError(LeisureTravel_HotelStay_Textbox, $"Enter a value between 1 and 30 nights. The average hotel stay for a single leisure trip is around 6.5 nights. Click for Help.");
                     isHotelStayErrorSet = true;
                 }
                 leisuretravel_HotelStay_emission_label.Text = "Emission"; // Assign default value
@@ -1793,17 +1833,30 @@ namespace carbonfootprint_tabs
                 updateGlobalLabel(this, EventArgs.Empty);
 
                 // Provide feedback based on average usage or thresholds
-                double averageNights = 7; // Example average number of nights for comparison
+                string improvementTips = "";
+                string youTubeLink = "";
+                double averageNights = 7; // Average number of nights per stay
+
                 if (totalNights > averageNights)
                 {
-                    leisuretravel_HotelStay_emission_label.Text = $"Feedback: Your stay of {totalNights} nights exceeds the average of {averageNights} nights.";
+                    leisuretravel_HotelStay_emission_label.Text = $"Your stay of {totalNights} nights exceeds the average of {averageNights} nights per visit.";
+                    improvementTips = "Consider planning shorter trips or combining activities to reduce the number of nights you spend in hotels.";
+                    youTubeLink = "https://www.youtube.com/watch?v=z4lCMXVfEL8";
                 }
                 else
                 {
-                    leisuretravel_HotelStay_emission_label.Text = $"Feedback: Your stay of {totalNights} nights is within the average range of {averageNights} nights.";
+                    leisuretravel_HotelStay_emission_label.Text = $"Your stay of {totalNights} nights is within the average range of {averageNights} nights per visit.";
+                    improvementTips = "Great job on managing your hotel stays efficiently! Keep sharing your sustainable travel habits.";
+                    youTubeLink = "No suggestions";
                 }
 
+
                 UpdateHotelStayBadge(totalNights, averageNights); // Update UI with badges or rewards based on user input
+                // Example of using these variables further, like adding to a report or displaying elsewhere
+                if (shouldAppend)
+                {
+                    AppendReport("Leisure", "HotelStay", totalNights, averageNights, feedback_Bike_Leisure_label.Text, improvementTips, youTubeLink, "Nights");
+                }
             }
         }
         private void UpdateHotelStayBadge(double userNights, double averageNights)
@@ -1923,10 +1976,14 @@ namespace carbonfootprint_tabs
             // Show detailed help message for hotel stay
             MessageBox.Show(
                 "Annual Leisure Hotel Stay Data:\n\n" +
-                "1. Enter the total number of nights stayed at the hotel for leisure purposes in a year. E.g., 5\n" +
-                "2. Make sure to enter a realistic value, typically between 1 and 30 nights for a single stay.\n" +
-                "3. This data will be used to calculate your annual carbon emission for leisure hotel stays.\n\n" +
-                "This section calculates the carbon emission based on your hotel stay, using data specific to the UK.",
+                "1. **Number of Nights Stayed:**\n" +
+                "   - Enter the total number of nights stayed at the hotel for leisure purposes in a year.\n" +
+                "   - Example: 7 nights per year.\n" +
+                "   - Valid range: 1 to 30 nights per stay.\n" +
+                "   - The average hotel stay in London is approximately 7 nights per visit, according to Statista.\n\n" +
+                "2. **Realistic Values:**\n" +
+                "   - Ensure that the entered value reflects a realistic estimate of your stays.\n\n" +
+                "Note: This data will be used to calculate your annual carbon emissions related to leisure hotel stays, using UK-specific data. For more details, refer to the source: https://www.statista.com/statistics/487772/average-length-overseas-visits-by-purpose-london-uk/#:~:text=The%20average%20length%20of%20an,and%20relatives%2C%20averaging%20nine%20nights.",
                 "Help Information - Leisure Hotel Stay",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -5278,6 +5335,11 @@ namespace carbonfootprint_tabs
             OrganicFoodWaste_CalculateCarbon(sender, e);
             OrganicGardenWaste_CalculateCarbon(sender, e);
             HouseholdResidualWaste_CalculateCarbon(sender, e);
+
+            //Leisure Car/Bike
+            CarLeisureTravel_CalculateCarCarbon(sender, e);
+            BikeLeisureTravel_CalculateBikeCarbon(sender, e);
+            LeisureTravel_CalculateHotelRoomCarbon(sender, e);
             // Display all reports in the message box
             DisplayAllReportsInMessageBox();
             shouldAppend = false;

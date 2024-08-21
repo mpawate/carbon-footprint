@@ -117,11 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="HouseholdResidualWaste_NumberOfPerson_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>856, 140</value>
-  </metadata>
-  <metadata name="HouseResidualWaste_InKgs_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>983, 263</value>
+  <metadata name="office_Commute_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>248, 222</value>
   </metadata>
   <metadata name="plotView1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -686,13 +683,13 @@
 </value>
   </data>
   <metadata name="Watt_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>876, 345</value>
+    <value>610, 386</value>
   </metadata>
   <metadata name="Qty_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 386</value>
+    <value>898, 386</value>
   </metadata>
   <metadata name="HoursUsage_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>297, 386</value>
+    <value>17, 427</value>
   </metadata>
   <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1067,13 +1064,13 @@
 </value>
   </data>
   <metadata name="Watt_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>634, 386</value>
+    <value>354, 427</value>
   </metadata>
   <metadata name="Qty_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>916, 386</value>
+    <value>636, 427</value>
   </metadata>
   <metadata name="HoursUsage_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>274, 427</value>
+    <value>17, 468</value>
   </metadata>
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1762,13 +1759,13 @@
 </value>
   </data>
   <metadata name="Watt_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>298, 222</value>
+    <value>17, 263</value>
   </metadata>
   <metadata name="Qty_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>889, 222</value>
+    <value>608, 263</value>
   </metadata>
   <metadata name="HoursUsage_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>660, 304</value>
+    <value>303, 345</value>
   </metadata>
   <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2141,10 +2138,10 @@
     <value>876, 17</value>
   </metadata>
   <metadata name="Qty_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>595, 140</value>
+    <value>17, 181</value>
   </metadata>
   <metadata name="HoursUsage_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 181</value>
+    <value>679, 181</value>
   </metadata>
   <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2542,10 +2539,10 @@
 </value>
   </data>
   <metadata name="AvgLiters_WaterSupply_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 304</value>
+    <value>952, 304</value>
   </metadata>
   <metadata name="NumPersons_WaterSupply_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>342, 263</value>
+    <value>17, 304</value>
   </metadata>
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3034,13 +3031,13 @@
 </value>
   </data>
   <metadata name="Watt_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>563, 222</value>
+    <value>282, 263</value>
   </metadata>
   <metadata name="Qty_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>285, 17</value>
   </metadata>
   <metadata name="HoursUsage_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>944, 181</value>
+    <value>471, 222</value>
   </metadata>
   <data name="pictureBox9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3298,9 +3295,6 @@
         AAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="office_Commute_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>721, 181</value>
-  </metadata>
   <data name="pictureBox8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -3937,7 +3931,10 @@
 </value>
   </data>
   <metadata name="TotalNights_HotelStay_Leisure_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>563, 345</value>
+    <value>297, 386</value>
+  </metadata>
+  <metadata name="milesTravelledBikeLeisure_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>294, 140</value>
   </metadata>
   <data name="Car_LeisureTravel_PictureBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4195,17 +4192,26 @@
         AAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="milesTravelledCarLeisure_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 140</value>
+  </metadata>
+  <metadata name="HouseholdResidualWaste_NumberOfPerson_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>278, 181</value>
+  </metadata>
+  <metadata name="HouseResidualWaste_InKgs_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>658, 304</value>
+  </metadata>
   <metadata name="OrganicFoodWaste_NumberOfPerson_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>312, 99</value>
   </metadata>
   <metadata name="OrganicFoodWaste_InKgs_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>313, 140</value>
+    <value>873, 140</value>
   </metadata>
   <metadata name="OrganicGardenWaste_NumberOfPerson_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>920, 99</value>
   </metadata>
   <metadata name="OrganicGardenWaste_InKgs_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 140</value>
+    <value>577, 140</value>
   </metadata>
   <metadata name="plotView1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -4214,103 +4220,100 @@
     <value>876, 17</value>
   </metadata>
   <metadata name="Qty_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>595, 140</value>
-  </metadata>
-  <metadata name="HoursUsage_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 181</value>
   </metadata>
+  <metadata name="HoursUsage_LED_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>679, 181</value>
+  </metadata>
   <metadata name="homeOffice_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>490, 181</value>
+    <value>17, 222</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>184</value>
   </metadata>
   <metadata name="Watt_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>298, 222</value>
+    <value>17, 263</value>
   </metadata>
   <metadata name="Qty_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>889, 222</value>
+    <value>608, 263</value>
   </metadata>
   <metadata name="HoursUsage_Fan_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>660, 304</value>
+    <value>303, 345</value>
   </metadata>
   <metadata name="Watt_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>634, 386</value>
+    <value>354, 427</value>
   </metadata>
   <metadata name="Qty_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>916, 386</value>
+    <value>636, 427</value>
   </metadata>
   <metadata name="HoursUsage_Kettle_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>274, 427</value>
+    <value>17, 468</value>
   </metadata>
   <metadata name="Watt_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>876, 345</value>
+    <value>610, 386</value>
   </metadata>
   <metadata name="Qty_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 386</value>
+    <value>898, 386</value>
   </metadata>
   <metadata name="HoursUsage_Heater_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>297, 386</value>
+    <value>17, 427</value>
   </metadata>
   <metadata name="Watt_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>563, 222</value>
+    <value>282, 263</value>
   </metadata>
   <metadata name="Qty_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>285, 17</value>
   </metadata>
   <metadata name="HoursUsage_CustomEntry_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>944, 181</value>
+    <value>471, 222</value>
   </metadata>
   <metadata name="AvgLiters_WaterSupply_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 304</value>
+    <value>952, 304</value>
   </metadata>
   <metadata name="NumPersons_WaterSupply_HomeEnergy_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>342, 263</value>
+    <value>17, 304</value>
   </metadata>
   <metadata name="TotalNights_HotelStay_Leisure_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>563, 345</value>
+    <value>297, 386</value>
   </metadata>
   <metadata name="Bike_LeisureTravel_errorProvider2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>283, 345</value>
+    <value>17, 386</value>
   </metadata>
   <metadata name="Car_LeisureTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 345</value>
+    <value>923, 345</value>
   </metadata>
   <metadata name="hotelStay_LeisureTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>974, 304</value>
+    <value>617, 345</value>
   </metadata>
   <metadata name="LED_homeEnergy_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="Fan_homeEnergy_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>719, 263</value>
+    <value>394, 304</value>
   </metadata>
   <metadata name="Kettl_homeEnergy_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>603, 17</value>
   </metadata>
   <metadata name="water_LeisureTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 222</value>
+    <value>846, 222</value>
   </metadata>
   <metadata name="heater_LeisureTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>374, 304</value>
+    <value>17, 345</value>
   </metadata>
   <metadata name="customEntry_LeisureTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 263</value>
+    <value>865, 263</value>
   </metadata>
   <metadata name="CommuteTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 427</value>
-  </metadata>
-  <metadata name="office_Commute_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>721, 181</value>
+    <value>910, 427</value>
   </metadata>
   <metadata name="errorProvider2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>335, 181</value>
+    <value>997, 181</value>
   </metadata>
   <metadata name="organicFoodWaste_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>879, 58</value>
   </metadata>
   <metadata name="OrganicFoodWaste_InKgs_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>313, 140</value>
+    <value>873, 140</value>
   </metadata>
   <metadata name="OrganicFoodWaste_NumberOfPerson_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>312, 99</value>
@@ -4319,13 +4322,19 @@
     <value>588, 58</value>
   </metadata>
   <metadata name="OrganicGardenWaste_InKgs_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 140</value>
+    <value>577, 140</value>
   </metadata>
   <metadata name="OrganicGardenWaste_NumberOfPerson_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>920, 99</value>
   </metadata>
   <metadata name="ResidualWaste_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>671, 99</value>
+  </metadata>
+  <metadata name="HouseResidualWaste_InKgs_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>658, 304</value>
+  </metadata>
+  <metadata name="HouseholdResidualWaste_NumberOfPerson_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>278, 181</value>
   </metadata>
   <metadata name="Car_CommuteTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>303, 58</value>
@@ -4335,5 +4344,11 @@
   </metadata>
   <metadata name="Bus_CommuteTravel_errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 58</value>
+  </metadata>
+  <metadata name="milesTravelledCarLeisure_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 140</value>
+  </metadata>
+  <metadata name="milesTravelledBikeLeisure_toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>294, 140</value>
   </metadata>
 </root>
