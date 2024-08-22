@@ -5079,15 +5079,13 @@ namespace carbonfootprint_tabs
             // Create a new PlotModel
             var model = new PlotModel { Title = "Carbon Emission" };
 
-            // Create a new PieSeries
-            //var pieSeries = new PieSeries
-            /*{
-                StrokeThickness = 2.0,
-                InsideLabelPosition = 0,
-                InsideLabelFormat = string.Empty, // No inside labels
-                AngleSpan = 360,
-                StartAngle = 0,
-            };*/
+            // Convert the RGB color to OxyColor
+            OxyColor homeColor = OxyColor.FromRgb(255, 255, 192);
+            OxyColor officeColor = OxyColor.FromRgb(192, 255, 255);
+            OxyColor leisureColor = OxyColor.FromRgb(192, 192, 255);
+            OxyColor foodColor = OxyColor.FromRgb(192, 255, 192);
+
+            
             // Create a new PieSeries
             var pieSeries = new PieSeries
             {
@@ -5099,10 +5097,10 @@ namespace carbonfootprint_tabs
                 //InnerDiameter = 0.4, // Adjust this to change the inner diameter
             };
             // Add data points to the PieSeries
-            pieSeries.Slices.Add(new PieSlice("Energy", homeEmission) { IsExploded = false, Fill = OxyColors.Blue });
-            pieSeries.Slices.Add(new PieSlice("Leisure", leisureTravelEmission) { IsExploded = false, Fill = OxyColors.Green });
-            pieSeries.Slices.Add(new PieSlice("Office", commuteTravelEmission) { IsExploded = false, Fill = OxyColors.Red });
-            pieSeries.Slices.Add(new PieSlice("Waste", personalWasteEmission) { IsExploded = false, Fill = OxyColors.Purple });
+            pieSeries.Slices.Add(new PieSlice("Energy", homeEmission) { IsExploded = false, Fill = homeColor });
+            pieSeries.Slices.Add(new PieSlice("Leisure", leisureTravelEmission) { IsExploded = false, Fill = leisureColor });
+            pieSeries.Slices.Add(new PieSlice("Office", commuteTravelEmission) { IsExploded = false, Fill = officeColor });
+            pieSeries.Slices.Add(new PieSlice("Waste", personalWasteEmission) { IsExploded = false, Fill = foodColor });
 
             // Add the series to the model
             model.Series.Add(pieSeries);
