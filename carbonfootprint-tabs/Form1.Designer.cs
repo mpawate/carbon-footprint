@@ -328,7 +328,6 @@
             this.Bus_CommuteTravel_errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.milesTravelledCarLeisure_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.milesTravelledBikeLeisure_toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pdf_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.infopanel.SuspendLayout();
             this.tableLayoutPanel20.SuspendLayout();
@@ -655,7 +654,7 @@
             this.HomeEnergy_tabPage.Padding = new System.Windows.Forms.Padding(3);
             this.HomeEnergy_tabPage.Size = new System.Drawing.Size(1030, 511);
             this.HomeEnergy_tabPage.TabIndex = 0;
-            this.HomeEnergy_tabPage.Text = "HomeEnergy - Daily Data";
+            this.HomeEnergy_tabPage.Text = "HomeEnergy";
             // 
             // tableLayoutPanel3
             // 
@@ -1844,7 +1843,7 @@
             this.HomeOffice_Commute_tabPage.Padding = new System.Windows.Forms.Padding(3);
             this.HomeOffice_Commute_tabPage.Size = new System.Drawing.Size(1030, 511);
             this.HomeOffice_Commute_tabPage.TabIndex = 2;
-            this.HomeOffice_Commute_tabPage.Text = "HomeOffice/Commute - Daily Data";
+            this.HomeOffice_Commute_tabPage.Text = "HomeOffice/Commute";
             // 
             // tableLayoutPanel22
             // 
@@ -1872,7 +1871,7 @@
             this.CommuteModeGroupBox.Size = new System.Drawing.Size(1018, 246);
             this.CommuteModeGroupBox.TabIndex = 9;
             this.CommuteModeGroupBox.TabStop = false;
-            this.CommuteModeGroupBox.Text = "Commute";
+            this.CommuteModeGroupBox.Text = "Commute/Daily data";
             // 
             // tableLayoutPanel33
             // 
@@ -2356,7 +2355,7 @@
             this.homeOffice_hours_help_button.Name = "homeOffice_hours_help_button";
             this.homeOffice_hours_help_button.Size = new System.Drawing.Size(45, 50);
             this.homeOffice_hours_help_button.TabIndex = 2;
-            this.homeOffice_hours_help_button.Text = "Help";
+            this.homeOffice_hours_help_button.Text = "? ";
             this.homeOffice_hours_help_button.UseVisualStyleBackColor = true;
             this.homeOffice_hours_help_button.Click += new System.EventHandler(this.HelpClickMe_WorkingHours_button_Click);
             // 
@@ -2451,7 +2450,7 @@
             this.LeisureTravel_tabPage.Padding = new System.Windows.Forms.Padding(3);
             this.LeisureTravel_tabPage.Size = new System.Drawing.Size(1030, 511);
             this.LeisureTravel_tabPage.TabIndex = 1;
-            this.LeisureTravel_tabPage.Text = "Leisure Travel - Yearly Data";
+            this.LeisureTravel_tabPage.Text = "Leisure Travel ";
             // 
             // tableLayoutPanel10
             // 
@@ -2478,7 +2477,7 @@
             this.groupBox4.Size = new System.Drawing.Size(1018, 247);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Bike";
+            this.groupBox4.Text = "Bike / Yearly Data";
             // 
             // tableLayoutPanel15
             // 
@@ -2611,7 +2610,7 @@
             this.HotelStay_groupBox7.Size = new System.Drawing.Size(299, 220);
             this.HotelStay_groupBox7.TabIndex = 6;
             this.HotelStay_groupBox7.TabStop = false;
-            this.HotelStay_groupBox7.Text = "Hotel Stay / Annual Data";
+            this.HotelStay_groupBox7.Text = "Hotel Stay / Yearly Data";
             // 
             // tableLayoutPanel17
             // 
@@ -2859,7 +2858,7 @@
             this.CarGroupBox.Size = new System.Drawing.Size(1018, 246);
             this.CarGroupBox.TabIndex = 0;
             this.CarGroupBox.TabStop = false;
-            this.CarGroupBox.Text = "Car";
+            this.CarGroupBox.Text = "Car / Yearly Data";
             // 
             // Car_LeisureTravel_Layout
             // 
@@ -3192,7 +3191,7 @@
             this.Personal_tabPage.Padding = new System.Windows.Forms.Padding(3);
             this.Personal_tabPage.Size = new System.Drawing.Size(1030, 511);
             this.Personal_tabPage.TabIndex = 3;
-            this.Personal_tabPage.Text = "Food and Organic Waste - Yearly Data";
+            this.Personal_tabPage.Text = "Food and Organic Waste";
             // 
             // tableLayoutPanel26
             // 
@@ -3771,7 +3770,6 @@
             // 
             // plotView1
             // 
-            this.plotView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plotView1.Location = new System.Drawing.Point(0, 0);
             this.plotView1.Name = "plotView1";
             this.plotView1.Padding = new System.Windows.Forms.Padding(50);
@@ -3782,6 +3780,7 @@
             this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
             this.plotView1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
             this.plotView1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            this.plotView1.Click += new System.EventHandler(this.plotView1_Click);
             // 
             // panel1
             // 
@@ -3806,14 +3805,13 @@
             this.tableLayoutPanel44.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel44.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel44.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel44.Controls.Add(this.panel2, 1, 1);
             this.tableLayoutPanel44.Controls.Add(this.database_list_combobox, 4, 1);
             this.tableLayoutPanel44.Controls.Add(this.label33, 3, 1);
-            this.tableLayoutPanel44.Controls.Add(this.database_status_button, 7, 1);
             this.tableLayoutPanel44.Controls.Add(this.ExitApp_button, 9, 1);
+            this.tableLayoutPanel44.Controls.Add(this.database_status_button, 5, 1);
+            this.tableLayoutPanel44.Controls.Add(this.button1, 6, 1);
             this.tableLayoutPanel44.Controls.Add(this.privacyPolicy_button, 8, 1);
-            this.tableLayoutPanel44.Controls.Add(this.button1, 5, 2);
-            this.tableLayoutPanel44.Controls.Add(this.pdf_button, 6, 2);
+            this.tableLayoutPanel44.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel44.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel44.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel44.Name = "tableLayoutPanel44";
@@ -3827,14 +3825,15 @@
             // 
             // panel2
             // 
-            this.tableLayoutPanel44.SetColumnSpan(this.panel2, 2);
+            this.tableLayoutPanel44.SetColumnSpan(this.panel2, 3);
             this.panel2.Controls.Add(this.tableLayoutPanel45);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(107, 35);
+            this.panel2.Location = new System.Drawing.Point(3, 35);
             this.panel2.Name = "panel2";
             this.tableLayoutPanel44.SetRowSpan(this.panel2, 2);
-            this.panel2.Size = new System.Drawing.Size(202, 58);
+            this.panel2.Size = new System.Drawing.Size(306, 58);
             this.panel2.TabIndex = 0;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // tableLayoutPanel45
             // 
@@ -3843,7 +3842,7 @@
             this.tableLayoutPanel45.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel45.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel45.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel45.Controls.Add(this.Daily, 0, 1);
+            this.tableLayoutPanel45.Controls.Add(this.Daily, 1, 1);
             this.tableLayoutPanel45.Controls.Add(this.mode_annual_radioButton, 2, 1);
             this.tableLayoutPanel45.Controls.Add(this.label1, 1, 0);
             this.tableLayoutPanel45.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -3852,16 +3851,17 @@
             this.tableLayoutPanel45.RowCount = 2;
             this.tableLayoutPanel45.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel45.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel45.Size = new System.Drawing.Size(202, 58);
+            this.tableLayoutPanel45.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel45.Size = new System.Drawing.Size(306, 58);
             this.tableLayoutPanel45.TabIndex = 0;
             // 
             // Daily
             // 
             this.Daily.AutoSize = true;
-            this.tableLayoutPanel45.SetColumnSpan(this.Daily, 2);
-            this.Daily.Location = new System.Drawing.Point(3, 32);
+            this.Daily.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Daily.Location = new System.Drawing.Point(79, 32);
             this.Daily.Name = "Daily";
-            this.Daily.Size = new System.Drawing.Size(59, 20);
+            this.Daily.Size = new System.Drawing.Size(70, 23);
             this.Daily.TabIndex = 0;
             this.Daily.Text = "Daily";
             this.Daily.UseVisualStyleBackColor = true;
@@ -3872,9 +3872,10 @@
             this.mode_annual_radioButton.AutoSize = true;
             this.mode_annual_radioButton.Checked = true;
             this.tableLayoutPanel45.SetColumnSpan(this.mode_annual_radioButton, 2);
-            this.mode_annual_radioButton.Location = new System.Drawing.Point(103, 32);
+            this.mode_annual_radioButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mode_annual_radioButton.Location = new System.Drawing.Point(155, 32);
             this.mode_annual_radioButton.Name = "mode_annual_radioButton";
-            this.mode_annual_radioButton.Size = new System.Drawing.Size(69, 20);
+            this.mode_annual_radioButton.Size = new System.Drawing.Size(148, 23);
             this.mode_annual_radioButton.TabIndex = 1;
             this.mode_annual_radioButton.TabStop = true;
             this.mode_annual_radioButton.Text = "Annual";
@@ -3885,12 +3886,12 @@
             // 
             this.label1.AutoSize = true;
             this.tableLayoutPanel45.SetColumnSpan(this.label1, 2);
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(53, 13);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(79, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 16);
+            this.label1.Size = new System.Drawing.Size(146, 16);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Mode";
+            this.label1.Text = "Result Window Mode";
             // 
             // database_list_combobox
             // 
@@ -3914,9 +3915,8 @@
             // 
             // database_status_button
             // 
-            this.database_status_button.Dock = System.Windows.Forms.DockStyle.Fill;
             this.database_status_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.database_status_button.Location = new System.Drawing.Point(731, 35);
+            this.database_status_button.Location = new System.Drawing.Point(523, 35);
             this.database_status_button.Name = "database_status_button";
             this.tableLayoutPanel44.SetRowSpan(this.database_status_button, 2);
             this.database_status_button.Size = new System.Drawing.Size(98, 58);
@@ -3950,11 +3950,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(523, 67);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(627, 35);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.tableLayoutPanel44.SetRowSpan(this.button1, 2);
+            this.button1.Size = new System.Drawing.Size(98, 58);
             this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
+            this.button1.Text = "Gen Report";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.RecalculateGenerateReport);
             // 
@@ -4030,15 +4032,6 @@
             // Bus_CommuteTravel_errorProvider
             // 
             this.Bus_CommuteTravel_errorProvider.ContainerControl = this;
-            // 
-            // pdf_button
-            // 
-            this.pdf_button.Location = new System.Drawing.Point(627, 67);
-            this.pdf_button.Name = "pdf_button";
-            this.pdf_button.Size = new System.Drawing.Size(75, 23);
-            this.pdf_button.TabIndex = 9;
-            this.pdf_button.Text = "pdf";
-            this.pdf_button.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -4498,7 +4491,6 @@
         private System.Windows.Forms.ToolTip milesTravelledCarLeisure_toolTip;
         private System.Windows.Forms.ToolTip milesTravelledBikeLeisure_toolTip;
         private System.Windows.Forms.Button Help_LeisureTravel__Bike_Button;
-        private System.Windows.Forms.Button pdf_button;
     }
 }
 

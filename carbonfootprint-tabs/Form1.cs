@@ -523,13 +523,13 @@ namespace carbonfootprint_tabs
 
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Your daily commute travel of {milesTravelled} miles is higher than the expected average of {averageMiles} miles/year for commuting purposes.";
+                    feedback_officeCommute_Leisure_label.Text = $"Your daily commute travel of {milesTravelled} miles is higher than the expected average of {averageMiles} miles for commuting purposes.";
                     improvementTips = "Consider carpooling, using public transportation, or switching to a more fuel-efficient vehicle to reduce your carbon footprint.";
                     youTubeLink = "https://www.youtube.com/watch?v=aQrzTrAh_bg";
                 }
                 else
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Your daily commute travel of {milesTravelled} miles is within the expected average of {averageMiles} miles/year for commuting purposes.";
+                    feedback_officeCommute_Leisure_label.Text = $"Your daily commute travel of {milesTravelled} miles is within the expected average of {averageMiles} miles for commuting purposes.";
                     improvementTips = "Great job! Keep up the efficient commuting practices.";
                     youTubeLink = "No suggestions";
                 }
@@ -683,13 +683,13 @@ namespace carbonfootprint_tabs
 
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is higher than the average of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is higher than the average of {averageMiles} miles.";
                     improvementTips = "Consider reducing train travel frequency or exploring remote work options.";
                     youTubeLink = "https://www.youtube.com/watch?v=eco_travel_tips";
                 }
                 else
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is within the average range of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is within the average range of {averageMiles} miles.";
                     improvementTips = "Great job! Keep up the efficient travel practices.";
                     youTubeLink = "No suggestions";
                 }
@@ -839,13 +839,13 @@ namespace carbonfootprint_tabs
 
                 if (milesTravelled > averageMiles)
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is higher than the average of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is higher than the average of {averageMiles} miles.";
                     improvementTips = "Consider reducing bus travel frequency or exploring more sustainable alternatives.";
-                    youTubeLink = "https://www.youtube.com/watch?v=eco_travel_tips";
+                    youTubeLink = "https://www.youtube.com/watch?v=SI_XW-1Hwjc";
                 }
                 else
                 {
-                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is within the average range of {averageMiles} miles/year.";
+                    feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is within the average range of {averageMiles} miles.";
                     improvementTips = "Great job! Keep up the efficient travel practices.";
                     youTubeLink = "No suggestions";
                 }
@@ -1124,7 +1124,7 @@ namespace carbonfootprint_tabs
                 {
                     feedback_homeOffice_Commute_label.Text = $"Your daily working hours of {totalworkhours} exceed the average of {averageWorkingHours} hours.";
                     improvementTips = "Consider managing your work schedule to balance your working hours and reduce energy consumption during extended hours.";
-                    youTubeLink = "https://www.youtube.com/watch?v=work-life-balance";
+                    youTubeLink = "https://www.youtube.com/watch?v=8cF442d-EdQ";
                 }
                 else
                 {
@@ -2968,7 +2968,7 @@ namespace carbonfootprint_tabs
                 {
                     Feedback_Residul_Waste_label.Text = $"Your annual residual waste of {totalWasteKg} kg for {numPersons} person(s) is higher than the expected average of {averageAnnualWaste} kg for {numPersons} person(s).";
                     improvementTips = "Consider reducing waste by recycling more.";
-                    youTubeLink = "https://www.youtube.com/watch?v=waste_reduction_tips"; // Example link
+                    youTubeLink = "https://www.youtube.com/watch?v=Qyu-fZ8BOnI"; // Example link
                     Feedback_Residul_Waste_label.Visible = true;
                 }
                 else
@@ -3625,7 +3625,7 @@ namespace carbonfootprint_tabs
                 {
                     Feedback_LED_HomeEnergy_label.Text = $"Your usage of {dailyUsageHours} hours/day with {wattResult} watts for {wattQty} LED(s) is higher than the average of {averageUsageHours} hours/day with {averageWattage} watts for {wattQty} LED(s).";
                     improvementTips = "Consider switching to more energy-efficient LEDs or reducing usage duration.";
-                    youTubeLink = "https://www.youtube.com/watch?v=LED_Usage_Tips";
+                    youTubeLink = "https://www.youtube.com/watch?v=Ei5vS-g4DTo";
 
                 }
                 else
@@ -4737,7 +4737,7 @@ namespace carbonfootprint_tabs
                 "   - Valid range: 1500 W to 3000 W.\n\n" +
                 "2. **Number of Heater Units:**\n" +
                 "   - Enter the number of heater units used.\n" +
-                "   - Example: 1 unit.\n" +
+                "   - Example: 1 unit.\n" + 
                 "   - Valid range: 1 to 3 units.\n\n" +
                 "3. **Daily Usage Hours:**\n" +
                 "   - Enter the number of hours the heater is used per day.\n" +
@@ -5403,7 +5403,7 @@ namespace carbonfootprint_tabs
 
             if (energyReports.Count == 0)
             {
-                Console.WriteLine("No reports available to generate PDF.");
+                MessageBox.Show("No data available to generate PDF.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -5507,6 +5507,21 @@ namespace carbonfootprint_tabs
             return lines * size.Height;
         }
 
+        private void plotView1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pdf_button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         /*
         private void GeneratePdfFromReports()
         {
@@ -5605,79 +5620,6 @@ namespace carbonfootprint_tabs
             var size = gfx.MeasureString(text, font);
             int lines = (int)Math.Ceiling(size.Width / maxWidth);
             return lines * size.Height;
-        }
-        */
-        /*
-        private void DisplayAllReportsInPDF()
-        {
-            // Configure QuestPDF to use the community license
-            QuestPDF.Settings.License = LicenseType.Community;
-
-            // Example data - you would typically call AppendReport from different parts of your application
-            //AppendReport("Home Energy", "LED", 10, 8, "Good job", "Switch to LED bulbs for better efficiency.", "https://example.com", "kWh");
-            //AppendReport("Commute", "Car", 50, 40, "Consider alternatives", "Try carpooling or using public transport.", "https://example.com", "miles");
-            //AppendReport("Waste", "Plastic", 30, 20, "Reduce usage", "Try to reduce plastic waste by reusing and recycling.", "https://example.com", "kg");
-
-            // Ensure there is content to generate
-            // Ensure the file is deleted before creating a new one
-            // Check if the file is locked
-            // Generate a filename with a timestamp
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            //string filename = $"EnergyReport_{timestamp}.pdf";
-            string filename = Path.Combine(appDirectory, $"EnergyReport_{timestamp}.pdf");
-
-
-            if (energyReports.Count == 0)
-            {
-                Console.WriteLine("No reports available to generate PDF.");
-                return;
-            }
-
-            Document.Create(container =>
-            {
-                container.Page(page =>
-                {
-                    page.Size(PageSizes.A4);
-                    page.Margin(2, Unit.Centimetre);
-                    page.PageColor(Colors.White);
-                    page.DefaultTextStyle(x => x.FontSize(12));
-
-                    page.Content().PaddingVertical(1, Unit.Centimetre).Column(column =>
-                    {
-                        var groupedReports = energyReports.GroupBy(r => r.Category);
-
-                        foreach (var categoryGroup in groupedReports)
-                        {
-                            column.Item().Text($"Category: {categoryGroup.Key}").Bold();
-                            column.Item().Text(new string('-', 20));
-
-                            foreach (var report in categoryGroup)
-                            {
-                                column.Item().Text($"Item: {report.Item}");
-                                column.Item().Text($"Usage: {report.Usage:F2} {report.Unit}");
-                                column.Item().Text($"Average Usage: {report.AverageUsage:F2} {report.Unit}");
-                                column.Item().Text($"Feedback: {report.Feedback}");
-                                column.Item().Text($"Improvement Tips: {report.ImprovementTips}");
-                                column.Item().Text($"YouTube Link: {report.YouTubeLink}");
-                                column.Item().Text(""); // Add a blank line
-                            }
-
-                            column.Item().Text(new string('=', 40)); // Separator between categories
-                            column.Item().Text(""); // Add a blank line
-                        }
-                    });
-                });
-            })
-            .GeneratePdf(filename);
-
-            Console.WriteLine("PDF generated successfully!");
-            // Show success message with file path
-            MessageBox.Show($"PDF generated successfully: {filename}", "File Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            energyReports.Clear();
-
         }
         */
     }
