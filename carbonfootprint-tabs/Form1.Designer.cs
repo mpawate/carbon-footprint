@@ -272,17 +272,17 @@
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel44 = new System.Windows.Forms.TableLayoutPanel();
+            this.database_list_combobox = new System.Windows.Forms.ComboBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.ExitApp_button = new System.Windows.Forms.Button();
+            this.database_status_button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.privacyPolicy_button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel45 = new System.Windows.Forms.TableLayoutPanel();
             this.Daily = new System.Windows.Forms.RadioButton();
             this.mode_annual_radioButton = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.database_list_combobox = new System.Windows.Forms.ComboBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.database_status_button = new System.Windows.Forms.Button();
-            this.ExitApp_button = new System.Windows.Forms.Button();
-            this.privacyPolicy_button = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.Watt_LED_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Qty_LED_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.HoursUsage_LED_HomeEnergy_toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -465,7 +465,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1499, 691);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1499, 801);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // infopanel
@@ -475,7 +475,7 @@
             this.infopanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.infopanel.Location = new System.Drawing.Point(3, 3);
             this.infopanel.Name = "infopanel";
-            this.infopanel.Size = new System.Drawing.Size(443, 270);
+            this.infopanel.Size = new System.Drawing.Size(443, 314);
             this.infopanel.TabIndex = 0;
             // 
             // tableLayoutPanel20
@@ -504,7 +504,7 @@
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel20.Size = new System.Drawing.Size(441, 268);
+            this.tableLayoutPanel20.Size = new System.Drawing.Size(441, 312);
             this.tableLayoutPanel20.TabIndex = 0;
             // 
             // CarbonLabel
@@ -512,7 +512,7 @@
             this.CarbonLabel.AutoSize = true;
             this.tableLayoutPanel20.SetColumnSpan(this.CarbonLabel, 6);
             this.CarbonLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CarbonLabel.Location = new System.Drawing.Point(3, 252);
+            this.CarbonLabel.Location = new System.Drawing.Point(3, 296);
             this.CarbonLabel.Name = "CarbonLabel";
             this.CarbonLabel.Size = new System.Drawing.Size(435, 16);
             this.CarbonLabel.TabIndex = 4;
@@ -526,7 +526,7 @@
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
             this.tableLayoutPanel20.SetRowSpan(this.groupBox10, 2);
-            this.groupBox10.Size = new System.Drawing.Size(435, 70);
+            this.groupBox10.Size = new System.Drawing.Size(435, 82);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             // 
@@ -543,7 +543,7 @@
             this.tableLayoutPanel21.RowCount = 1;
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel21.Size = new System.Drawing.Size(429, 49);
+            this.tableLayoutPanel21.Size = new System.Drawing.Size(429, 61);
             this.tableLayoutPanel21.TabIndex = 0;
             // 
             // pictureBox12
@@ -552,7 +552,7 @@
             this.pictureBox12.Image = global::carbonfootprint_tabs.Properties.Resources.carbon_footprint_red_calc;
             this.pictureBox12.Location = new System.Drawing.Point(3, 3);
             this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(79, 43);
+            this.pictureBox12.Size = new System.Drawing.Size(79, 55);
             this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox12.TabIndex = 0;
             this.pictureBox12.TabStop = false;
@@ -564,7 +564,7 @@
             this.label10.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(88, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(338, 49);
+            this.label10.Size = new System.Drawing.Size(338, 61);
             this.label10.TabIndex = 1;
             this.label10.Text = "Carbon Foot Print Calculator";
             // 
@@ -573,7 +573,7 @@
             this.PersonalHouseholdWasteEnergyGlobalLabel.AutoSize = true;
             this.tableLayoutPanel20.SetColumnSpan(this.PersonalHouseholdWasteEnergyGlobalLabel, 6);
             this.PersonalHouseholdWasteEnergyGlobalLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PersonalHouseholdWasteEnergyGlobalLabel.Location = new System.Drawing.Point(3, 212);
+            this.PersonalHouseholdWasteEnergyGlobalLabel.Location = new System.Drawing.Point(3, 248);
             this.PersonalHouseholdWasteEnergyGlobalLabel.Name = "PersonalHouseholdWasteEnergyGlobalLabel";
             this.PersonalHouseholdWasteEnergyGlobalLabel.Size = new System.Drawing.Size(435, 16);
             this.PersonalHouseholdWasteEnergyGlobalLabel.TabIndex = 3;
@@ -584,7 +584,7 @@
             this.HomeEnergyGlobalLabel.AutoSize = true;
             this.tableLayoutPanel20.SetColumnSpan(this.HomeEnergyGlobalLabel, 6);
             this.HomeEnergyGlobalLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.HomeEnergyGlobalLabel.Location = new System.Drawing.Point(3, 98);
+            this.HomeEnergyGlobalLabel.Location = new System.Drawing.Point(3, 116);
             this.HomeEnergyGlobalLabel.Name = "HomeEnergyGlobalLabel";
             this.HomeEnergyGlobalLabel.Size = new System.Drawing.Size(435, 16);
             this.HomeEnergyGlobalLabel.TabIndex = 0;
@@ -595,7 +595,7 @@
             this.HomeOfficeCommuteEnergyGlobalLabel.AutoSize = true;
             this.tableLayoutPanel20.SetColumnSpan(this.HomeOfficeCommuteEnergyGlobalLabel, 6);
             this.HomeOfficeCommuteEnergyGlobalLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.HomeOfficeCommuteEnergyGlobalLabel.Location = new System.Drawing.Point(3, 174);
+            this.HomeOfficeCommuteEnergyGlobalLabel.Location = new System.Drawing.Point(3, 204);
             this.HomeOfficeCommuteEnergyGlobalLabel.Name = "HomeOfficeCommuteEnergyGlobalLabel";
             this.HomeOfficeCommuteEnergyGlobalLabel.Size = new System.Drawing.Size(435, 16);
             this.HomeOfficeCommuteEnergyGlobalLabel.TabIndex = 2;
@@ -606,7 +606,7 @@
             this.LeisureEnergyGlobalLabel.AutoSize = true;
             this.tableLayoutPanel20.SetColumnSpan(this.LeisureEnergyGlobalLabel, 6);
             this.LeisureEnergyGlobalLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LeisureEnergyGlobalLabel.Location = new System.Drawing.Point(3, 136);
+            this.LeisureEnergyGlobalLabel.Location = new System.Drawing.Point(3, 160);
             this.LeisureEnergyGlobalLabel.Name = "LeisureEnergyGlobalLabel";
             this.LeisureEnergyGlobalLabel.Size = new System.Drawing.Size(435, 16);
             this.LeisureEnergyGlobalLabel.TabIndex = 1;
@@ -627,8 +627,8 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 546F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1044, 546);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 634F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1044, 634);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // tab4
@@ -641,7 +641,7 @@
             this.tab4.Location = new System.Drawing.Point(3, 3);
             this.tab4.Name = "tab4";
             this.tab4.SelectedIndex = 0;
-            this.tab4.Size = new System.Drawing.Size(1038, 540);
+            this.tab4.Size = new System.Drawing.Size(1038, 628);
             this.tab4.TabIndex = 0;
             // 
             // HomeEnergy_tabPage
@@ -652,7 +652,7 @@
             this.HomeEnergy_tabPage.Location = new System.Drawing.Point(4, 25);
             this.HomeEnergy_tabPage.Name = "HomeEnergy_tabPage";
             this.HomeEnergy_tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.HomeEnergy_tabPage.Size = new System.Drawing.Size(1030, 511);
+            this.HomeEnergy_tabPage.Size = new System.Drawing.Size(1030, 599);
             this.HomeEnergy_tabPage.TabIndex = 0;
             this.HomeEnergy_tabPage.Text = "HomeEnergy";
             // 
@@ -686,7 +686,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1022, 503);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1022, 591);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // GroupboxHeater
@@ -694,10 +694,10 @@
             this.tableLayoutPanel3.SetColumnSpan(this.GroupboxHeater, 4);
             this.GroupboxHeater.Controls.Add(this.tableLayoutPanel9);
             this.GroupboxHeater.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GroupboxHeater.Location = new System.Drawing.Point(343, 253);
+            this.GroupboxHeater.Location = new System.Drawing.Point(343, 297);
             this.GroupboxHeater.Name = "GroupboxHeater";
             this.tableLayoutPanel3.SetRowSpan(this.GroupboxHeater, 2);
-            this.GroupboxHeater.Size = new System.Drawing.Size(334, 247);
+            this.GroupboxHeater.Size = new System.Drawing.Size(334, 291);
             this.GroupboxHeater.TabIndex = 6;
             this.GroupboxHeater.TabStop = false;
             this.GroupboxHeater.Text = "Heater / Daily Usage Data";
@@ -738,7 +738,7 @@
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(328, 226);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(328, 270);
             this.tableLayoutPanel9.TabIndex = 0;
             // 
             // pictureBox6
@@ -748,7 +748,7 @@
             this.pictureBox6.Location = new System.Drawing.Point(3, 3);
             this.pictureBox6.Name = "pictureBox6";
             this.tableLayoutPanel9.SetRowSpan(this.pictureBox6, 4);
-            this.pictureBox6.Size = new System.Drawing.Size(94, 82);
+            this.pictureBox6.Size = new System.Drawing.Size(94, 102);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 0;
             this.pictureBox6.TabStop = false;
@@ -757,7 +757,7 @@
             // 
             this.Watt_Heater_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Watt_Heater_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Watt_Heater_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 25);
+            this.Watt_Heater_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 30);
             this.Watt_Heater_HomeEnergy_textBox.Name = "Watt_Heater_HomeEnergy_textBox";
             this.Watt_Heater_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Watt_Heater_HomeEnergy_textBox.TabIndex = 1;
@@ -769,9 +769,9 @@
             // 
             this.Watt_Heater_HomeEnergy_label.AutoSize = true;
             this.Watt_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Watt_Heater_HomeEnergy_label.Location = new System.Drawing.Point(159, 22);
+            this.Watt_Heater_HomeEnergy_label.Location = new System.Drawing.Point(159, 27);
             this.Watt_Heater_HomeEnergy_label.Name = "Watt_Heater_HomeEnergy_label";
-            this.Watt_Heater_HomeEnergy_label.Size = new System.Drawing.Size(34, 22);
+            this.Watt_Heater_HomeEnergy_label.Size = new System.Drawing.Size(34, 27);
             this.Watt_Heater_HomeEnergy_label.TabIndex = 2;
             this.Watt_Heater_HomeEnergy_label.Text = "Watt";
             // 
@@ -779,7 +779,7 @@
             // 
             this.Qty_Heater_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Qty_Heater_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Qty_Heater_HomeEnergy_textBox.Location = new System.Drawing.Point(215, 25);
+            this.Qty_Heater_HomeEnergy_textBox.Location = new System.Drawing.Point(215, 30);
             this.Qty_Heater_HomeEnergy_textBox.Name = "Qty_Heater_HomeEnergy_textBox";
             this.Qty_Heater_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Qty_Heater_HomeEnergy_textBox.TabIndex = 3;
@@ -790,9 +790,9 @@
             // 
             this.Qty_Heater_HomeEnergy_label.AutoSize = true;
             this.Qty_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Qty_Heater_HomeEnergy_label.Location = new System.Drawing.Point(271, 22);
+            this.Qty_Heater_HomeEnergy_label.Location = new System.Drawing.Point(271, 27);
             this.Qty_Heater_HomeEnergy_label.Name = "Qty_Heater_HomeEnergy_label";
-            this.Qty_Heater_HomeEnergy_label.Size = new System.Drawing.Size(27, 22);
+            this.Qty_Heater_HomeEnergy_label.Size = new System.Drawing.Size(27, 27);
             this.Qty_Heater_HomeEnergy_label.TabIndex = 4;
             this.Qty_Heater_HomeEnergy_label.Text = "Qty";
             // 
@@ -800,7 +800,7 @@
             // 
             this.HoursDay_Heater_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HoursDay_Heater_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HoursDay_Heater_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 69);
+            this.HoursDay_Heater_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 84);
             this.HoursDay_Heater_HomeEnergy_textBox.Name = "HoursDay_Heater_HomeEnergy_textBox";
             this.HoursDay_Heater_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.HoursDay_Heater_HomeEnergy_textBox.TabIndex = 5;
@@ -813,9 +813,9 @@
             this.HoursDay_Heater_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel9.SetColumnSpan(this.HoursDay_Heater_HomeEnergy_label, 2);
             this.HoursDay_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.HoursDay_Heater_HomeEnergy_label.Location = new System.Drawing.Point(159, 66);
+            this.HoursDay_Heater_HomeEnergy_label.Location = new System.Drawing.Point(159, 81);
             this.HoursDay_Heater_HomeEnergy_label.Name = "HoursDay_Heater_HomeEnergy_label";
-            this.HoursDay_Heater_HomeEnergy_label.Size = new System.Drawing.Size(72, 22);
+            this.HoursDay_Heater_HomeEnergy_label.Size = new System.Drawing.Size(72, 27);
             this.HoursDay_Heater_HomeEnergy_label.TabIndex = 6;
             this.HoursDay_Heater_HomeEnergy_label.Text = "Hours/Day";
             // 
@@ -824,9 +824,9 @@
             this.EnergyUsage_Heater_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel9.SetColumnSpan(this.EnergyUsage_Heater_HomeEnergy_label, 4);
             this.EnergyUsage_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EnergyUsage_Heater_HomeEnergy_label.Location = new System.Drawing.Point(3, 110);
+            this.EnergyUsage_Heater_HomeEnergy_label.Location = new System.Drawing.Point(3, 135);
             this.EnergyUsage_Heater_HomeEnergy_label.Name = "EnergyUsage_Heater_HomeEnergy_label";
-            this.EnergyUsage_Heater_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.EnergyUsage_Heater_HomeEnergy_label.Size = new System.Drawing.Size(262, 27);
             this.EnergyUsage_Heater_HomeEnergy_label.TabIndex = 7;
             this.EnergyUsage_Heater_HomeEnergy_label.Text = "EnergyUsage:";
             // 
@@ -835,9 +835,9 @@
             this.Emission_Heater_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel9.SetColumnSpan(this.Emission_Heater_HomeEnergy_label, 4);
             this.Emission_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Emission_Heater_HomeEnergy_label.Location = new System.Drawing.Point(3, 132);
+            this.Emission_Heater_HomeEnergy_label.Location = new System.Drawing.Point(3, 162);
             this.Emission_Heater_HomeEnergy_label.Name = "Emission_Heater_HomeEnergy_label";
-            this.Emission_Heater_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.Emission_Heater_HomeEnergy_label.Size = new System.Drawing.Size(262, 27);
             this.Emission_Heater_HomeEnergy_label.TabIndex = 8;
             this.Emission_Heater_HomeEnergy_label.Text = "Emission";
             // 
@@ -846,10 +846,10 @@
             this.Feedback_Heater_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel9.SetColumnSpan(this.Feedback_Heater_HomeEnergy_label, 3);
             this.Feedback_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_Heater_HomeEnergy_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_Heater_HomeEnergy_label.Location = new System.Drawing.Point(3, 189);
             this.Feedback_Heater_HomeEnergy_label.Name = "Feedback_Heater_HomeEnergy_label";
             this.tableLayoutPanel9.SetRowSpan(this.Feedback_Heater_HomeEnergy_label, 3);
-            this.Feedback_Heater_HomeEnergy_label.Size = new System.Drawing.Size(206, 72);
+            this.Feedback_Heater_HomeEnergy_label.Size = new System.Drawing.Size(206, 81);
             this.Feedback_Heater_HomeEnergy_label.TabIndex = 9;
             this.Feedback_Heater_HomeEnergy_label.Text = "Feedback";
             // 
@@ -857,10 +857,10 @@
             // 
             this.tableLayoutPanel9.SetColumnSpan(this.HelpClickMe_Heater_HomeEnergy_button, 2);
             this.HelpClickMe_Heater_HomeEnergy_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HelpClickMe_Heater_HomeEnergy_button.Location = new System.Drawing.Point(215, 179);
+            this.HelpClickMe_Heater_HomeEnergy_button.Location = new System.Drawing.Point(215, 219);
             this.HelpClickMe_Heater_HomeEnergy_button.Name = "HelpClickMe_Heater_HomeEnergy_button";
             this.tableLayoutPanel9.SetRowSpan(this.HelpClickMe_Heater_HomeEnergy_button, 2);
-            this.HelpClickMe_Heater_HomeEnergy_button.Size = new System.Drawing.Size(110, 44);
+            this.HelpClickMe_Heater_HomeEnergy_button.Size = new System.Drawing.Size(110, 48);
             this.HelpClickMe_Heater_HomeEnergy_button.TabIndex = 10;
             this.HelpClickMe_Heater_HomeEnergy_button.Text = "Help Click Me>";
             this.HelpClickMe_Heater_HomeEnergy_button.UseVisualStyleBackColor = true;
@@ -868,7 +868,7 @@
             // 
             // Award_Heater_HomeEnergy_picturebox
             // 
-            this.Award_Heater_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_Heater_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 138);
             this.Award_Heater_HomeEnergy_picturebox.Name = "Award_Heater_HomeEnergy_picturebox";
             this.tableLayoutPanel9.SetRowSpan(this.Award_Heater_HomeEnergy_picturebox, 2);
             this.Award_Heater_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 38);
@@ -880,9 +880,9 @@
             this.Award_Heater_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel9.SetColumnSpan(this.Award_Heater_HomeEnergy_label, 2);
             this.Award_Heater_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_Heater_HomeEnergy_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_Heater_HomeEnergy_label.Location = new System.Drawing.Point(215, 189);
             this.Award_Heater_HomeEnergy_label.Name = "Award_Heater_HomeEnergy_label";
-            this.Award_Heater_HomeEnergy_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_Heater_HomeEnergy_label.Size = new System.Drawing.Size(110, 27);
             this.Award_Heater_HomeEnergy_label.TabIndex = 12;
             this.Award_Heater_HomeEnergy_label.Text = "Award Ceremony";
             // 
@@ -894,7 +894,7 @@
             this.groupBox2.Location = new System.Drawing.Point(683, 3);
             this.groupBox2.Name = "groupBox2";
             this.tableLayoutPanel3.SetRowSpan(this.groupBox2, 2);
-            this.groupBox2.Size = new System.Drawing.Size(336, 244);
+            this.groupBox2.Size = new System.Drawing.Size(336, 288);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kettle / Daily Usage Data";
@@ -936,7 +936,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(330, 223);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(330, 267);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // pictureBox4
@@ -946,7 +946,7 @@
             this.pictureBox4.Location = new System.Drawing.Point(3, 3);
             this.pictureBox4.Name = "pictureBox4";
             this.tableLayoutPanel7.SetRowSpan(this.pictureBox4, 4);
-            this.pictureBox4.Size = new System.Drawing.Size(95, 82);
+            this.pictureBox4.Size = new System.Drawing.Size(95, 98);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 0;
             this.pictureBox4.TabStop = false;
@@ -955,7 +955,7 @@
             // 
             this.Watt_Kettle_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Watt_Kettle_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Watt_Kettle_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 25);
+            this.Watt_Kettle_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 29);
             this.Watt_Kettle_HomeEnergy_textBox.Name = "Watt_Kettle_HomeEnergy_textBox";
             this.Watt_Kettle_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.Watt_Kettle_HomeEnergy_textBox.TabIndex = 1;
@@ -966,9 +966,9 @@
             // 
             this.Watt_Kettle_HomeEnergy_label.AutoSize = true;
             this.Watt_Kettle_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Watt_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(161, 22);
+            this.Watt_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(161, 26);
             this.Watt_Kettle_HomeEnergy_label.Name = "Watt_Kettle_HomeEnergy_label";
-            this.Watt_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(34, 22);
+            this.Watt_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(34, 26);
             this.Watt_Kettle_HomeEnergy_label.TabIndex = 2;
             this.Watt_Kettle_HomeEnergy_label.Text = "Watt";
             // 
@@ -976,7 +976,7 @@
             // 
             this.Qty_Kettle_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Qty_Kettle_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Qty_Kettle_HomeEnergy_textBox.Location = new System.Drawing.Point(218, 25);
+            this.Qty_Kettle_HomeEnergy_textBox.Location = new System.Drawing.Point(218, 29);
             this.Qty_Kettle_HomeEnergy_textBox.Name = "Qty_Kettle_HomeEnergy_textBox";
             this.Qty_Kettle_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.Qty_Kettle_HomeEnergy_textBox.TabIndex = 3;
@@ -987,9 +987,9 @@
             // 
             this.Qty_Kettle_HomeEnergy_label.AutoSize = true;
             this.Qty_Kettle_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Qty_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(275, 22);
+            this.Qty_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(275, 26);
             this.Qty_Kettle_HomeEnergy_label.Name = "Qty_Kettle_HomeEnergy_label";
-            this.Qty_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(27, 22);
+            this.Qty_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(27, 26);
             this.Qty_Kettle_HomeEnergy_label.TabIndex = 4;
             this.Qty_Kettle_HomeEnergy_label.Text = "Qty";
             // 
@@ -997,7 +997,7 @@
             // 
             this.HoursDay_Kettle_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HoursDay_Kettle_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HoursDay_Kettle_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 69);
+            this.HoursDay_Kettle_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 81);
             this.HoursDay_Kettle_HomeEnergy_textBox.Name = "HoursDay_Kettle_HomeEnergy_textBox";
             this.HoursDay_Kettle_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.HoursDay_Kettle_HomeEnergy_textBox.TabIndex = 5;
@@ -1009,9 +1009,9 @@
             this.HoursDay_Kettle_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel7.SetColumnSpan(this.HoursDay_Kettle_HomeEnergy_label, 2);
             this.HoursDay_Kettle_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.HoursDay_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(161, 66);
+            this.HoursDay_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(161, 78);
             this.HoursDay_Kettle_HomeEnergy_label.Name = "HoursDay_Kettle_HomeEnergy_label";
-            this.HoursDay_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(72, 22);
+            this.HoursDay_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(72, 26);
             this.HoursDay_Kettle_HomeEnergy_label.TabIndex = 6;
             this.HoursDay_Kettle_HomeEnergy_label.Text = "Hours/Day";
             // 
@@ -1020,9 +1020,9 @@
             this.EnergyUsage_Kettle_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel7.SetColumnSpan(this.EnergyUsage_Kettle_HomeEnergy_label, 4);
             this.EnergyUsage_Kettle_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EnergyUsage_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(3, 110);
+            this.EnergyUsage_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(3, 130);
             this.EnergyUsage_Kettle_HomeEnergy_label.Name = "EnergyUsage_Kettle_HomeEnergy_label";
-            this.EnergyUsage_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(266, 22);
+            this.EnergyUsage_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(266, 26);
             this.EnergyUsage_Kettle_HomeEnergy_label.TabIndex = 7;
             this.EnergyUsage_Kettle_HomeEnergy_label.Text = "EnergyUsage:";
             // 
@@ -1031,9 +1031,9 @@
             this.Emission_Kettle_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel7.SetColumnSpan(this.Emission_Kettle_HomeEnergy_label, 4);
             this.Emission_Kettle_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Emission_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(3, 132);
+            this.Emission_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(3, 156);
             this.Emission_Kettle_HomeEnergy_label.Name = "Emission_Kettle_HomeEnergy_label";
-            this.Emission_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(266, 22);
+            this.Emission_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(266, 26);
             this.Emission_Kettle_HomeEnergy_label.TabIndex = 8;
             this.Emission_Kettle_HomeEnergy_label.Text = "Emission";
             // 
@@ -1042,10 +1042,10 @@
             this.Feedback_Kettle_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel7.SetColumnSpan(this.Feedback_Kettle_HomeEnergy_label, 3);
             this.Feedback_Kettle_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(3, 182);
             this.Feedback_Kettle_HomeEnergy_label.Name = "Feedback_Kettle_HomeEnergy_label";
             this.tableLayoutPanel7.SetRowSpan(this.Feedback_Kettle_HomeEnergy_label, 3);
-            this.Feedback_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(209, 69);
+            this.Feedback_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(209, 85);
             this.Feedback_Kettle_HomeEnergy_label.TabIndex = 9;
             this.Feedback_Kettle_HomeEnergy_label.Text = "Feedback";
             // 
@@ -1053,10 +1053,10 @@
             // 
             this.tableLayoutPanel7.SetColumnSpan(this.HelpClickMe_Kettle_HomeEnergy_button, 2);
             this.HelpClickMe_Kettle_HomeEnergy_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HelpClickMe_Kettle_HomeEnergy_button.Location = new System.Drawing.Point(218, 179);
+            this.HelpClickMe_Kettle_HomeEnergy_button.Location = new System.Drawing.Point(218, 211);
             this.HelpClickMe_Kettle_HomeEnergy_button.Name = "HelpClickMe_Kettle_HomeEnergy_button";
             this.tableLayoutPanel7.SetRowSpan(this.HelpClickMe_Kettle_HomeEnergy_button, 2);
-            this.HelpClickMe_Kettle_HomeEnergy_button.Size = new System.Drawing.Size(109, 41);
+            this.HelpClickMe_Kettle_HomeEnergy_button.Size = new System.Drawing.Size(109, 53);
             this.HelpClickMe_Kettle_HomeEnergy_button.TabIndex = 10;
             this.HelpClickMe_Kettle_HomeEnergy_button.Text = "Help Click Me>";
             this.HelpClickMe_Kettle_HomeEnergy_button.UseVisualStyleBackColor = true;
@@ -1065,10 +1065,10 @@
             // Award_Kettle_HomeEnergy_picturebox
             // 
             this.Award_Kettle_HomeEnergy_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Award_Kettle_HomeEnergy_picturebox.Location = new System.Drawing.Point(275, 113);
+            this.Award_Kettle_HomeEnergy_picturebox.Location = new System.Drawing.Point(275, 133);
             this.Award_Kettle_HomeEnergy_picturebox.Name = "Award_Kettle_HomeEnergy_picturebox";
             this.tableLayoutPanel7.SetRowSpan(this.Award_Kettle_HomeEnergy_picturebox, 2);
-            this.Award_Kettle_HomeEnergy_picturebox.Size = new System.Drawing.Size(52, 38);
+            this.Award_Kettle_HomeEnergy_picturebox.Size = new System.Drawing.Size(52, 46);
             this.Award_Kettle_HomeEnergy_picturebox.TabIndex = 11;
             this.Award_Kettle_HomeEnergy_picturebox.TabStop = false;
             // 
@@ -1077,9 +1077,9 @@
             this.Award_Kettle_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel7.SetColumnSpan(this.Award_Kettle_HomeEnergy_label, 2);
             this.Award_Kettle_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(218, 154);
+            this.Award_Kettle_HomeEnergy_label.Location = new System.Drawing.Point(218, 182);
             this.Award_Kettle_HomeEnergy_label.Name = "Award_Kettle_HomeEnergy_label";
-            this.Award_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(109, 22);
+            this.Award_Kettle_HomeEnergy_label.Size = new System.Drawing.Size(109, 26);
             this.Award_Kettle_HomeEnergy_label.TabIndex = 12;
             this.Award_Kettle_HomeEnergy_label.Text = "Award Ceremony";
             // 
@@ -1091,7 +1091,7 @@
             this.groupBox1.Location = new System.Drawing.Point(343, 3);
             this.groupBox1.Name = "groupBox1";
             this.tableLayoutPanel3.SetRowSpan(this.groupBox1, 2);
-            this.groupBox1.Size = new System.Drawing.Size(334, 244);
+            this.groupBox1.Size = new System.Drawing.Size(334, 288);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Fan / Daily Usage Data";
@@ -1132,7 +1132,7 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(328, 223);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(328, 267);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
             // pictureBox1
@@ -1142,7 +1142,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.tableLayoutPanel6.SetRowSpan(this.pictureBox1, 4);
-            this.pictureBox1.Size = new System.Drawing.Size(94, 82);
+            this.pictureBox1.Size = new System.Drawing.Size(94, 98);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -1151,7 +1151,7 @@
             // 
             this.Watt_Fan_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Watt_Fan_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Watt_Fan_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 25);
+            this.Watt_Fan_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 29);
             this.Watt_Fan_HomeEnergy_textBox.Name = "Watt_Fan_HomeEnergy_textBox";
             this.Watt_Fan_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Watt_Fan_HomeEnergy_textBox.TabIndex = 1;
@@ -1162,9 +1162,9 @@
             // 
             this.Watt_Fan_HomeEnergy_label.AutoSize = true;
             this.Watt_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Watt_Fan_HomeEnergy_label.Location = new System.Drawing.Point(159, 22);
+            this.Watt_Fan_HomeEnergy_label.Location = new System.Drawing.Point(159, 26);
             this.Watt_Fan_HomeEnergy_label.Name = "Watt_Fan_HomeEnergy_label";
-            this.Watt_Fan_HomeEnergy_label.Size = new System.Drawing.Size(34, 22);
+            this.Watt_Fan_HomeEnergy_label.Size = new System.Drawing.Size(34, 26);
             this.Watt_Fan_HomeEnergy_label.TabIndex = 2;
             this.Watt_Fan_HomeEnergy_label.Text = "Watt";
             // 
@@ -1172,7 +1172,7 @@
             // 
             this.Qty_Fan_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Qty_Fan_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Qty_Fan_HomeEnergy_textBox.Location = new System.Drawing.Point(215, 25);
+            this.Qty_Fan_HomeEnergy_textBox.Location = new System.Drawing.Point(215, 29);
             this.Qty_Fan_HomeEnergy_textBox.Name = "Qty_Fan_HomeEnergy_textBox";
             this.Qty_Fan_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Qty_Fan_HomeEnergy_textBox.TabIndex = 3;
@@ -1183,9 +1183,9 @@
             // 
             this.Qty_Fan_HomeEnergy_label.AutoSize = true;
             this.Qty_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Qty_Fan_HomeEnergy_label.Location = new System.Drawing.Point(271, 22);
+            this.Qty_Fan_HomeEnergy_label.Location = new System.Drawing.Point(271, 26);
             this.Qty_Fan_HomeEnergy_label.Name = "Qty_Fan_HomeEnergy_label";
-            this.Qty_Fan_HomeEnergy_label.Size = new System.Drawing.Size(27, 22);
+            this.Qty_Fan_HomeEnergy_label.Size = new System.Drawing.Size(27, 26);
             this.Qty_Fan_HomeEnergy_label.TabIndex = 4;
             this.Qty_Fan_HomeEnergy_label.Text = "Qty";
             // 
@@ -1193,7 +1193,7 @@
             // 
             this.HoursDay_Fan_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HoursDay_Fan_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HoursDay_Fan_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 69);
+            this.HoursDay_Fan_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 81);
             this.HoursDay_Fan_HomeEnergy_textBox.Name = "HoursDay_Fan_HomeEnergy_textBox";
             this.HoursDay_Fan_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.HoursDay_Fan_HomeEnergy_textBox.TabIndex = 5;
@@ -1205,9 +1205,9 @@
             this.HoursDay_Fan_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel6.SetColumnSpan(this.HoursDay_Fan_HomeEnergy_label, 2);
             this.HoursDay_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.HoursDay_Fan_HomeEnergy_label.Location = new System.Drawing.Point(159, 66);
+            this.HoursDay_Fan_HomeEnergy_label.Location = new System.Drawing.Point(159, 78);
             this.HoursDay_Fan_HomeEnergy_label.Name = "HoursDay_Fan_HomeEnergy_label";
-            this.HoursDay_Fan_HomeEnergy_label.Size = new System.Drawing.Size(72, 22);
+            this.HoursDay_Fan_HomeEnergy_label.Size = new System.Drawing.Size(72, 26);
             this.HoursDay_Fan_HomeEnergy_label.TabIndex = 6;
             this.HoursDay_Fan_HomeEnergy_label.Text = "Hours/Day";
             // 
@@ -1216,9 +1216,9 @@
             this.EnergyUsage_Fan_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel6.SetColumnSpan(this.EnergyUsage_Fan_HomeEnergy_label, 4);
             this.EnergyUsage_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EnergyUsage_Fan_HomeEnergy_label.Location = new System.Drawing.Point(3, 110);
+            this.EnergyUsage_Fan_HomeEnergy_label.Location = new System.Drawing.Point(3, 130);
             this.EnergyUsage_Fan_HomeEnergy_label.Name = "EnergyUsage_Fan_HomeEnergy_label";
-            this.EnergyUsage_Fan_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.EnergyUsage_Fan_HomeEnergy_label.Size = new System.Drawing.Size(262, 26);
             this.EnergyUsage_Fan_HomeEnergy_label.TabIndex = 7;
             this.EnergyUsage_Fan_HomeEnergy_label.Text = "EnergyUsage:";
             // 
@@ -1227,9 +1227,9 @@
             this.Emission_Fan_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel6.SetColumnSpan(this.Emission_Fan_HomeEnergy_label, 4);
             this.Emission_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Emission_Fan_HomeEnergy_label.Location = new System.Drawing.Point(3, 132);
+            this.Emission_Fan_HomeEnergy_label.Location = new System.Drawing.Point(3, 156);
             this.Emission_Fan_HomeEnergy_label.Name = "Emission_Fan_HomeEnergy_label";
-            this.Emission_Fan_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.Emission_Fan_HomeEnergy_label.Size = new System.Drawing.Size(262, 26);
             this.Emission_Fan_HomeEnergy_label.TabIndex = 8;
             this.Emission_Fan_HomeEnergy_label.Text = "Emission";
             // 
@@ -1238,10 +1238,10 @@
             this.Feedback_Fan_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel6.SetColumnSpan(this.Feedback_Fan_HomeEnergy_label, 3);
             this.Feedback_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_Fan_HomeEnergy_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_Fan_HomeEnergy_label.Location = new System.Drawing.Point(3, 182);
             this.Feedback_Fan_HomeEnergy_label.Name = "Feedback_Fan_HomeEnergy_label";
             this.tableLayoutPanel6.SetRowSpan(this.Feedback_Fan_HomeEnergy_label, 3);
-            this.Feedback_Fan_HomeEnergy_label.Size = new System.Drawing.Size(206, 69);
+            this.Feedback_Fan_HomeEnergy_label.Size = new System.Drawing.Size(206, 85);
             this.Feedback_Fan_HomeEnergy_label.TabIndex = 9;
             this.Feedback_Fan_HomeEnergy_label.Text = "Feedback";
             // 
@@ -1249,10 +1249,10 @@
             // 
             this.tableLayoutPanel6.SetColumnSpan(this.HelpClickMe_Fan_HomeEnergy_button, 2);
             this.HelpClickMe_Fan_HomeEnergy_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HelpClickMe_Fan_HomeEnergy_button.Location = new System.Drawing.Point(215, 179);
+            this.HelpClickMe_Fan_HomeEnergy_button.Location = new System.Drawing.Point(215, 211);
             this.HelpClickMe_Fan_HomeEnergy_button.Name = "HelpClickMe_Fan_HomeEnergy_button";
             this.tableLayoutPanel6.SetRowSpan(this.HelpClickMe_Fan_HomeEnergy_button, 2);
-            this.HelpClickMe_Fan_HomeEnergy_button.Size = new System.Drawing.Size(110, 41);
+            this.HelpClickMe_Fan_HomeEnergy_button.Size = new System.Drawing.Size(110, 53);
             this.HelpClickMe_Fan_HomeEnergy_button.TabIndex = 10;
             this.HelpClickMe_Fan_HomeEnergy_button.Text = "Help Click Me>";
             this.HelpClickMe_Fan_HomeEnergy_button.UseVisualStyleBackColor = true;
@@ -1261,10 +1261,10 @@
             // Award_Fan_HomeEnergy_picturebox
             // 
             this.Award_Fan_HomeEnergy_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Award_Fan_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_Fan_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 133);
             this.Award_Fan_HomeEnergy_picturebox.Name = "Award_Fan_HomeEnergy_picturebox";
             this.tableLayoutPanel6.SetRowSpan(this.Award_Fan_HomeEnergy_picturebox, 2);
-            this.Award_Fan_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 38);
+            this.Award_Fan_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 46);
             this.Award_Fan_HomeEnergy_picturebox.TabIndex = 11;
             this.Award_Fan_HomeEnergy_picturebox.TabStop = false;
             // 
@@ -1273,9 +1273,9 @@
             this.Award_Fan_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel6.SetColumnSpan(this.Award_Fan_HomeEnergy_label, 2);
             this.Award_Fan_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Award_Fan_HomeEnergy_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_Fan_HomeEnergy_label.Location = new System.Drawing.Point(215, 182);
             this.Award_Fan_HomeEnergy_label.Name = "Award_Fan_HomeEnergy_label";
-            this.Award_Fan_HomeEnergy_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_Fan_HomeEnergy_label.Size = new System.Drawing.Size(110, 26);
             this.Award_Fan_HomeEnergy_label.TabIndex = 12;
             this.Award_Fan_HomeEnergy_label.Text = "Award Ceremony";
             // 
@@ -1287,7 +1287,7 @@
             this.LED_HomeEnergy_Groupbox.Location = new System.Drawing.Point(3, 3);
             this.LED_HomeEnergy_Groupbox.Name = "LED_HomeEnergy_Groupbox";
             this.tableLayoutPanel3.SetRowSpan(this.LED_HomeEnergy_Groupbox, 2);
-            this.LED_HomeEnergy_Groupbox.Size = new System.Drawing.Size(334, 244);
+            this.LED_HomeEnergy_Groupbox.Size = new System.Drawing.Size(334, 288);
             this.LED_HomeEnergy_Groupbox.TabIndex = 2;
             this.LED_HomeEnergy_Groupbox.TabStop = false;
             this.LED_HomeEnergy_Groupbox.Text = "LED Bulbs / Daily Usage Data";
@@ -1328,7 +1328,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(328, 223);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(328, 267);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // pictureBox3
@@ -1338,7 +1338,7 @@
             this.pictureBox3.Location = new System.Drawing.Point(3, 3);
             this.pictureBox3.Name = "pictureBox3";
             this.tableLayoutPanel5.SetRowSpan(this.pictureBox3, 4);
-            this.pictureBox3.Size = new System.Drawing.Size(94, 82);
+            this.pictureBox3.Size = new System.Drawing.Size(94, 98);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 0;
             this.pictureBox3.TabStop = false;
@@ -1347,7 +1347,7 @@
             // 
             this.Watt_LED_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Watt_LED_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Watt_LED_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 25);
+            this.Watt_LED_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 29);
             this.Watt_LED_HomeEnergy_textBox.Name = "Watt_LED_HomeEnergy_textBox";
             this.Watt_LED_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Watt_LED_HomeEnergy_textBox.TabIndex = 1;
@@ -1358,9 +1358,9 @@
             // 
             this.Watt_LED_HomeEnergy_label.AutoSize = true;
             this.Watt_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Watt_LED_HomeEnergy_label.Location = new System.Drawing.Point(159, 22);
+            this.Watt_LED_HomeEnergy_label.Location = new System.Drawing.Point(159, 26);
             this.Watt_LED_HomeEnergy_label.Name = "Watt_LED_HomeEnergy_label";
-            this.Watt_LED_HomeEnergy_label.Size = new System.Drawing.Size(34, 22);
+            this.Watt_LED_HomeEnergy_label.Size = new System.Drawing.Size(34, 26);
             this.Watt_LED_HomeEnergy_label.TabIndex = 2;
             this.Watt_LED_HomeEnergy_label.Text = "Watt";
             // 
@@ -1368,7 +1368,7 @@
             // 
             this.Qty_LED_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Qty_LED_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Qty_LED_HomeEnergy_textBox.Location = new System.Drawing.Point(215, 25);
+            this.Qty_LED_HomeEnergy_textBox.Location = new System.Drawing.Point(215, 29);
             this.Qty_LED_HomeEnergy_textBox.Name = "Qty_LED_HomeEnergy_textBox";
             this.Qty_LED_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.Qty_LED_HomeEnergy_textBox.TabIndex = 3;
@@ -1379,9 +1379,9 @@
             // 
             this.Qty_LED_HomeEnergy_label.AutoSize = true;
             this.Qty_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Qty_LED_HomeEnergy_label.Location = new System.Drawing.Point(271, 22);
+            this.Qty_LED_HomeEnergy_label.Location = new System.Drawing.Point(271, 26);
             this.Qty_LED_HomeEnergy_label.Name = "Qty_LED_HomeEnergy_label";
-            this.Qty_LED_HomeEnergy_label.Size = new System.Drawing.Size(27, 22);
+            this.Qty_LED_HomeEnergy_label.Size = new System.Drawing.Size(27, 26);
             this.Qty_LED_HomeEnergy_label.TabIndex = 4;
             this.Qty_LED_HomeEnergy_label.Text = "Qty";
             // 
@@ -1389,7 +1389,7 @@
             // 
             this.HoursDay_LED_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HoursDay_LED_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HoursDay_LED_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 69);
+            this.HoursDay_LED_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 81);
             this.HoursDay_LED_HomeEnergy_textBox.Name = "HoursDay_LED_HomeEnergy_textBox";
             this.HoursDay_LED_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.HoursDay_LED_HomeEnergy_textBox.TabIndex = 5;
@@ -1401,9 +1401,9 @@
             this.HoursDay_LED_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel5.SetColumnSpan(this.HoursDay_LED_HomeEnergy_label, 2);
             this.HoursDay_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.HoursDay_LED_HomeEnergy_label.Location = new System.Drawing.Point(159, 66);
+            this.HoursDay_LED_HomeEnergy_label.Location = new System.Drawing.Point(159, 78);
             this.HoursDay_LED_HomeEnergy_label.Name = "HoursDay_LED_HomeEnergy_label";
-            this.HoursDay_LED_HomeEnergy_label.Size = new System.Drawing.Size(72, 22);
+            this.HoursDay_LED_HomeEnergy_label.Size = new System.Drawing.Size(72, 26);
             this.HoursDay_LED_HomeEnergy_label.TabIndex = 6;
             this.HoursDay_LED_HomeEnergy_label.Text = "Hours/Day";
             // 
@@ -1412,9 +1412,9 @@
             this.EnergyUsage_LED_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel5.SetColumnSpan(this.EnergyUsage_LED_HomeEnergy_label, 4);
             this.EnergyUsage_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EnergyUsage_LED_HomeEnergy_label.Location = new System.Drawing.Point(3, 110);
+            this.EnergyUsage_LED_HomeEnergy_label.Location = new System.Drawing.Point(3, 130);
             this.EnergyUsage_LED_HomeEnergy_label.Name = "EnergyUsage_LED_HomeEnergy_label";
-            this.EnergyUsage_LED_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.EnergyUsage_LED_HomeEnergy_label.Size = new System.Drawing.Size(262, 26);
             this.EnergyUsage_LED_HomeEnergy_label.TabIndex = 7;
             this.EnergyUsage_LED_HomeEnergy_label.Text = "EnergyUsage:";
             // 
@@ -1423,9 +1423,9 @@
             this.Emission_LED_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel5.SetColumnSpan(this.Emission_LED_HomeEnergy_label, 4);
             this.Emission_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Emission_LED_HomeEnergy_label.Location = new System.Drawing.Point(3, 132);
+            this.Emission_LED_HomeEnergy_label.Location = new System.Drawing.Point(3, 156);
             this.Emission_LED_HomeEnergy_label.Name = "Emission_LED_HomeEnergy_label";
-            this.Emission_LED_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.Emission_LED_HomeEnergy_label.Size = new System.Drawing.Size(262, 26);
             this.Emission_LED_HomeEnergy_label.TabIndex = 8;
             this.Emission_LED_HomeEnergy_label.Text = "Emission";
             // 
@@ -1434,10 +1434,10 @@
             this.Feedback_LED_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel5.SetColumnSpan(this.Feedback_LED_HomeEnergy_label, 3);
             this.Feedback_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_LED_HomeEnergy_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_LED_HomeEnergy_label.Location = new System.Drawing.Point(3, 182);
             this.Feedback_LED_HomeEnergy_label.Name = "Feedback_LED_HomeEnergy_label";
             this.tableLayoutPanel5.SetRowSpan(this.Feedback_LED_HomeEnergy_label, 3);
-            this.Feedback_LED_HomeEnergy_label.Size = new System.Drawing.Size(206, 69);
+            this.Feedback_LED_HomeEnergy_label.Size = new System.Drawing.Size(206, 85);
             this.Feedback_LED_HomeEnergy_label.TabIndex = 9;
             this.Feedback_LED_HomeEnergy_label.Text = "Feedback";
             // 
@@ -1445,10 +1445,10 @@
             // 
             this.tableLayoutPanel5.SetColumnSpan(this.HelpClickMe_LED_HomeEnergy_button, 2);
             this.HelpClickMe_LED_HomeEnergy_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HelpClickMe_LED_HomeEnergy_button.Location = new System.Drawing.Point(215, 179);
+            this.HelpClickMe_LED_HomeEnergy_button.Location = new System.Drawing.Point(215, 211);
             this.HelpClickMe_LED_HomeEnergy_button.Name = "HelpClickMe_LED_HomeEnergy_button";
             this.tableLayoutPanel5.SetRowSpan(this.HelpClickMe_LED_HomeEnergy_button, 2);
-            this.HelpClickMe_LED_HomeEnergy_button.Size = new System.Drawing.Size(110, 41);
+            this.HelpClickMe_LED_HomeEnergy_button.Size = new System.Drawing.Size(110, 53);
             this.HelpClickMe_LED_HomeEnergy_button.TabIndex = 10;
             this.HelpClickMe_LED_HomeEnergy_button.Text = "Help Click Me>";
             this.HelpClickMe_LED_HomeEnergy_button.UseVisualStyleBackColor = true;
@@ -1457,10 +1457,10 @@
             // Award_LED_HomeEnergy_picturebox
             // 
             this.Award_LED_HomeEnergy_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Award_LED_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_LED_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 133);
             this.Award_LED_HomeEnergy_picturebox.Name = "Award_LED_HomeEnergy_picturebox";
             this.tableLayoutPanel5.SetRowSpan(this.Award_LED_HomeEnergy_picturebox, 2);
-            this.Award_LED_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 38);
+            this.Award_LED_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 46);
             this.Award_LED_HomeEnergy_picturebox.TabIndex = 11;
             this.Award_LED_HomeEnergy_picturebox.TabStop = false;
             this.Award_LED_HomeEnergy_picturebox.Visible = false;
@@ -1470,9 +1470,9 @@
             this.Award_LED_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel5.SetColumnSpan(this.Award_LED_HomeEnergy_label, 2);
             this.Award_LED_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Award_LED_HomeEnergy_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_LED_HomeEnergy_label.Location = new System.Drawing.Point(215, 182);
             this.Award_LED_HomeEnergy_label.Name = "Award_LED_HomeEnergy_label";
-            this.Award_LED_HomeEnergy_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_LED_HomeEnergy_label.Size = new System.Drawing.Size(110, 26);
             this.Award_LED_HomeEnergy_label.TabIndex = 12;
             this.Award_LED_HomeEnergy_label.Text = "Award Ceremony";
             this.Award_LED_HomeEnergy_label.Visible = false;
@@ -1482,10 +1482,10 @@
             this.tableLayoutPanel3.SetColumnSpan(this.groupBox3, 4);
             this.groupBox3.Controls.Add(this.tableLayoutPanel8);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 253);
+            this.groupBox3.Location = new System.Drawing.Point(3, 297);
             this.groupBox3.Name = "groupBox3";
             this.tableLayoutPanel3.SetRowSpan(this.groupBox3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(334, 247);
+            this.groupBox3.Size = new System.Drawing.Size(334, 291);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "WaterSupply / Daily Usage Data";
@@ -1524,7 +1524,7 @@
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(328, 226);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(328, 270);
             this.tableLayoutPanel8.TabIndex = 0;
             // 
             // pictureBox5
@@ -1534,7 +1534,7 @@
             this.pictureBox5.Location = new System.Drawing.Point(3, 3);
             this.pictureBox5.Name = "pictureBox5";
             this.tableLayoutPanel8.SetRowSpan(this.pictureBox5, 4);
-            this.pictureBox5.Size = new System.Drawing.Size(94, 82);
+            this.pictureBox5.Size = new System.Drawing.Size(94, 102);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
@@ -1543,7 +1543,7 @@
             // 
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Location = new System.Drawing.Point(103, 25);
+            this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Location = new System.Drawing.Point(103, 30);
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Name = "AvgLitersDaily_WaterSupply_HomeEnergy_textbox";
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.Size = new System.Drawing.Size(50, 22);
             this.AvgLitersDaily_WaterSupply_HomeEnergy_textbox.TabIndex = 1;
@@ -1556,9 +1556,9 @@
             this.AvgLitersDaily_WaterSupply_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel8.SetColumnSpan(this.AvgLitersDaily_WaterSupply_HomeEnergy_label, 2);
             this.AvgLitersDaily_WaterSupply_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AvgLitersDaily_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(159, 22);
+            this.AvgLitersDaily_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(159, 27);
             this.AvgLitersDaily_WaterSupply_HomeEnergy_label.Name = "AvgLitersDaily_WaterSupply_HomeEnergy_label";
-            this.AvgLitersDaily_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(106, 22);
+            this.AvgLitersDaily_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(106, 27);
             this.AvgLitersDaily_WaterSupply_HomeEnergy_label.TabIndex = 2;
             this.AvgLitersDaily_WaterSupply_HomeEnergy_label.Text = "Avg Liters Daily";
             // 
@@ -1566,7 +1566,7 @@
             // 
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 69);
+            this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.Location = new System.Drawing.Point(103, 84);
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.Name = "NumberOfPersons_WaterSupply_HomeEnergy_textBox";
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.Size = new System.Drawing.Size(50, 22);
             this.NumberOfPersons_WaterSupply_HomeEnergy_textBox.TabIndex = 5;
@@ -1578,9 +1578,9 @@
             this.NumberOfPersons_WaterSupply_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel8.SetColumnSpan(this.NumberOfPersons_WaterSupply_HomeEnergy_label, 3);
             this.NumberOfPersons_WaterSupply_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.NumberOfPersons_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(159, 66);
+            this.NumberOfPersons_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(159, 81);
             this.NumberOfPersons_WaterSupply_HomeEnergy_label.Name = "NumberOfPersons_WaterSupply_HomeEnergy_label";
-            this.NumberOfPersons_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(117, 22);
+            this.NumberOfPersons_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(117, 27);
             this.NumberOfPersons_WaterSupply_HomeEnergy_label.TabIndex = 6;
             this.NumberOfPersons_WaterSupply_HomeEnergy_label.Text = "Number Of Person";
             // 
@@ -1589,9 +1589,9 @@
             this.EnergyUsage_WaterSupply_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel8.SetColumnSpan(this.EnergyUsage_WaterSupply_HomeEnergy_label, 4);
             this.EnergyUsage_WaterSupply_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EnergyUsage_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(3, 110);
+            this.EnergyUsage_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(3, 135);
             this.EnergyUsage_WaterSupply_HomeEnergy_label.Name = "EnergyUsage_WaterSupply_HomeEnergy_label";
-            this.EnergyUsage_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.EnergyUsage_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(262, 27);
             this.EnergyUsage_WaterSupply_HomeEnergy_label.TabIndex = 7;
             this.EnergyUsage_WaterSupply_HomeEnergy_label.Text = "EnergyUsage:";
             // 
@@ -1600,9 +1600,9 @@
             this.Emission_WaterSupply_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel8.SetColumnSpan(this.Emission_WaterSupply_HomeEnergy_label, 4);
             this.Emission_WaterSupply_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Emission_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(3, 132);
+            this.Emission_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(3, 162);
             this.Emission_WaterSupply_HomeEnergy_label.Name = "Emission_WaterSupply_HomeEnergy_label";
-            this.Emission_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(262, 22);
+            this.Emission_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(262, 27);
             this.Emission_WaterSupply_HomeEnergy_label.TabIndex = 8;
             this.Emission_WaterSupply_HomeEnergy_label.Text = "Emission";
             // 
@@ -1611,10 +1611,10 @@
             this.Feedback_WaterSupply_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel8.SetColumnSpan(this.Feedback_WaterSupply_HomeEnergy_label, 3);
             this.Feedback_WaterSupply_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(3, 189);
             this.Feedback_WaterSupply_HomeEnergy_label.Name = "Feedback_WaterSupply_HomeEnergy_label";
             this.tableLayoutPanel8.SetRowSpan(this.Feedback_WaterSupply_HomeEnergy_label, 3);
-            this.Feedback_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(206, 72);
+            this.Feedback_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(206, 81);
             this.Feedback_WaterSupply_HomeEnergy_label.TabIndex = 9;
             this.Feedback_WaterSupply_HomeEnergy_label.Text = "Feedback";
             // 
@@ -1622,10 +1622,10 @@
             // 
             this.tableLayoutPanel8.SetColumnSpan(this.HelpClickMe_WaterSupply_HomeEnergy_button, 2);
             this.HelpClickMe_WaterSupply_HomeEnergy_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HelpClickMe_WaterSupply_HomeEnergy_button.Location = new System.Drawing.Point(215, 179);
+            this.HelpClickMe_WaterSupply_HomeEnergy_button.Location = new System.Drawing.Point(215, 219);
             this.HelpClickMe_WaterSupply_HomeEnergy_button.Name = "HelpClickMe_WaterSupply_HomeEnergy_button";
             this.tableLayoutPanel8.SetRowSpan(this.HelpClickMe_WaterSupply_HomeEnergy_button, 2);
-            this.HelpClickMe_WaterSupply_HomeEnergy_button.Size = new System.Drawing.Size(110, 44);
+            this.HelpClickMe_WaterSupply_HomeEnergy_button.Size = new System.Drawing.Size(110, 48);
             this.HelpClickMe_WaterSupply_HomeEnergy_button.TabIndex = 10;
             this.HelpClickMe_WaterSupply_HomeEnergy_button.Text = "Help Click Me>";
             this.HelpClickMe_WaterSupply_HomeEnergy_button.UseVisualStyleBackColor = true;
@@ -1634,10 +1634,10 @@
             // Award_WaterSupply_HomeEnergy_picturebox
             // 
             this.Award_WaterSupply_HomeEnergy_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Award_WaterSupply_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_WaterSupply_HomeEnergy_picturebox.Location = new System.Drawing.Point(271, 138);
             this.Award_WaterSupply_HomeEnergy_picturebox.Name = "Award_WaterSupply_HomeEnergy_picturebox";
             this.tableLayoutPanel8.SetRowSpan(this.Award_WaterSupply_HomeEnergy_picturebox, 2);
-            this.Award_WaterSupply_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 38);
+            this.Award_WaterSupply_HomeEnergy_picturebox.Size = new System.Drawing.Size(54, 48);
             this.Award_WaterSupply_HomeEnergy_picturebox.TabIndex = 11;
             this.Award_WaterSupply_HomeEnergy_picturebox.TabStop = false;
             // 
@@ -1646,9 +1646,9 @@
             this.Award_WaterSupply_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel8.SetColumnSpan(this.Award_WaterSupply_HomeEnergy_label, 2);
             this.Award_WaterSupply_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_WaterSupply_HomeEnergy_label.Location = new System.Drawing.Point(215, 189);
             this.Award_WaterSupply_HomeEnergy_label.Name = "Award_WaterSupply_HomeEnergy_label";
-            this.Award_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_WaterSupply_HomeEnergy_label.Size = new System.Drawing.Size(110, 27);
             this.Award_WaterSupply_HomeEnergy_label.TabIndex = 12;
             this.Award_WaterSupply_HomeEnergy_label.Text = "Award Ceremony";
             // 
@@ -1657,10 +1657,10 @@
             this.tableLayoutPanel3.SetColumnSpan(this.CustomEntry_HomeEnergy_Groupbox, 4);
             this.CustomEntry_HomeEnergy_Groupbox.Controls.Add(this.tableLayoutPanel4);
             this.CustomEntry_HomeEnergy_Groupbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CustomEntry_HomeEnergy_Groupbox.Location = new System.Drawing.Point(683, 253);
+            this.CustomEntry_HomeEnergy_Groupbox.Location = new System.Drawing.Point(683, 297);
             this.CustomEntry_HomeEnergy_Groupbox.Name = "CustomEntry_HomeEnergy_Groupbox";
             this.tableLayoutPanel3.SetRowSpan(this.CustomEntry_HomeEnergy_Groupbox, 2);
-            this.CustomEntry_HomeEnergy_Groupbox.Size = new System.Drawing.Size(336, 247);
+            this.CustomEntry_HomeEnergy_Groupbox.Size = new System.Drawing.Size(336, 291);
             this.CustomEntry_HomeEnergy_Groupbox.TabIndex = 1;
             this.CustomEntry_HomeEnergy_Groupbox.TabStop = false;
             this.CustomEntry_HomeEnergy_Groupbox.Text = "CustomEntry / Daily Usage Data";
@@ -1700,7 +1700,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(330, 226);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(330, 270);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // pictureBox2
@@ -1710,7 +1710,7 @@
             this.pictureBox2.Location = new System.Drawing.Point(3, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.tableLayoutPanel4.SetRowSpan(this.pictureBox2, 4);
-            this.pictureBox2.Size = new System.Drawing.Size(95, 82);
+            this.pictureBox2.Size = new System.Drawing.Size(95, 102);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
@@ -1719,7 +1719,7 @@
             // 
             this.Watt_CustomEntry_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Watt_CustomEntry_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Watt_CustomEntry_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 25);
+            this.Watt_CustomEntry_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 30);
             this.Watt_CustomEntry_HomeEnergy_textBox.Name = "Watt_CustomEntry_HomeEnergy_textBox";
             this.Watt_CustomEntry_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.Watt_CustomEntry_HomeEnergy_textBox.TabIndex = 1;
@@ -1730,9 +1730,9 @@
             // 
             this.Watt_CustomEntry_HomeEnergy_label.AutoSize = true;
             this.Watt_CustomEntry_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Watt_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(161, 22);
+            this.Watt_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(161, 27);
             this.Watt_CustomEntry_HomeEnergy_label.Name = "Watt_CustomEntry_HomeEnergy_label";
-            this.Watt_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(34, 22);
+            this.Watt_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(34, 27);
             this.Watt_CustomEntry_HomeEnergy_label.TabIndex = 2;
             this.Watt_CustomEntry_HomeEnergy_label.Text = "Watt";
             // 
@@ -1740,7 +1740,7 @@
             // 
             this.Qty_CustomEntry_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Qty_CustomEntry_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Qty_CustomEntry_HomeEnergy_textBox.Location = new System.Drawing.Point(218, 25);
+            this.Qty_CustomEntry_HomeEnergy_textBox.Location = new System.Drawing.Point(218, 30);
             this.Qty_CustomEntry_HomeEnergy_textBox.Name = "Qty_CustomEntry_HomeEnergy_textBox";
             this.Qty_CustomEntry_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.Qty_CustomEntry_HomeEnergy_textBox.TabIndex = 3;
@@ -1751,9 +1751,9 @@
             // 
             this.Qty_CustomEntry_HomeEnergy_label.AutoSize = true;
             this.Qty_CustomEntry_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Qty_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(275, 22);
+            this.Qty_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(275, 27);
             this.Qty_CustomEntry_HomeEnergy_label.Name = "Qty_CustomEntry_HomeEnergy_label";
-            this.Qty_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(27, 22);
+            this.Qty_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(27, 27);
             this.Qty_CustomEntry_HomeEnergy_label.TabIndex = 4;
             this.Qty_CustomEntry_HomeEnergy_label.Text = "Qty";
             // 
@@ -1761,7 +1761,7 @@
             // 
             this.HoursDay_CustomEntry_HomeEnergy_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HoursDay_CustomEntry_HomeEnergy_textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HoursDay_CustomEntry_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 69);
+            this.HoursDay_CustomEntry_HomeEnergy_textBox.Location = new System.Drawing.Point(104, 84);
             this.HoursDay_CustomEntry_HomeEnergy_textBox.Name = "HoursDay_CustomEntry_HomeEnergy_textBox";
             this.HoursDay_CustomEntry_HomeEnergy_textBox.Size = new System.Drawing.Size(51, 22);
             this.HoursDay_CustomEntry_HomeEnergy_textBox.TabIndex = 5;
@@ -1773,9 +1773,9 @@
             this.HoursDay_CustomEntry_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel4.SetColumnSpan(this.HoursDay_CustomEntry_HomeEnergy_label, 2);
             this.HoursDay_CustomEntry_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.HoursDay_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(161, 66);
+            this.HoursDay_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(161, 81);
             this.HoursDay_CustomEntry_HomeEnergy_label.Name = "HoursDay_CustomEntry_HomeEnergy_label";
-            this.HoursDay_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(72, 22);
+            this.HoursDay_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(72, 27);
             this.HoursDay_CustomEntry_HomeEnergy_label.TabIndex = 6;
             this.HoursDay_CustomEntry_HomeEnergy_label.Text = "Hours/Day";
             // 
@@ -1784,9 +1784,9 @@
             this.EnergyUsage_CustomEntry_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel4.SetColumnSpan(this.EnergyUsage_CustomEntry_HomeEnergy_label, 4);
             this.EnergyUsage_CustomEntry_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EnergyUsage_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(3, 110);
+            this.EnergyUsage_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(3, 135);
             this.EnergyUsage_CustomEntry_HomeEnergy_label.Name = "EnergyUsage_CustomEntry_HomeEnergy_label";
-            this.EnergyUsage_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(266, 22);
+            this.EnergyUsage_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(266, 27);
             this.EnergyUsage_CustomEntry_HomeEnergy_label.TabIndex = 7;
             this.EnergyUsage_CustomEntry_HomeEnergy_label.Text = "EnergyUsage:";
             // 
@@ -1795,9 +1795,9 @@
             this.Emission_CustomEntry_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel4.SetColumnSpan(this.Emission_CustomEntry_HomeEnergy_label, 4);
             this.Emission_CustomEntry_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Emission_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(3, 132);
+            this.Emission_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(3, 162);
             this.Emission_CustomEntry_HomeEnergy_label.Name = "Emission_CustomEntry_HomeEnergy_label";
-            this.Emission_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(266, 22);
+            this.Emission_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(266, 27);
             this.Emission_CustomEntry_HomeEnergy_label.TabIndex = 8;
             this.Emission_CustomEntry_HomeEnergy_label.Text = "Emission";
             // 
@@ -1805,10 +1805,10 @@
             // 
             this.tableLayoutPanel4.SetColumnSpan(this.HelpClickMe_CustomEntry_HomeEnergy_button, 2);
             this.HelpClickMe_CustomEntry_HomeEnergy_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HelpClickMe_CustomEntry_HomeEnergy_button.Location = new System.Drawing.Point(218, 179);
+            this.HelpClickMe_CustomEntry_HomeEnergy_button.Location = new System.Drawing.Point(218, 219);
             this.HelpClickMe_CustomEntry_HomeEnergy_button.Name = "HelpClickMe_CustomEntry_HomeEnergy_button";
             this.tableLayoutPanel4.SetRowSpan(this.HelpClickMe_CustomEntry_HomeEnergy_button, 2);
-            this.HelpClickMe_CustomEntry_HomeEnergy_button.Size = new System.Drawing.Size(109, 44);
+            this.HelpClickMe_CustomEntry_HomeEnergy_button.Size = new System.Drawing.Size(109, 48);
             this.HelpClickMe_CustomEntry_HomeEnergy_button.TabIndex = 10;
             this.HelpClickMe_CustomEntry_HomeEnergy_button.Text = "Help Click Me>";
             this.HelpClickMe_CustomEntry_HomeEnergy_button.UseVisualStyleBackColor = true;
@@ -1816,7 +1816,7 @@
             // 
             // Award_CustomEntry_HomeEnergy_picturebox
             // 
-            this.Award_CustomEntry_HomeEnergy_picturebox.Location = new System.Drawing.Point(275, 113);
+            this.Award_CustomEntry_HomeEnergy_picturebox.Location = new System.Drawing.Point(275, 138);
             this.Award_CustomEntry_HomeEnergy_picturebox.Name = "Award_CustomEntry_HomeEnergy_picturebox";
             this.tableLayoutPanel4.SetRowSpan(this.Award_CustomEntry_HomeEnergy_picturebox, 2);
             this.Award_CustomEntry_HomeEnergy_picturebox.Size = new System.Drawing.Size(52, 38);
@@ -1828,9 +1828,9 @@
             this.Award_CustomEntry_HomeEnergy_label.AutoSize = true;
             this.tableLayoutPanel4.SetColumnSpan(this.Award_CustomEntry_HomeEnergy_label, 2);
             this.Award_CustomEntry_HomeEnergy_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(218, 154);
+            this.Award_CustomEntry_HomeEnergy_label.Location = new System.Drawing.Point(218, 189);
             this.Award_CustomEntry_HomeEnergy_label.Name = "Award_CustomEntry_HomeEnergy_label";
-            this.Award_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(109, 22);
+            this.Award_CustomEntry_HomeEnergy_label.Size = new System.Drawing.Size(109, 27);
             this.Award_CustomEntry_HomeEnergy_label.TabIndex = 12;
             this.Award_CustomEntry_HomeEnergy_label.Text = "Award Ceremony";
             // 
@@ -1841,7 +1841,7 @@
             this.HomeOffice_Commute_tabPage.Location = new System.Drawing.Point(4, 25);
             this.HomeOffice_Commute_tabPage.Name = "HomeOffice_Commute_tabPage";
             this.HomeOffice_Commute_tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.HomeOffice_Commute_tabPage.Size = new System.Drawing.Size(1030, 511);
+            this.HomeOffice_Commute_tabPage.Size = new System.Drawing.Size(1030, 599);
             this.HomeOffice_Commute_tabPage.TabIndex = 2;
             this.HomeOffice_Commute_tabPage.Text = "HomeOffice/Commute";
             // 
@@ -1859,7 +1859,7 @@
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel22.Size = new System.Drawing.Size(1024, 505);
+            this.tableLayoutPanel22.Size = new System.Drawing.Size(1024, 593);
             this.tableLayoutPanel22.TabIndex = 1;
             // 
             // CommuteModeGroupBox
@@ -1868,7 +1868,7 @@
             this.CommuteModeGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CommuteModeGroupBox.Location = new System.Drawing.Point(3, 3);
             this.CommuteModeGroupBox.Name = "CommuteModeGroupBox";
-            this.CommuteModeGroupBox.Size = new System.Drawing.Size(1018, 246);
+            this.CommuteModeGroupBox.Size = new System.Drawing.Size(1018, 290);
             this.CommuteModeGroupBox.TabIndex = 9;
             this.CommuteModeGroupBox.TabStop = false;
             this.CommuteModeGroupBox.Text = "Commute/Daily data";
@@ -1910,7 +1910,7 @@
             this.tableLayoutPanel33.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel33.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel33.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel33.Size = new System.Drawing.Size(1012, 225);
+            this.tableLayoutPanel33.Size = new System.Drawing.Size(1012, 269);
             this.tableLayoutPanel33.TabIndex = 0;
             // 
             // groupBox5
@@ -1920,7 +1920,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Location = new System.Drawing.Point(3, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(297, 106);
+            this.groupBox5.Size = new System.Drawing.Size(297, 128);
             this.groupBox5.TabIndex = 14;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ModeType";
@@ -1948,7 +1948,7 @@
             this.tableLayoutPanel38.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel38.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel38.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel38.Size = new System.Drawing.Size(291, 85);
+            this.tableLayoutPanel38.Size = new System.Drawing.Size(291, 107);
             this.tableLayoutPanel38.TabIndex = 0;
             // 
             // pictureBox11
@@ -1959,7 +1959,7 @@
             this.pictureBox11.Location = new System.Drawing.Point(99, 3);
             this.pictureBox11.Name = "pictureBox11";
             this.tableLayoutPanel38.SetRowSpan(this.pictureBox11, 2);
-            this.pictureBox11.Size = new System.Drawing.Size(90, 50);
+            this.pictureBox11.Size = new System.Drawing.Size(90, 64);
             this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox11.TabIndex = 4;
             this.pictureBox11.TabStop = false;
@@ -1972,7 +1972,7 @@
             this.pictureBox9.Location = new System.Drawing.Point(195, 3);
             this.pictureBox9.Name = "pictureBox9";
             this.tableLayoutPanel38.SetRowSpan(this.pictureBox9, 2);
-            this.pictureBox9.Size = new System.Drawing.Size(93, 50);
+            this.pictureBox9.Size = new System.Drawing.Size(93, 64);
             this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox9.TabIndex = 3;
             this.pictureBox9.TabStop = false;
@@ -1981,9 +1981,9 @@
             // 
             this.Commute_Train.AutoSize = true;
             this.Commute_Train.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Commute_Train.Location = new System.Drawing.Point(34, 59);
+            this.Commute_Train.Location = new System.Drawing.Point(34, 73);
             this.Commute_Train.Name = "Commute_Train";
-            this.Commute_Train.Size = new System.Drawing.Size(59, 23);
+            this.Commute_Train.Size = new System.Drawing.Size(59, 31);
             this.Commute_Train.TabIndex = 0;
             this.Commute_Train.TabStop = true;
             this.Commute_Train.Text = "Train";
@@ -1994,9 +1994,9 @@
             // 
             this.Commute_Bus.AutoSize = true;
             this.Commute_Bus.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Commute_Bus.Location = new System.Drawing.Point(138, 59);
+            this.Commute_Bus.Location = new System.Drawing.Point(138, 73);
             this.Commute_Bus.Name = "Commute_Bus";
-            this.Commute_Bus.Size = new System.Drawing.Size(51, 23);
+            this.Commute_Bus.Size = new System.Drawing.Size(51, 31);
             this.Commute_Bus.TabIndex = 1;
             this.Commute_Bus.TabStop = true;
             this.Commute_Bus.Text = "Bus";
@@ -2007,9 +2007,9 @@
             // 
             this.Commute_Car.AutoSize = true;
             this.Commute_Car.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Commute_Car.Location = new System.Drawing.Point(239, 59);
+            this.Commute_Car.Location = new System.Drawing.Point(239, 73);
             this.Commute_Car.Name = "Commute_Car";
-            this.Commute_Car.Size = new System.Drawing.Size(49, 23);
+            this.Commute_Car.Size = new System.Drawing.Size(49, 31);
             this.Commute_Car.TabIndex = 2;
             this.Commute_Car.TabStop = true;
             this.Commute_Car.Text = "Car";
@@ -2024,7 +2024,7 @@
             this.pictureBox7.Location = new System.Drawing.Point(3, 3);
             this.pictureBox7.Name = "pictureBox7";
             this.tableLayoutPanel38.SetRowSpan(this.pictureBox7, 2);
-            this.pictureBox7.Size = new System.Drawing.Size(90, 50);
+            this.pictureBox7.Size = new System.Drawing.Size(90, 64);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 0;
             this.pictureBox7.TabStop = false;
@@ -2041,7 +2041,7 @@
             this.tableLayoutPanel37.Controls.Add(this.label20, 1, 1);
             this.tableLayoutPanel37.Controls.Add(this.CommuteTravel_emission_label, 0, 2);
             this.tableLayoutPanel37.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel37.Location = new System.Drawing.Point(3, 115);
+            this.tableLayoutPanel37.Location = new System.Drawing.Point(3, 137);
             this.tableLayoutPanel37.Name = "tableLayoutPanel37";
             this.tableLayoutPanel37.RowCount = 4;
             this.tableLayoutPanel37.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -2049,14 +2049,14 @@
             this.tableLayoutPanel37.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel37.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel37.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel37.Size = new System.Drawing.Size(297, 107);
+            this.tableLayoutPanel37.Size = new System.Drawing.Size(297, 129);
             this.tableLayoutPanel37.TabIndex = 13;
             // 
             // CommuteTravel_MilesTravelled_Textbox
             // 
             this.CommuteTravel_MilesTravelled_Textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CommuteTravel_MilesTravelled_Textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CommuteTravel_MilesTravelled_Textbox.Location = new System.Drawing.Point(3, 29);
+            this.CommuteTravel_MilesTravelled_Textbox.Location = new System.Drawing.Point(3, 35);
             this.CommuteTravel_MilesTravelled_Textbox.Name = "CommuteTravel_MilesTravelled_Textbox";
             this.CommuteTravel_MilesTravelled_Textbox.Size = new System.Drawing.Size(68, 22);
             this.CommuteTravel_MilesTravelled_Textbox.TabIndex = 1;
@@ -2069,9 +2069,9 @@
             this.label20.AutoSize = true;
             this.tableLayoutPanel37.SetColumnSpan(this.label20, 3);
             this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label20.Location = new System.Drawing.Point(77, 26);
+            this.label20.Location = new System.Drawing.Point(77, 32);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(217, 26);
+            this.label20.Size = new System.Drawing.Size(217, 32);
             this.label20.TabIndex = 0;
             this.label20.Text = "Daily Commute in Miles (One way)";
             // 
@@ -2080,7 +2080,7 @@
             this.CommuteTravel_emission_label.AutoSize = true;
             this.tableLayoutPanel37.SetColumnSpan(this.CommuteTravel_emission_label, 4);
             this.CommuteTravel_emission_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CommuteTravel_emission_label.Location = new System.Drawing.Point(3, 62);
+            this.CommuteTravel_emission_label.Location = new System.Drawing.Point(3, 80);
             this.CommuteTravel_emission_label.Name = "CommuteTravel_emission_label";
             this.CommuteTravel_emission_label.Size = new System.Drawing.Size(291, 16);
             this.CommuteTravel_emission_label.TabIndex = 2;
@@ -2093,7 +2093,7 @@
             this.fuelType_groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fuelType_groupBox.Location = new System.Drawing.Point(710, 3);
             this.fuelType_groupBox.Name = "fuelType_groupBox";
-            this.fuelType_groupBox.Size = new System.Drawing.Size(299, 106);
+            this.fuelType_groupBox.Size = new System.Drawing.Size(299, 128);
             this.fuelType_groupBox.TabIndex = 2;
             this.fuelType_groupBox.TabStop = false;
             this.fuelType_groupBox.Text = "FuelType";
@@ -2118,16 +2118,16 @@
             this.tableLayoutPanel40.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel40.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel40.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel40.Size = new System.Drawing.Size(293, 85);
+            this.tableLayoutPanel40.Size = new System.Drawing.Size(293, 107);
             this.tableLayoutPanel40.TabIndex = 0;
             // 
             // CommuteTravel_FuelType_Petrol_RadioButton
             // 
             this.CommuteTravel_FuelType_Petrol_RadioButton.AutoSize = true;
             this.CommuteTravel_FuelType_Petrol_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.CommuteTravel_FuelType_Petrol_RadioButton.Location = new System.Drawing.Point(31, 31);
+            this.CommuteTravel_FuelType_Petrol_RadioButton.Location = new System.Drawing.Point(31, 38);
             this.CommuteTravel_FuelType_Petrol_RadioButton.Name = "CommuteTravel_FuelType_Petrol_RadioButton";
-            this.CommuteTravel_FuelType_Petrol_RadioButton.Size = new System.Drawing.Size(63, 22);
+            this.CommuteTravel_FuelType_Petrol_RadioButton.Size = new System.Drawing.Size(63, 29);
             this.CommuteTravel_FuelType_Petrol_RadioButton.TabIndex = 0;
             this.CommuteTravel_FuelType_Petrol_RadioButton.TabStop = true;
             this.CommuteTravel_FuelType_Petrol_RadioButton.Text = "Petrol";
@@ -2138,9 +2138,9 @@
             // 
             this.CommuteTravel_FuelType_Diesel_RadioButton.AutoSize = true;
             this.CommuteTravel_FuelType_Diesel_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.CommuteTravel_FuelType_Diesel_RadioButton.Location = new System.Drawing.Point(124, 31);
+            this.CommuteTravel_FuelType_Diesel_RadioButton.Location = new System.Drawing.Point(124, 38);
             this.CommuteTravel_FuelType_Diesel_RadioButton.Name = "CommuteTravel_FuelType_Diesel_RadioButton";
-            this.CommuteTravel_FuelType_Diesel_RadioButton.Size = new System.Drawing.Size(67, 22);
+            this.CommuteTravel_FuelType_Diesel_RadioButton.Size = new System.Drawing.Size(67, 29);
             this.CommuteTravel_FuelType_Diesel_RadioButton.TabIndex = 1;
             this.CommuteTravel_FuelType_Diesel_RadioButton.TabStop = true;
             this.CommuteTravel_FuelType_Diesel_RadioButton.Text = "Diesel";
@@ -2151,9 +2151,9 @@
             // 
             this.CommuteTravel_FuelType_EV_RadioButton.AutoSize = true;
             this.CommuteTravel_FuelType_EV_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.CommuteTravel_FuelType_EV_RadioButton.Location = new System.Drawing.Point(244, 31);
+            this.CommuteTravel_FuelType_EV_RadioButton.Location = new System.Drawing.Point(244, 38);
             this.CommuteTravel_FuelType_EV_RadioButton.Name = "CommuteTravel_FuelType_EV_RadioButton";
-            this.CommuteTravel_FuelType_EV_RadioButton.Size = new System.Drawing.Size(46, 22);
+            this.CommuteTravel_FuelType_EV_RadioButton.Size = new System.Drawing.Size(46, 29);
             this.CommuteTravel_FuelType_EV_RadioButton.TabIndex = 2;
             this.CommuteTravel_FuelType_EV_RadioButton.TabStop = true;
             this.CommuteTravel_FuelType_EV_RadioButton.Text = "EV";
@@ -2163,7 +2163,7 @@
             // Help_Commute__Button
             // 
             this.Help_Commute__Button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Help_Commute__Button.Location = new System.Drawing.Point(306, 173);
+            this.Help_Commute__Button.Location = new System.Drawing.Point(306, 217);
             this.Help_Commute__Button.Name = "Help_Commute__Button";
             this.Help_Commute__Button.Size = new System.Drawing.Size(95, 49);
             this.Help_Commute__Button.TabIndex = 3;
@@ -2176,9 +2176,9 @@
             this.tableLayoutPanel33.SetColumnSpan(this.panel4, 3);
             this.panel4.Controls.Add(this.tableLayoutPanel43);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(609, 115);
+            this.panel4.Location = new System.Drawing.Point(609, 137);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(297, 107);
+            this.panel4.Size = new System.Drawing.Size(297, 129);
             this.panel4.TabIndex = 11;
             // 
             // tableLayoutPanel43
@@ -2198,7 +2198,7 @@
             this.tableLayoutPanel43.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel43.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel43.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel43.Size = new System.Drawing.Size(297, 107);
+            this.tableLayoutPanel43.Size = new System.Drawing.Size(297, 129);
             this.tableLayoutPanel43.TabIndex = 0;
             // 
             // Award_officeCommute_Leisure_label
@@ -2206,9 +2206,9 @@
             this.Award_officeCommute_Leisure_label.AutoSize = true;
             this.tableLayoutPanel43.SetColumnSpan(this.Award_officeCommute_Leisure_label, 2);
             this.Award_officeCommute_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_officeCommute_Leisure_label.Location = new System.Drawing.Point(3, 26);
+            this.Award_officeCommute_Leisure_label.Location = new System.Drawing.Point(3, 32);
             this.Award_officeCommute_Leisure_label.Name = "Award_officeCommute_Leisure_label";
-            this.Award_officeCommute_Leisure_label.Size = new System.Drawing.Size(142, 26);
+            this.Award_officeCommute_Leisure_label.Size = new System.Drawing.Size(142, 32);
             this.Award_officeCommute_Leisure_label.TabIndex = 0;
             this.Award_officeCommute_Leisure_label.Text = "AwardCeremony";
             this.Award_officeCommute_Leisure_label.Visible = false;
@@ -2218,10 +2218,10 @@
             this.feedback_officeCommute_Leisure_label.AutoSize = true;
             this.tableLayoutPanel43.SetColumnSpan(this.feedback_officeCommute_Leisure_label, 4);
             this.feedback_officeCommute_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.feedback_officeCommute_Leisure_label.Location = new System.Drawing.Point(3, 52);
+            this.feedback_officeCommute_Leisure_label.Location = new System.Drawing.Point(3, 64);
             this.feedback_officeCommute_Leisure_label.Name = "feedback_officeCommute_Leisure_label";
             this.tableLayoutPanel43.SetRowSpan(this.feedback_officeCommute_Leisure_label, 2);
-            this.feedback_officeCommute_Leisure_label.Size = new System.Drawing.Size(291, 55);
+            this.feedback_officeCommute_Leisure_label.Size = new System.Drawing.Size(291, 65);
             this.feedback_officeCommute_Leisure_label.TabIndex = 7;
             this.feedback_officeCommute_Leisure_label.Text = "Feedback";
             this.feedback_officeCommute_Leisure_label.Visible = false;
@@ -2233,7 +2233,7 @@
             this.carType_groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.carType_groupBox.Location = new System.Drawing.Point(407, 3);
             this.carType_groupBox.Name = "carType_groupBox";
-            this.carType_groupBox.Size = new System.Drawing.Size(297, 106);
+            this.carType_groupBox.Size = new System.Drawing.Size(297, 128);
             this.carType_groupBox.TabIndex = 1;
             this.carType_groupBox.TabStop = false;
             this.carType_groupBox.Text = "CarType";
@@ -2258,16 +2258,16 @@
             this.tableLayoutPanel41.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel41.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel41.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel41.Size = new System.Drawing.Size(291, 85);
+            this.tableLayoutPanel41.Size = new System.Drawing.Size(291, 107);
             this.tableLayoutPanel41.TabIndex = 0;
             // 
             // CommuteTravel_CarType_Medium_RadioButton
             // 
             this.CommuteTravel_CarType_Medium_RadioButton.AutoSize = true;
             this.CommuteTravel_CarType_Medium_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.CommuteTravel_CarType_Medium_RadioButton.Location = new System.Drawing.Point(113, 31);
+            this.CommuteTravel_CarType_Medium_RadioButton.Location = new System.Drawing.Point(113, 38);
             this.CommuteTravel_CarType_Medium_RadioButton.Name = "CommuteTravel_CarType_Medium_RadioButton";
-            this.CommuteTravel_CarType_Medium_RadioButton.Size = new System.Drawing.Size(76, 22);
+            this.CommuteTravel_CarType_Medium_RadioButton.Size = new System.Drawing.Size(76, 29);
             this.CommuteTravel_CarType_Medium_RadioButton.TabIndex = 1;
             this.CommuteTravel_CarType_Medium_RadioButton.TabStop = true;
             this.CommuteTravel_CarType_Medium_RadioButton.Text = "Medium";
@@ -2278,9 +2278,9 @@
             // 
             this.CommuteTravel_CarType_Large_RadioButton.AutoSize = true;
             this.CommuteTravel_CarType_Large_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.CommuteTravel_CarType_Large_RadioButton.Location = new System.Drawing.Point(225, 31);
+            this.CommuteTravel_CarType_Large_RadioButton.Location = new System.Drawing.Point(225, 38);
             this.CommuteTravel_CarType_Large_RadioButton.Name = "CommuteTravel_CarType_Large_RadioButton";
-            this.CommuteTravel_CarType_Large_RadioButton.Size = new System.Drawing.Size(63, 22);
+            this.CommuteTravel_CarType_Large_RadioButton.Size = new System.Drawing.Size(63, 29);
             this.CommuteTravel_CarType_Large_RadioButton.TabIndex = 2;
             this.CommuteTravel_CarType_Large_RadioButton.TabStop = true;
             this.CommuteTravel_CarType_Large_RadioButton.Text = "Large";
@@ -2290,9 +2290,10 @@
             // CommuteTravel_CarType_Small_RadioButton
             // 
             this.CommuteTravel_CarType_Small_RadioButton.AutoSize = true;
-            this.CommuteTravel_CarType_Small_RadioButton.Location = new System.Drawing.Point(3, 31);
+            this.CommuteTravel_CarType_Small_RadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CommuteTravel_CarType_Small_RadioButton.Location = new System.Drawing.Point(3, 38);
             this.CommuteTravel_CarType_Small_RadioButton.Name = "CommuteTravel_CarType_Small_RadioButton";
-            this.CommuteTravel_CarType_Small_RadioButton.Size = new System.Drawing.Size(62, 20);
+            this.CommuteTravel_CarType_Small_RadioButton.Size = new System.Drawing.Size(90, 29);
             this.CommuteTravel_CarType_Small_RadioButton.TabIndex = 0;
             this.CommuteTravel_CarType_Small_RadioButton.TabStop = true;
             this.CommuteTravel_CarType_Small_RadioButton.Text = "Small";
@@ -2302,9 +2303,9 @@
             // Award_officeCommute_Leisure_pictureBox
             // 
             this.Award_officeCommute_Leisure_pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_officeCommute_Leisure_pictureBox.Location = new System.Drawing.Point(508, 115);
+            this.Award_officeCommute_Leisure_pictureBox.Location = new System.Drawing.Point(508, 137);
             this.Award_officeCommute_Leisure_pictureBox.Name = "Award_officeCommute_Leisure_pictureBox";
-            this.Award_officeCommute_Leisure_pictureBox.Size = new System.Drawing.Size(95, 107);
+            this.Award_officeCommute_Leisure_pictureBox.Size = new System.Drawing.Size(95, 129);
             this.Award_officeCommute_Leisure_pictureBox.TabIndex = 15;
             this.Award_officeCommute_Leisure_pictureBox.TabStop = false;
             // 
@@ -2312,9 +2313,9 @@
             // 
             this.groupBox15.Controls.Add(this.tableLayoutPanel27);
             this.groupBox15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox15.Location = new System.Drawing.Point(3, 255);
+            this.groupBox15.Location = new System.Drawing.Point(3, 299);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(297, 247);
+            this.groupBox15.Size = new System.Drawing.Size(297, 291);
             this.groupBox15.TabIndex = 7;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Home Office / Daily Data";
@@ -2346,7 +2347,7 @@
             this.tableLayoutPanel27.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel27.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel27.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel27.Size = new System.Drawing.Size(291, 226);
+            this.tableLayoutPanel27.Size = new System.Drawing.Size(291, 270);
             this.tableLayoutPanel27.TabIndex = 0;
             // 
             // homeOffice_hours_help_button
@@ -2367,7 +2368,7 @@
             this.pictureBox15.Location = new System.Drawing.Point(3, 3);
             this.pictureBox15.Name = "pictureBox15";
             this.tableLayoutPanel27.SetRowSpan(this.pictureBox15, 2);
-            this.pictureBox15.Size = new System.Drawing.Size(90, 106);
+            this.pictureBox15.Size = new System.Drawing.Size(90, 128);
             this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox15.TabIndex = 0;
             this.pictureBox15.TabStop = false;
@@ -2377,7 +2378,7 @@
             this.HomeOffice_Emission_label.AutoSize = true;
             this.tableLayoutPanel27.SetColumnSpan(this.HomeOffice_Emission_label, 4);
             this.HomeOffice_Emission_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.HomeOffice_Emission_label.Location = new System.Drawing.Point(99, 96);
+            this.HomeOffice_Emission_label.Location = new System.Drawing.Point(99, 118);
             this.HomeOffice_Emission_label.Name = "HomeOffice_Emission_label";
             this.HomeOffice_Emission_label.Size = new System.Drawing.Size(189, 16);
             this.HomeOffice_Emission_label.TabIndex = 3;
@@ -2387,10 +2388,10 @@
             // 
             this.tableLayoutPanel27.SetColumnSpan(this.Award_homeOffice_commute_picturebox, 2);
             this.Award_homeOffice_commute_picturebox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_homeOffice_commute_picturebox.Location = new System.Drawing.Point(3, 115);
+            this.Award_homeOffice_commute_picturebox.Location = new System.Drawing.Point(3, 137);
             this.Award_homeOffice_commute_picturebox.Name = "Award_homeOffice_commute_picturebox";
             this.tableLayoutPanel27.SetRowSpan(this.Award_homeOffice_commute_picturebox, 2);
-            this.Award_homeOffice_commute_picturebox.Size = new System.Drawing.Size(90, 108);
+            this.Award_homeOffice_commute_picturebox.Size = new System.Drawing.Size(90, 130);
             this.Award_homeOffice_commute_picturebox.TabIndex = 4;
             this.Award_homeOffice_commute_picturebox.TabStop = false;
             this.Award_homeOffice_commute_picturebox.Visible = false;
@@ -2400,7 +2401,7 @@
             this.Award_homeOffice_Commute_label.AutoSize = true;
             this.tableLayoutPanel27.SetColumnSpan(this.Award_homeOffice_Commute_label, 4);
             this.Award_homeOffice_Commute_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Award_homeOffice_Commute_label.Location = new System.Drawing.Point(99, 152);
+            this.Award_homeOffice_Commute_label.Location = new System.Drawing.Point(99, 185);
             this.Award_homeOffice_Commute_label.Name = "Award_homeOffice_Commute_label";
             this.Award_homeOffice_Commute_label.Size = new System.Drawing.Size(189, 16);
             this.Award_homeOffice_Commute_label.TabIndex = 5;
@@ -2412,9 +2413,9 @@
             this.feedback_homeOffice_Commute_label.AutoSize = true;
             this.tableLayoutPanel27.SetColumnSpan(this.feedback_homeOffice_Commute_label, 4);
             this.feedback_homeOffice_Commute_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.feedback_homeOffice_Commute_label.Location = new System.Drawing.Point(99, 168);
+            this.feedback_homeOffice_Commute_label.Location = new System.Drawing.Point(99, 201);
             this.feedback_homeOffice_Commute_label.Name = "feedback_homeOffice_Commute_label";
-            this.feedback_homeOffice_Commute_label.Size = new System.Drawing.Size(189, 58);
+            this.feedback_homeOffice_Commute_label.Size = new System.Drawing.Size(189, 69);
             this.feedback_homeOffice_Commute_label.TabIndex = 6;
             this.feedback_homeOffice_Commute_label.Text = "Feedback";
             this.feedback_homeOffice_Commute_label.Visible = false;
@@ -2423,7 +2424,7 @@
             // 
             this.HomeOffice_WorkingHours_Textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HomeOffice_WorkingHours_Textbox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.HomeOffice_WorkingHours_Textbox.Location = new System.Drawing.Point(99, 31);
+            this.HomeOffice_WorkingHours_Textbox.Location = new System.Drawing.Point(99, 42);
             this.HomeOffice_WorkingHours_Textbox.Name = "HomeOffice_WorkingHours_Textbox";
             this.HomeOffice_WorkingHours_Textbox.Size = new System.Drawing.Size(42, 22);
             this.HomeOffice_WorkingHours_Textbox.TabIndex = 2;
@@ -2435,7 +2436,7 @@
             this.label3.AutoSize = true;
             this.tableLayoutPanel27.SetColumnSpan(this.label3, 2);
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Location = new System.Drawing.Point(147, 40);
+            this.label3.Location = new System.Drawing.Point(147, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 16);
             this.label3.TabIndex = 7;
@@ -2448,7 +2449,7 @@
             this.LeisureTravel_tabPage.Location = new System.Drawing.Point(4, 25);
             this.LeisureTravel_tabPage.Name = "LeisureTravel_tabPage";
             this.LeisureTravel_tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.LeisureTravel_tabPage.Size = new System.Drawing.Size(1030, 511);
+            this.LeisureTravel_tabPage.Size = new System.Drawing.Size(1030, 599);
             this.LeisureTravel_tabPage.TabIndex = 1;
             this.LeisureTravel_tabPage.Text = "Leisure Travel ";
             // 
@@ -2465,16 +2466,16 @@
             this.tableLayoutPanel10.RowCount = 2;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(1024, 505);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(1024, 593);
             this.tableLayoutPanel10.TabIndex = 0;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.tableLayoutPanel15);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(3, 255);
+            this.groupBox4.Location = new System.Drawing.Point(3, 299);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1018, 247);
+            this.groupBox4.Size = new System.Drawing.Size(1018, 291);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Bike / Yearly Data";
@@ -2504,7 +2505,7 @@
             this.tableLayoutPanel15.RowCount = 2;
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel15.Size = new System.Drawing.Size(1012, 226);
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(1012, 270);
             this.tableLayoutPanel15.TabIndex = 0;
             // 
             // pictureBox8
@@ -2514,7 +2515,7 @@
             this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
             this.pictureBox8.Location = new System.Drawing.Point(3, 3);
             this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(95, 107);
+            this.pictureBox8.Size = new System.Drawing.Size(95, 129);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox8.TabIndex = 0;
             this.pictureBox8.TabStop = false;
@@ -2526,7 +2527,7 @@
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox8.Location = new System.Drawing.Point(104, 3);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(297, 107);
+            this.groupBox8.Size = new System.Drawing.Size(297, 129);
             this.groupBox8.TabIndex = 1;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Bike Type";
@@ -2547,16 +2548,16 @@
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel18.Size = new System.Drawing.Size(291, 86);
+            this.tableLayoutPanel18.Size = new System.Drawing.Size(291, 108);
             this.tableLayoutPanel18.TabIndex = 0;
             // 
             // LeisureTravel_BikeType_Small_RadioButton
             // 
             this.LeisureTravel_BikeType_Small_RadioButton.AutoSize = true;
             this.LeisureTravel_BikeType_Small_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_BikeType_Small_RadioButton.Location = new System.Drawing.Point(31, 31);
+            this.LeisureTravel_BikeType_Small_RadioButton.Location = new System.Drawing.Point(31, 39);
             this.LeisureTravel_BikeType_Small_RadioButton.Name = "LeisureTravel_BikeType_Small_RadioButton";
-            this.LeisureTravel_BikeType_Small_RadioButton.Size = new System.Drawing.Size(62, 22);
+            this.LeisureTravel_BikeType_Small_RadioButton.Size = new System.Drawing.Size(62, 30);
             this.LeisureTravel_BikeType_Small_RadioButton.TabIndex = 0;
             this.LeisureTravel_BikeType_Small_RadioButton.TabStop = true;
             this.LeisureTravel_BikeType_Small_RadioButton.Text = "Small";
@@ -2567,9 +2568,9 @@
             // 
             this.LeisureTravel_BikeType_Medium_RadioButton.AutoSize = true;
             this.LeisureTravel_BikeType_Medium_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_BikeType_Medium_RadioButton.Location = new System.Drawing.Point(113, 31);
+            this.LeisureTravel_BikeType_Medium_RadioButton.Location = new System.Drawing.Point(113, 39);
             this.LeisureTravel_BikeType_Medium_RadioButton.Name = "LeisureTravel_BikeType_Medium_RadioButton";
-            this.LeisureTravel_BikeType_Medium_RadioButton.Size = new System.Drawing.Size(76, 22);
+            this.LeisureTravel_BikeType_Medium_RadioButton.Size = new System.Drawing.Size(76, 30);
             this.LeisureTravel_BikeType_Medium_RadioButton.TabIndex = 1;
             this.LeisureTravel_BikeType_Medium_RadioButton.TabStop = true;
             this.LeisureTravel_BikeType_Medium_RadioButton.Text = "Medium";
@@ -2580,9 +2581,9 @@
             // 
             this.LeisureTravel_BikeType_Large_RadioButton.AutoSize = true;
             this.LeisureTravel_BikeType_Large_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_BikeType_Large_RadioButton.Location = new System.Drawing.Point(225, 31);
+            this.LeisureTravel_BikeType_Large_RadioButton.Location = new System.Drawing.Point(225, 39);
             this.LeisureTravel_BikeType_Large_RadioButton.Name = "LeisureTravel_BikeType_Large_RadioButton";
-            this.LeisureTravel_BikeType_Large_RadioButton.Size = new System.Drawing.Size(63, 22);
+            this.LeisureTravel_BikeType_Large_RadioButton.Size = new System.Drawing.Size(63, 30);
             this.LeisureTravel_BikeType_Large_RadioButton.TabIndex = 2;
             this.LeisureTravel_BikeType_Large_RadioButton.TabStop = true;
             this.LeisureTravel_BikeType_Large_RadioButton.Text = "Large";
@@ -2592,9 +2593,9 @@
             // Award_Bike_Leisure_picturebox
             // 
             this.Award_Bike_Leisure_picturebox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_Bike_Leisure_picturebox.Location = new System.Drawing.Point(3, 116);
+            this.Award_Bike_Leisure_picturebox.Location = new System.Drawing.Point(3, 138);
             this.Award_Bike_Leisure_picturebox.Name = "Award_Bike_Leisure_picturebox";
-            this.Award_Bike_Leisure_picturebox.Size = new System.Drawing.Size(95, 107);
+            this.Award_Bike_Leisure_picturebox.Size = new System.Drawing.Size(95, 129);
             this.Award_Bike_Leisure_picturebox.TabIndex = 4;
             this.Award_Bike_Leisure_picturebox.TabStop = false;
             this.Award_Bike_Leisure_picturebox.Visible = false;
@@ -2607,7 +2608,7 @@
             this.HotelStay_groupBox7.Location = new System.Drawing.Point(710, 3);
             this.HotelStay_groupBox7.Name = "HotelStay_groupBox7";
             this.tableLayoutPanel15.SetRowSpan(this.HotelStay_groupBox7, 2);
-            this.HotelStay_groupBox7.Size = new System.Drawing.Size(299, 220);
+            this.HotelStay_groupBox7.Size = new System.Drawing.Size(299, 264);
             this.HotelStay_groupBox7.TabIndex = 6;
             this.HotelStay_groupBox7.TabStop = false;
             this.HotelStay_groupBox7.Text = "Hotel Stay / Yearly Data";
@@ -2637,7 +2638,7 @@
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel17.Size = new System.Drawing.Size(293, 199);
+            this.tableLayoutPanel17.Size = new System.Drawing.Size(293, 243);
             this.tableLayoutPanel17.TabIndex = 0;
             // 
             // pictureBox10
@@ -2648,7 +2649,7 @@
             this.pictureBox10.Location = new System.Drawing.Point(3, 3);
             this.pictureBox10.Name = "pictureBox10";
             this.tableLayoutPanel17.SetRowSpan(this.pictureBox10, 2);
-            this.pictureBox10.Size = new System.Drawing.Size(90, 92);
+            this.pictureBox10.Size = new System.Drawing.Size(90, 114);
             this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox10.TabIndex = 0;
             this.pictureBox10.TabStop = false;
@@ -2658,7 +2659,7 @@
             this.label8.AutoSize = true;
             this.tableLayoutPanel17.SetColumnSpan(this.label8, 2);
             this.label8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label8.Location = new System.Drawing.Point(99, 33);
+            this.label8.Location = new System.Drawing.Point(99, 44);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 16);
             this.label8.TabIndex = 1;
@@ -2668,7 +2669,7 @@
             // 
             this.LeisureTravel_HotelStay_Textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LeisureTravel_HotelStay_Textbox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LeisureTravel_HotelStay_Textbox.Location = new System.Drawing.Point(195, 24);
+            this.LeisureTravel_HotelStay_Textbox.Location = new System.Drawing.Point(195, 35);
             this.LeisureTravel_HotelStay_Textbox.Name = "LeisureTravel_HotelStay_Textbox";
             this.LeisureTravel_HotelStay_Textbox.Size = new System.Drawing.Size(42, 22);
             this.LeisureTravel_HotelStay_Textbox.TabIndex = 2;
@@ -2681,7 +2682,7 @@
             this.leisuretravel_HotelStay_emission_label.AutoSize = true;
             this.tableLayoutPanel17.SetColumnSpan(this.leisuretravel_HotelStay_emission_label, 4);
             this.leisuretravel_HotelStay_emission_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.leisuretravel_HotelStay_emission_label.Location = new System.Drawing.Point(99, 82);
+            this.leisuretravel_HotelStay_emission_label.Location = new System.Drawing.Point(99, 104);
             this.leisuretravel_HotelStay_emission_label.Name = "leisuretravel_HotelStay_emission_label";
             this.leisuretravel_HotelStay_emission_label.Size = new System.Drawing.Size(191, 16);
             this.leisuretravel_HotelStay_emission_label.TabIndex = 3;
@@ -2691,10 +2692,10 @@
             // 
             this.tableLayoutPanel17.SetColumnSpan(this.Award_HotelStay_Leisure_picturebox, 2);
             this.Award_HotelStay_Leisure_picturebox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_HotelStay_Leisure_picturebox.Location = new System.Drawing.Point(3, 101);
+            this.Award_HotelStay_Leisure_picturebox.Location = new System.Drawing.Point(3, 123);
             this.Award_HotelStay_Leisure_picturebox.Name = "Award_HotelStay_Leisure_picturebox";
             this.tableLayoutPanel17.SetRowSpan(this.Award_HotelStay_Leisure_picturebox, 2);
-            this.Award_HotelStay_Leisure_picturebox.Size = new System.Drawing.Size(90, 95);
+            this.Award_HotelStay_Leisure_picturebox.Size = new System.Drawing.Size(90, 117);
             this.Award_HotelStay_Leisure_picturebox.TabIndex = 4;
             this.Award_HotelStay_Leisure_picturebox.TabStop = false;
             this.Award_HotelStay_Leisure_picturebox.Visible = false;
@@ -2704,7 +2705,7 @@
             this.Award_HotelStay_Leisure_label.AutoSize = true;
             this.tableLayoutPanel17.SetColumnSpan(this.Award_HotelStay_Leisure_label, 2);
             this.Award_HotelStay_Leisure_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Award_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 115);
+            this.Award_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 148);
             this.Award_HotelStay_Leisure_label.Name = "Award_HotelStay_Leisure_label";
             this.Award_HotelStay_Leisure_label.Size = new System.Drawing.Size(90, 32);
             this.Award_HotelStay_Leisure_label.TabIndex = 5;
@@ -2716,9 +2717,9 @@
             this.feedback_HotelStay_Leisure_label.AutoSize = true;
             this.tableLayoutPanel17.SetColumnSpan(this.feedback_HotelStay_Leisure_label, 4);
             this.feedback_HotelStay_Leisure_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.feedback_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 147);
+            this.feedback_HotelStay_Leisure_label.Location = new System.Drawing.Point(99, 180);
             this.feedback_HotelStay_Leisure_label.Name = "feedback_HotelStay_Leisure_label";
-            this.feedback_HotelStay_Leisure_label.Size = new System.Drawing.Size(191, 52);
+            this.feedback_HotelStay_Leisure_label.Size = new System.Drawing.Size(191, 63);
             this.feedback_HotelStay_Leisure_label.TabIndex = 6;
             this.feedback_HotelStay_Leisure_label.Text = "Feedback";
             this.feedback_HotelStay_Leisure_label.Visible = false;
@@ -2727,9 +2728,9 @@
             // 
             this.tableLayoutPanel17.SetColumnSpan(this.Help_LeisureTravel_HotelStay_Button, 2);
             this.Help_LeisureTravel_HotelStay_Button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Help_LeisureTravel_HotelStay_Button.Location = new System.Drawing.Point(195, 101);
+            this.Help_LeisureTravel_HotelStay_Button.Location = new System.Drawing.Point(195, 123);
             this.Help_LeisureTravel_HotelStay_Button.Name = "Help_LeisureTravel_HotelStay_Button";
-            this.Help_LeisureTravel_HotelStay_Button.Size = new System.Drawing.Size(95, 43);
+            this.Help_LeisureTravel_HotelStay_Button.Size = new System.Drawing.Size(95, 54);
             this.Help_LeisureTravel_HotelStay_Button.TabIndex = 7;
             this.Help_LeisureTravel_HotelStay_Button.Text = "Help Click Me>";
             this.Help_LeisureTravel_HotelStay_Button.UseVisualStyleBackColor = true;
@@ -2755,14 +2756,14 @@
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel16.Size = new System.Drawing.Size(297, 107);
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(297, 129);
             this.tableLayoutPanel16.TabIndex = 15;
             // 
             // MilesTravelled_Bike_LeisureTravel_Textbox
             // 
             this.MilesTravelled_Bike_LeisureTravel_Textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MilesTravelled_Bike_LeisureTravel_Textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MilesTravelled_Bike_LeisureTravel_Textbox.Location = new System.Drawing.Point(3, 29);
+            this.MilesTravelled_Bike_LeisureTravel_Textbox.Location = new System.Drawing.Point(3, 35);
             this.MilesTravelled_Bike_LeisureTravel_Textbox.Name = "MilesTravelled_Bike_LeisureTravel_Textbox";
             this.MilesTravelled_Bike_LeisureTravel_Textbox.Size = new System.Drawing.Size(68, 22);
             this.MilesTravelled_Bike_LeisureTravel_Textbox.TabIndex = 1;
@@ -2775,7 +2776,7 @@
             this.label4.AutoSize = true;
             this.tableLayoutPanel16.SetColumnSpan(this.label4, 3);
             this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label4.Location = new System.Drawing.Point(77, 36);
+            this.label4.Location = new System.Drawing.Point(77, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(217, 16);
             this.label4.TabIndex = 0;
@@ -2786,7 +2787,7 @@
             this.leisuretravel_bike_emission_label.AutoSize = true;
             this.tableLayoutPanel16.SetColumnSpan(this.leisuretravel_bike_emission_label, 3);
             this.leisuretravel_bike_emission_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.leisuretravel_bike_emission_label.Location = new System.Drawing.Point(3, 62);
+            this.leisuretravel_bike_emission_label.Location = new System.Drawing.Point(3, 80);
             this.leisuretravel_bike_emission_label.Name = "leisuretravel_bike_emission_label";
             this.leisuretravel_bike_emission_label.Size = new System.Drawing.Size(216, 16);
             this.leisuretravel_bike_emission_label.TabIndex = 2;
@@ -2803,7 +2804,7 @@
             this.tableLayoutPanel19.Controls.Add(this.feedback_Bike_Leisure_label, 0, 2);
             this.tableLayoutPanel19.Controls.Add(this.Award_Bike_Leisure_label, 0, 1);
             this.tableLayoutPanel19.Controls.Add(this.Help_LeisureTravel__Bike_Button, 3, 2);
-            this.tableLayoutPanel19.Location = new System.Drawing.Point(104, 116);
+            this.tableLayoutPanel19.Location = new System.Drawing.Point(104, 138);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 4;
             this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -2855,7 +2856,7 @@
             this.CarGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CarGroupBox.Location = new System.Drawing.Point(3, 3);
             this.CarGroupBox.Name = "CarGroupBox";
-            this.CarGroupBox.Size = new System.Drawing.Size(1018, 246);
+            this.CarGroupBox.Size = new System.Drawing.Size(1018, 290);
             this.CarGroupBox.TabIndex = 0;
             this.CarGroupBox.TabStop = false;
             this.CarGroupBox.Text = "Car / Yearly Data";
@@ -2888,7 +2889,7 @@
             this.Car_LeisureTravel_Layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.Car_LeisureTravel_Layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.Car_LeisureTravel_Layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.Car_LeisureTravel_Layout.Size = new System.Drawing.Size(1012, 225);
+            this.Car_LeisureTravel_Layout.Size = new System.Drawing.Size(1012, 269);
             this.Car_LeisureTravel_Layout.TabIndex = 0;
             // 
             // tableLayoutPanel14
@@ -2901,7 +2902,7 @@
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel14.Controls.Add(this.feedback_Car_Leisure_label, 0, 2);
             this.tableLayoutPanel14.Controls.Add(this.Award_Car_Leisure_label, 0, 1);
-            this.tableLayoutPanel14.Location = new System.Drawing.Point(104, 115);
+            this.tableLayoutPanel14.Location = new System.Drawing.Point(104, 137);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 4;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -2943,7 +2944,7 @@
             this.FuelType_groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FuelType_groupBox5.Location = new System.Drawing.Point(407, 3);
             this.FuelType_groupBox5.Name = "FuelType_groupBox5";
-            this.FuelType_groupBox5.Size = new System.Drawing.Size(297, 106);
+            this.FuelType_groupBox5.Size = new System.Drawing.Size(297, 128);
             this.FuelType_groupBox5.TabIndex = 2;
             this.FuelType_groupBox5.TabStop = false;
             this.FuelType_groupBox5.Text = "FuelType";
@@ -2965,16 +2966,16 @@
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(291, 85);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(291, 107);
             this.tableLayoutPanel12.TabIndex = 0;
             // 
             // LeisureTravel_FuelType_Petrol_RadioButton
             // 
             this.LeisureTravel_FuelType_Petrol_RadioButton.AutoSize = true;
             this.LeisureTravel_FuelType_Petrol_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_FuelType_Petrol_RadioButton.Location = new System.Drawing.Point(30, 31);
+            this.LeisureTravel_FuelType_Petrol_RadioButton.Location = new System.Drawing.Point(30, 38);
             this.LeisureTravel_FuelType_Petrol_RadioButton.Name = "LeisureTravel_FuelType_Petrol_RadioButton";
-            this.LeisureTravel_FuelType_Petrol_RadioButton.Size = new System.Drawing.Size(63, 22);
+            this.LeisureTravel_FuelType_Petrol_RadioButton.Size = new System.Drawing.Size(63, 29);
             this.LeisureTravel_FuelType_Petrol_RadioButton.TabIndex = 0;
             this.LeisureTravel_FuelType_Petrol_RadioButton.TabStop = true;
             this.LeisureTravel_FuelType_Petrol_RadioButton.Text = "Petrol";
@@ -2985,9 +2986,9 @@
             // 
             this.LeisureTravel_FuelType_Diesel_RadioButton.AutoSize = true;
             this.LeisureTravel_FuelType_Diesel_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_FuelType_Diesel_RadioButton.Location = new System.Drawing.Point(122, 31);
+            this.LeisureTravel_FuelType_Diesel_RadioButton.Location = new System.Drawing.Point(122, 38);
             this.LeisureTravel_FuelType_Diesel_RadioButton.Name = "LeisureTravel_FuelType_Diesel_RadioButton";
-            this.LeisureTravel_FuelType_Diesel_RadioButton.Size = new System.Drawing.Size(67, 22);
+            this.LeisureTravel_FuelType_Diesel_RadioButton.Size = new System.Drawing.Size(67, 29);
             this.LeisureTravel_FuelType_Diesel_RadioButton.TabIndex = 1;
             this.LeisureTravel_FuelType_Diesel_RadioButton.TabStop = true;
             this.LeisureTravel_FuelType_Diesel_RadioButton.Text = "Diesel";
@@ -2998,9 +2999,9 @@
             // 
             this.LeisureTravel_FuelType_EV_RadioButton.AutoSize = true;
             this.LeisureTravel_FuelType_EV_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_FuelType_EV_RadioButton.Location = new System.Drawing.Point(242, 31);
+            this.LeisureTravel_FuelType_EV_RadioButton.Location = new System.Drawing.Point(242, 38);
             this.LeisureTravel_FuelType_EV_RadioButton.Name = "LeisureTravel_FuelType_EV_RadioButton";
-            this.LeisureTravel_FuelType_EV_RadioButton.Size = new System.Drawing.Size(46, 22);
+            this.LeisureTravel_FuelType_EV_RadioButton.Size = new System.Drawing.Size(46, 29);
             this.LeisureTravel_FuelType_EV_RadioButton.TabIndex = 2;
             this.LeisureTravel_FuelType_EV_RadioButton.TabStop = true;
             this.LeisureTravel_FuelType_EV_RadioButton.Text = "EV";
@@ -3014,7 +3015,7 @@
             this.Car_LeisureTravel_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("Car_LeisureTravel_PictureBox.Image")));
             this.Car_LeisureTravel_PictureBox.Location = new System.Drawing.Point(3, 3);
             this.Car_LeisureTravel_PictureBox.Name = "Car_LeisureTravel_PictureBox";
-            this.Car_LeisureTravel_PictureBox.Size = new System.Drawing.Size(95, 106);
+            this.Car_LeisureTravel_PictureBox.Size = new System.Drawing.Size(95, 128);
             this.Car_LeisureTravel_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Car_LeisureTravel_PictureBox.TabIndex = 0;
             this.Car_LeisureTravel_PictureBox.TabStop = false;
@@ -3026,7 +3027,7 @@
             this.CarType_groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CarType_groupBox4.Location = new System.Drawing.Point(104, 3);
             this.CarType_groupBox4.Name = "CarType_groupBox4";
-            this.CarType_groupBox4.Size = new System.Drawing.Size(297, 106);
+            this.CarType_groupBox4.Size = new System.Drawing.Size(297, 128);
             this.CarType_groupBox4.TabIndex = 1;
             this.CarType_groupBox4.TabStop = false;
             this.CarType_groupBox4.Text = "CarType";
@@ -3047,16 +3048,16 @@
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(291, 85);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(291, 107);
             this.tableLayoutPanel11.TabIndex = 0;
             // 
             // LeisureTravel_CarType_Small_RadioButton
             // 
             this.LeisureTravel_CarType_Small_RadioButton.AutoSize = true;
             this.LeisureTravel_CarType_Small_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_CarType_Small_RadioButton.Location = new System.Drawing.Point(31, 31);
+            this.LeisureTravel_CarType_Small_RadioButton.Location = new System.Drawing.Point(31, 38);
             this.LeisureTravel_CarType_Small_RadioButton.Name = "LeisureTravel_CarType_Small_RadioButton";
-            this.LeisureTravel_CarType_Small_RadioButton.Size = new System.Drawing.Size(62, 22);
+            this.LeisureTravel_CarType_Small_RadioButton.Size = new System.Drawing.Size(62, 29);
             this.LeisureTravel_CarType_Small_RadioButton.TabIndex = 0;
             this.LeisureTravel_CarType_Small_RadioButton.TabStop = true;
             this.LeisureTravel_CarType_Small_RadioButton.Text = "Small";
@@ -3067,9 +3068,9 @@
             // 
             this.LeisureTravel_CarType_Medium_RadioButton.AutoSize = true;
             this.LeisureTravel_CarType_Medium_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_CarType_Medium_RadioButton.Location = new System.Drawing.Point(113, 31);
+            this.LeisureTravel_CarType_Medium_RadioButton.Location = new System.Drawing.Point(113, 38);
             this.LeisureTravel_CarType_Medium_RadioButton.Name = "LeisureTravel_CarType_Medium_RadioButton";
-            this.LeisureTravel_CarType_Medium_RadioButton.Size = new System.Drawing.Size(76, 22);
+            this.LeisureTravel_CarType_Medium_RadioButton.Size = new System.Drawing.Size(76, 29);
             this.LeisureTravel_CarType_Medium_RadioButton.TabIndex = 1;
             this.LeisureTravel_CarType_Medium_RadioButton.TabStop = true;
             this.LeisureTravel_CarType_Medium_RadioButton.Text = "Medium";
@@ -3080,9 +3081,9 @@
             // 
             this.LeisureTravel_CarType_Large_RadioButton.AutoSize = true;
             this.LeisureTravel_CarType_Large_RadioButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LeisureTravel_CarType_Large_RadioButton.Location = new System.Drawing.Point(225, 31);
+            this.LeisureTravel_CarType_Large_RadioButton.Location = new System.Drawing.Point(225, 38);
             this.LeisureTravel_CarType_Large_RadioButton.Name = "LeisureTravel_CarType_Large_RadioButton";
-            this.LeisureTravel_CarType_Large_RadioButton.Size = new System.Drawing.Size(63, 22);
+            this.LeisureTravel_CarType_Large_RadioButton.Size = new System.Drawing.Size(63, 29);
             this.LeisureTravel_CarType_Large_RadioButton.TabIndex = 2;
             this.LeisureTravel_CarType_Large_RadioButton.TabStop = true;
             this.LeisureTravel_CarType_Large_RadioButton.Text = "Large";
@@ -3092,9 +3093,9 @@
             // Award_Car_Leisure_picturebox
             // 
             this.Award_Car_Leisure_picturebox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Award_Car_Leisure_picturebox.Location = new System.Drawing.Point(3, 115);
+            this.Award_Car_Leisure_picturebox.Location = new System.Drawing.Point(3, 137);
             this.Award_Car_Leisure_picturebox.Name = "Award_Car_Leisure_picturebox";
-            this.Award_Car_Leisure_picturebox.Size = new System.Drawing.Size(95, 107);
+            this.Award_Car_Leisure_picturebox.Size = new System.Drawing.Size(95, 129);
             this.Award_Car_Leisure_picturebox.TabIndex = 4;
             this.Award_Car_Leisure_picturebox.TabStop = false;
             this.Award_Car_Leisure_picturebox.Visible = false;
@@ -3119,14 +3120,14 @@
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(299, 106);
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(299, 128);
             this.tableLayoutPanel13.TabIndex = 14;
             // 
             // MilesTravelled_Car_LeisureTravel_Textbox
             // 
             this.MilesTravelled_Car_LeisureTravel_Textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.MilesTravelled_Car_LeisureTravel_Textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MilesTravelled_Car_LeisureTravel_Textbox.Location = new System.Drawing.Point(3, 29);
+            this.MilesTravelled_Car_LeisureTravel_Textbox.Location = new System.Drawing.Point(3, 35);
             this.MilesTravelled_Car_LeisureTravel_Textbox.Name = "MilesTravelled_Car_LeisureTravel_Textbox";
             this.MilesTravelled_Car_LeisureTravel_Textbox.Size = new System.Drawing.Size(68, 22);
             this.MilesTravelled_Car_LeisureTravel_Textbox.TabIndex = 1;
@@ -3139,7 +3140,7 @@
             this.label2.AutoSize = true;
             this.tableLayoutPanel13.SetColumnSpan(this.label2, 3);
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(77, 36);
+            this.label2.Location = new System.Drawing.Point(77, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(219, 16);
             this.label2.TabIndex = 0;
@@ -3150,7 +3151,7 @@
             this.leisuretravel_car_emission_label.AutoSize = true;
             this.tableLayoutPanel13.SetColumnSpan(this.leisuretravel_car_emission_label, 3);
             this.leisuretravel_car_emission_label.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.leisuretravel_car_emission_label.Location = new System.Drawing.Point(3, 62);
+            this.leisuretravel_car_emission_label.Location = new System.Drawing.Point(3, 80);
             this.leisuretravel_car_emission_label.Name = "leisuretravel_car_emission_label";
             this.leisuretravel_car_emission_label.Size = new System.Drawing.Size(216, 16);
             this.leisuretravel_car_emission_label.TabIndex = 2;
@@ -3163,20 +3164,20 @@
             this.tableLayoutPanel46.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel46.Controls.Add(this.Help_LeisureTravel__Car_Button, 0, 1);
             this.tableLayoutPanel46.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel46.Location = new System.Drawing.Point(912, 115);
+            this.tableLayoutPanel46.Location = new System.Drawing.Point(912, 137);
             this.tableLayoutPanel46.Name = "tableLayoutPanel46";
             this.tableLayoutPanel46.RowCount = 2;
             this.tableLayoutPanel46.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel46.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel46.Size = new System.Drawing.Size(97, 107);
+            this.tableLayoutPanel46.Size = new System.Drawing.Size(97, 129);
             this.tableLayoutPanel46.TabIndex = 17;
             // 
             // Help_LeisureTravel__Car_Button
             // 
             this.Help_LeisureTravel__Car_Button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Help_LeisureTravel__Car_Button.Location = new System.Drawing.Point(3, 56);
+            this.Help_LeisureTravel__Car_Button.Location = new System.Drawing.Point(3, 67);
             this.Help_LeisureTravel__Car_Button.Name = "Help_LeisureTravel__Car_Button";
-            this.Help_LeisureTravel__Car_Button.Size = new System.Drawing.Size(91, 48);
+            this.Help_LeisureTravel__Car_Button.Size = new System.Drawing.Size(91, 59);
             this.Help_LeisureTravel__Car_Button.TabIndex = 16;
             this.Help_LeisureTravel__Car_Button.Text = "Help Click Me>";
             this.Help_LeisureTravel__Car_Button.UseVisualStyleBackColor = true;
@@ -3189,7 +3190,7 @@
             this.Personal_tabPage.Location = new System.Drawing.Point(4, 25);
             this.Personal_tabPage.Name = "Personal_tabPage";
             this.Personal_tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.Personal_tabPage.Size = new System.Drawing.Size(1030, 511);
+            this.Personal_tabPage.Size = new System.Drawing.Size(1030, 599);
             this.Personal_tabPage.TabIndex = 3;
             this.Personal_tabPage.Text = "Food and Organic Waste";
             // 
@@ -3221,7 +3222,7 @@
             this.tableLayoutPanel26.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel26.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel26.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel26.Size = new System.Drawing.Size(1024, 505);
+            this.tableLayoutPanel26.Size = new System.Drawing.Size(1024, 593);
             this.tableLayoutPanel26.TabIndex = 1;
             // 
             // groupBox12
@@ -3232,7 +3233,7 @@
             this.groupBox12.Location = new System.Drawing.Point(683, 3);
             this.groupBox12.Name = "groupBox12";
             this.tableLayoutPanel26.SetRowSpan(this.groupBox12, 2);
-            this.groupBox12.Size = new System.Drawing.Size(338, 246);
+            this.groupBox12.Size = new System.Drawing.Size(338, 290);
             this.groupBox12.TabIndex = 8;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Household residual waste = Yearly Data";
@@ -3271,7 +3272,7 @@
             this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel34.Size = new System.Drawing.Size(332, 225);
+            this.tableLayoutPanel34.Size = new System.Drawing.Size(332, 269);
             this.tableLayoutPanel34.TabIndex = 0;
             // 
             // pictureBox21
@@ -3281,7 +3282,7 @@
             this.pictureBox21.Location = new System.Drawing.Point(3, 3);
             this.pictureBox21.Name = "pictureBox21";
             this.tableLayoutPanel34.SetRowSpan(this.pictureBox21, 4);
-            this.pictureBox21.Size = new System.Drawing.Size(95, 82);
+            this.pictureBox21.Size = new System.Drawing.Size(95, 98);
             this.pictureBox21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox21.TabIndex = 0;
             this.pictureBox21.TabStop = false;
@@ -3291,9 +3292,9 @@
             this.ResidualWaste_TotalWaste_label.AutoSize = true;
             this.tableLayoutPanel34.SetColumnSpan(this.ResidualWaste_TotalWaste_label, 4);
             this.ResidualWaste_TotalWaste_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ResidualWaste_TotalWaste_label.Location = new System.Drawing.Point(3, 110);
+            this.ResidualWaste_TotalWaste_label.Location = new System.Drawing.Point(3, 130);
             this.ResidualWaste_TotalWaste_label.Name = "ResidualWaste_TotalWaste_label";
-            this.ResidualWaste_TotalWaste_label.Size = new System.Drawing.Size(266, 22);
+            this.ResidualWaste_TotalWaste_label.Size = new System.Drawing.Size(266, 26);
             this.ResidualWaste_TotalWaste_label.TabIndex = 7;
             this.ResidualWaste_TotalWaste_label.Text = "TotalWaste:";
             // 
@@ -3302,9 +3303,9 @@
             this.HouseholdResidualWaste_Emission_label.AutoSize = true;
             this.tableLayoutPanel34.SetColumnSpan(this.HouseholdResidualWaste_Emission_label, 4);
             this.HouseholdResidualWaste_Emission_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HouseholdResidualWaste_Emission_label.Location = new System.Drawing.Point(3, 132);
+            this.HouseholdResidualWaste_Emission_label.Location = new System.Drawing.Point(3, 156);
             this.HouseholdResidualWaste_Emission_label.Name = "HouseholdResidualWaste_Emission_label";
-            this.HouseholdResidualWaste_Emission_label.Size = new System.Drawing.Size(266, 22);
+            this.HouseholdResidualWaste_Emission_label.Size = new System.Drawing.Size(266, 26);
             this.HouseholdResidualWaste_Emission_label.TabIndex = 8;
             this.HouseholdResidualWaste_Emission_label.Text = "Emission";
             // 
@@ -3313,10 +3314,10 @@
             this.Feedback_Residul_Waste_label.AutoSize = true;
             this.tableLayoutPanel34.SetColumnSpan(this.Feedback_Residul_Waste_label, 3);
             this.Feedback_Residul_Waste_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_Residul_Waste_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_Residul_Waste_label.Location = new System.Drawing.Point(3, 182);
             this.Feedback_Residul_Waste_label.Name = "Feedback_Residul_Waste_label";
             this.tableLayoutPanel34.SetRowSpan(this.Feedback_Residul_Waste_label, 3);
-            this.Feedback_Residul_Waste_label.Size = new System.Drawing.Size(209, 71);
+            this.Feedback_Residul_Waste_label.Size = new System.Drawing.Size(209, 87);
             this.Feedback_Residul_Waste_label.TabIndex = 9;
             this.Feedback_Residul_Waste_label.Text = "Feedback";
             // 
@@ -3324,10 +3325,10 @@
             // 
             this.tableLayoutPanel34.SetColumnSpan(this.helpMe_Residul_Waste_button, 2);
             this.helpMe_Residul_Waste_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.helpMe_Residul_Waste_button.Location = new System.Drawing.Point(218, 179);
+            this.helpMe_Residul_Waste_button.Location = new System.Drawing.Point(218, 211);
             this.helpMe_Residul_Waste_button.Name = "helpMe_Residul_Waste_button";
             this.tableLayoutPanel34.SetRowSpan(this.helpMe_Residul_Waste_button, 2);
-            this.helpMe_Residul_Waste_button.Size = new System.Drawing.Size(111, 43);
+            this.helpMe_Residul_Waste_button.Size = new System.Drawing.Size(111, 55);
             this.helpMe_Residul_Waste_button.TabIndex = 10;
             this.helpMe_Residul_Waste_button.Text = "Help Click Me>";
             this.helpMe_Residul_Waste_button.UseVisualStyleBackColor = true;
@@ -3336,10 +3337,10 @@
             // Award_Residual_Waste_pictureBox
             // 
             this.Award_Residual_Waste_pictureBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Award_Residual_Waste_pictureBox.Location = new System.Drawing.Point(275, 113);
+            this.Award_Residual_Waste_pictureBox.Location = new System.Drawing.Point(275, 133);
             this.Award_Residual_Waste_pictureBox.Name = "Award_Residual_Waste_pictureBox";
             this.tableLayoutPanel34.SetRowSpan(this.Award_Residual_Waste_pictureBox, 2);
-            this.Award_Residual_Waste_pictureBox.Size = new System.Drawing.Size(54, 38);
+            this.Award_Residual_Waste_pictureBox.Size = new System.Drawing.Size(54, 46);
             this.Award_Residual_Waste_pictureBox.TabIndex = 11;
             this.Award_Residual_Waste_pictureBox.TabStop = false;
             this.Award_Residual_Waste_pictureBox.Visible = false;
@@ -3349,9 +3350,9 @@
             this.Award_Residual_Waste_label.AutoSize = true;
             this.tableLayoutPanel34.SetColumnSpan(this.Award_Residual_Waste_label, 2);
             this.Award_Residual_Waste_label.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Award_Residual_Waste_label.Location = new System.Drawing.Point(219, 154);
+            this.Award_Residual_Waste_label.Location = new System.Drawing.Point(219, 182);
             this.Award_Residual_Waste_label.Name = "Award_Residual_Waste_label";
-            this.Award_Residual_Waste_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_Residual_Waste_label.Size = new System.Drawing.Size(110, 26);
             this.Award_Residual_Waste_label.TabIndex = 12;
             this.Award_Residual_Waste_label.Text = "Award Ceremony";
             this.Award_Residual_Waste_label.Visible = false;
@@ -3360,7 +3361,7 @@
             // 
             this.HouseholdResidualWaste_NumberOfPerson_textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HouseholdResidualWaste_NumberOfPerson_textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HouseholdResidualWaste_NumberOfPerson_textbox.Location = new System.Drawing.Point(104, 69);
+            this.HouseholdResidualWaste_NumberOfPerson_textbox.Location = new System.Drawing.Point(104, 81);
             this.HouseholdResidualWaste_NumberOfPerson_textbox.Name = "HouseholdResidualWaste_NumberOfPerson_textbox";
             this.HouseholdResidualWaste_NumberOfPerson_textbox.Size = new System.Drawing.Size(51, 22);
             this.HouseholdResidualWaste_NumberOfPerson_textbox.TabIndex = 5;
@@ -3371,7 +3372,7 @@
             // 
             this.HouseResidualWaste_InKgs_textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HouseResidualWaste_InKgs_textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HouseResidualWaste_InKgs_textbox.Location = new System.Drawing.Point(104, 25);
+            this.HouseResidualWaste_InKgs_textbox.Location = new System.Drawing.Point(104, 29);
             this.HouseResidualWaste_InKgs_textbox.Name = "HouseResidualWaste_InKgs_textbox";
             this.HouseResidualWaste_InKgs_textbox.Size = new System.Drawing.Size(51, 22);
             this.HouseResidualWaste_InKgs_textbox.TabIndex = 1;
@@ -3384,7 +3385,7 @@
             this.label31.AutoSize = true;
             this.tableLayoutPanel34.SetColumnSpan(this.label31, 2);
             this.label31.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label31.Location = new System.Drawing.Point(161, 72);
+            this.label31.Location = new System.Drawing.Point(161, 88);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(108, 16);
             this.label31.TabIndex = 6;
@@ -3395,7 +3396,7 @@
             this.label32.AutoSize = true;
             this.tableLayoutPanel34.SetColumnSpan(this.label32, 2);
             this.label32.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label32.Location = new System.Drawing.Point(161, 28);
+            this.label32.Location = new System.Drawing.Point(161, 36);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(108, 16);
             this.label32.TabIndex = 2;
@@ -3409,7 +3410,7 @@
             this.groupBox14.Location = new System.Drawing.Point(3, 3);
             this.groupBox14.Name = "groupBox14";
             this.tableLayoutPanel26.SetRowSpan(this.groupBox14, 2);
-            this.groupBox14.Size = new System.Drawing.Size(334, 246);
+            this.groupBox14.Size = new System.Drawing.Size(334, 290);
             this.groupBox14.TabIndex = 2;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Organic: food and drink waste - Yearly Data";
@@ -3448,7 +3449,7 @@
             this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel36.Size = new System.Drawing.Size(328, 225);
+            this.tableLayoutPanel36.Size = new System.Drawing.Size(328, 269);
             this.tableLayoutPanel36.TabIndex = 0;
             // 
             // pictureBox25
@@ -3458,7 +3459,7 @@
             this.pictureBox25.Location = new System.Drawing.Point(3, 3);
             this.pictureBox25.Name = "pictureBox25";
             this.tableLayoutPanel36.SetRowSpan(this.pictureBox25, 4);
-            this.pictureBox25.Size = new System.Drawing.Size(94, 82);
+            this.pictureBox25.Size = new System.Drawing.Size(94, 98);
             this.pictureBox25.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox25.TabIndex = 0;
             this.pictureBox25.TabStop = false;
@@ -3468,9 +3469,9 @@
             this.OrganicFoodWaste_TotalWaste_label.AutoSize = true;
             this.tableLayoutPanel36.SetColumnSpan(this.OrganicFoodWaste_TotalWaste_label, 4);
             this.OrganicFoodWaste_TotalWaste_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OrganicFoodWaste_TotalWaste_label.Location = new System.Drawing.Point(3, 110);
+            this.OrganicFoodWaste_TotalWaste_label.Location = new System.Drawing.Point(3, 130);
             this.OrganicFoodWaste_TotalWaste_label.Name = "OrganicFoodWaste_TotalWaste_label";
-            this.OrganicFoodWaste_TotalWaste_label.Size = new System.Drawing.Size(262, 22);
+            this.OrganicFoodWaste_TotalWaste_label.Size = new System.Drawing.Size(262, 26);
             this.OrganicFoodWaste_TotalWaste_label.TabIndex = 7;
             this.OrganicFoodWaste_TotalWaste_label.Text = "TotalWaste:";
             // 
@@ -3479,9 +3480,9 @@
             this.OrganicFoodWaste_Emission_label.AutoSize = true;
             this.tableLayoutPanel36.SetColumnSpan(this.OrganicFoodWaste_Emission_label, 4);
             this.OrganicFoodWaste_Emission_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OrganicFoodWaste_Emission_label.Location = new System.Drawing.Point(3, 132);
+            this.OrganicFoodWaste_Emission_label.Location = new System.Drawing.Point(3, 156);
             this.OrganicFoodWaste_Emission_label.Name = "OrganicFoodWaste_Emission_label";
-            this.OrganicFoodWaste_Emission_label.Size = new System.Drawing.Size(262, 22);
+            this.OrganicFoodWaste_Emission_label.Size = new System.Drawing.Size(262, 26);
             this.OrganicFoodWaste_Emission_label.TabIndex = 8;
             this.OrganicFoodWaste_Emission_label.Text = "Emission";
             // 
@@ -3490,10 +3491,10 @@
             this.Feedback_OrganicFoodWaste_label.AutoSize = true;
             this.tableLayoutPanel36.SetColumnSpan(this.Feedback_OrganicFoodWaste_label, 3);
             this.Feedback_OrganicFoodWaste_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_OrganicFoodWaste_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_OrganicFoodWaste_label.Location = new System.Drawing.Point(3, 182);
             this.Feedback_OrganicFoodWaste_label.Name = "Feedback_OrganicFoodWaste_label";
             this.tableLayoutPanel36.SetRowSpan(this.Feedback_OrganicFoodWaste_label, 3);
-            this.Feedback_OrganicFoodWaste_label.Size = new System.Drawing.Size(206, 71);
+            this.Feedback_OrganicFoodWaste_label.Size = new System.Drawing.Size(206, 87);
             this.Feedback_OrganicFoodWaste_label.TabIndex = 9;
             this.Feedback_OrganicFoodWaste_label.Text = "Feedback";
             // 
@@ -3501,10 +3502,10 @@
             // 
             this.tableLayoutPanel36.SetColumnSpan(this.helpMe_Food_Waste_button, 2);
             this.helpMe_Food_Waste_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.helpMe_Food_Waste_button.Location = new System.Drawing.Point(215, 179);
+            this.helpMe_Food_Waste_button.Location = new System.Drawing.Point(215, 211);
             this.helpMe_Food_Waste_button.Name = "helpMe_Food_Waste_button";
             this.tableLayoutPanel36.SetRowSpan(this.helpMe_Food_Waste_button, 2);
-            this.helpMe_Food_Waste_button.Size = new System.Drawing.Size(110, 43);
+            this.helpMe_Food_Waste_button.Size = new System.Drawing.Size(110, 55);
             this.helpMe_Food_Waste_button.TabIndex = 10;
             this.helpMe_Food_Waste_button.Text = "Help Click Me>";
             this.helpMe_Food_Waste_button.UseVisualStyleBackColor = true;
@@ -3513,10 +3514,10 @@
             // Award_OrganicFoodWaste_picturebox
             // 
             this.Award_OrganicFoodWaste_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Award_OrganicFoodWaste_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_OrganicFoodWaste_picturebox.Location = new System.Drawing.Point(271, 133);
             this.Award_OrganicFoodWaste_picturebox.Name = "Award_OrganicFoodWaste_picturebox";
             this.tableLayoutPanel36.SetRowSpan(this.Award_OrganicFoodWaste_picturebox, 2);
-            this.Award_OrganicFoodWaste_picturebox.Size = new System.Drawing.Size(54, 38);
+            this.Award_OrganicFoodWaste_picturebox.Size = new System.Drawing.Size(54, 46);
             this.Award_OrganicFoodWaste_picturebox.TabIndex = 11;
             this.Award_OrganicFoodWaste_picturebox.TabStop = false;
             this.Award_OrganicFoodWaste_picturebox.Visible = false;
@@ -3526,9 +3527,9 @@
             this.Award_OrganicFoodWaste_label.AutoSize = true;
             this.tableLayoutPanel36.SetColumnSpan(this.Award_OrganicFoodWaste_label, 2);
             this.Award_OrganicFoodWaste_label.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Award_OrganicFoodWaste_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_OrganicFoodWaste_label.Location = new System.Drawing.Point(215, 182);
             this.Award_OrganicFoodWaste_label.Name = "Award_OrganicFoodWaste_label";
-            this.Award_OrganicFoodWaste_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_OrganicFoodWaste_label.Size = new System.Drawing.Size(110, 26);
             this.Award_OrganicFoodWaste_label.TabIndex = 12;
             this.Award_OrganicFoodWaste_label.Text = "Award Ceremony";
             this.Award_OrganicFoodWaste_label.Visible = false;
@@ -3537,7 +3538,7 @@
             // 
             this.OrganicFoodWaste_NumberOfPerson_textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.OrganicFoodWaste_NumberOfPerson_textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OrganicFoodWaste_NumberOfPerson_textbox.Location = new System.Drawing.Point(103, 69);
+            this.OrganicFoodWaste_NumberOfPerson_textbox.Location = new System.Drawing.Point(103, 81);
             this.OrganicFoodWaste_NumberOfPerson_textbox.Name = "OrganicFoodWaste_NumberOfPerson_textbox";
             this.OrganicFoodWaste_NumberOfPerson_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicFoodWaste_NumberOfPerson_textbox.TabIndex = 5;
@@ -3549,7 +3550,7 @@
             // 
             this.OrganicFoodWaste_InKgs_textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.OrganicFoodWaste_InKgs_textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OrganicFoodWaste_InKgs_textbox.Location = new System.Drawing.Point(103, 25);
+            this.OrganicFoodWaste_InKgs_textbox.Location = new System.Drawing.Point(103, 29);
             this.OrganicFoodWaste_InKgs_textbox.Name = "OrganicFoodWaste_InKgs_textbox";
             this.OrganicFoodWaste_InKgs_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicFoodWaste_InKgs_textbox.TabIndex = 1;
@@ -3562,7 +3563,7 @@
             this.label43.AutoSize = true;
             this.tableLayoutPanel36.SetColumnSpan(this.label43, 2);
             this.label43.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label43.Location = new System.Drawing.Point(159, 72);
+            this.label43.Location = new System.Drawing.Point(159, 88);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(106, 16);
             this.label43.TabIndex = 6;
@@ -3573,7 +3574,7 @@
             this.label41.AutoSize = true;
             this.tableLayoutPanel36.SetColumnSpan(this.label41, 2);
             this.label41.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label41.Location = new System.Drawing.Point(159, 28);
+            this.label41.Location = new System.Drawing.Point(159, 36);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(106, 16);
             this.label41.TabIndex = 2;
@@ -3587,7 +3588,7 @@
             this.groupBox13.Location = new System.Drawing.Point(343, 3);
             this.groupBox13.Name = "groupBox13";
             this.tableLayoutPanel26.SetRowSpan(this.groupBox13, 2);
-            this.groupBox13.Size = new System.Drawing.Size(334, 246);
+            this.groupBox13.Size = new System.Drawing.Size(334, 290);
             this.groupBox13.TabIndex = 7;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Organic: Garden waste - Yearly Data";
@@ -3626,7 +3627,7 @@
             this.tableLayoutPanel35.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel35.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel35.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel35.Size = new System.Drawing.Size(328, 225);
+            this.tableLayoutPanel35.Size = new System.Drawing.Size(328, 269);
             this.tableLayoutPanel35.TabIndex = 0;
             // 
             // pictureBox23
@@ -3636,7 +3637,7 @@
             this.pictureBox23.Location = new System.Drawing.Point(3, 3);
             this.pictureBox23.Name = "pictureBox23";
             this.tableLayoutPanel35.SetRowSpan(this.pictureBox23, 4);
-            this.pictureBox23.Size = new System.Drawing.Size(94, 82);
+            this.pictureBox23.Size = new System.Drawing.Size(94, 98);
             this.pictureBox23.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox23.TabIndex = 0;
             this.pictureBox23.TabStop = false;
@@ -3646,9 +3647,9 @@
             this.OrganicGardenWaste_TotalWaste_label.AutoSize = true;
             this.tableLayoutPanel35.SetColumnSpan(this.OrganicGardenWaste_TotalWaste_label, 4);
             this.OrganicGardenWaste_TotalWaste_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OrganicGardenWaste_TotalWaste_label.Location = new System.Drawing.Point(3, 110);
+            this.OrganicGardenWaste_TotalWaste_label.Location = new System.Drawing.Point(3, 130);
             this.OrganicGardenWaste_TotalWaste_label.Name = "OrganicGardenWaste_TotalWaste_label";
-            this.OrganicGardenWaste_TotalWaste_label.Size = new System.Drawing.Size(262, 22);
+            this.OrganicGardenWaste_TotalWaste_label.Size = new System.Drawing.Size(262, 26);
             this.OrganicGardenWaste_TotalWaste_label.TabIndex = 7;
             this.OrganicGardenWaste_TotalWaste_label.Text = "TotalWaste:";
             // 
@@ -3657,9 +3658,9 @@
             this.GardenWaste_Emission_label.AutoSize = true;
             this.tableLayoutPanel35.SetColumnSpan(this.GardenWaste_Emission_label, 4);
             this.GardenWaste_Emission_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GardenWaste_Emission_label.Location = new System.Drawing.Point(3, 132);
+            this.GardenWaste_Emission_label.Location = new System.Drawing.Point(3, 156);
             this.GardenWaste_Emission_label.Name = "GardenWaste_Emission_label";
-            this.GardenWaste_Emission_label.Size = new System.Drawing.Size(262, 22);
+            this.GardenWaste_Emission_label.Size = new System.Drawing.Size(262, 26);
             this.GardenWaste_Emission_label.TabIndex = 8;
             this.GardenWaste_Emission_label.Text = "Emission";
             // 
@@ -3668,10 +3669,10 @@
             this.Feedback_Garden_Waste_label.AutoSize = true;
             this.tableLayoutPanel35.SetColumnSpan(this.Feedback_Garden_Waste_label, 3);
             this.Feedback_Garden_Waste_label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Feedback_Garden_Waste_label.Location = new System.Drawing.Point(3, 154);
+            this.Feedback_Garden_Waste_label.Location = new System.Drawing.Point(3, 182);
             this.Feedback_Garden_Waste_label.Name = "Feedback_Garden_Waste_label";
             this.tableLayoutPanel35.SetRowSpan(this.Feedback_Garden_Waste_label, 3);
-            this.Feedback_Garden_Waste_label.Size = new System.Drawing.Size(206, 71);
+            this.Feedback_Garden_Waste_label.Size = new System.Drawing.Size(206, 87);
             this.Feedback_Garden_Waste_label.TabIndex = 9;
             this.Feedback_Garden_Waste_label.Text = "Feedback";
             // 
@@ -3679,10 +3680,10 @@
             // 
             this.tableLayoutPanel35.SetColumnSpan(this.helpMe_Organic_GardenWaste_button, 2);
             this.helpMe_Organic_GardenWaste_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.helpMe_Organic_GardenWaste_button.Location = new System.Drawing.Point(215, 179);
+            this.helpMe_Organic_GardenWaste_button.Location = new System.Drawing.Point(215, 211);
             this.helpMe_Organic_GardenWaste_button.Name = "helpMe_Organic_GardenWaste_button";
             this.tableLayoutPanel35.SetRowSpan(this.helpMe_Organic_GardenWaste_button, 2);
-            this.helpMe_Organic_GardenWaste_button.Size = new System.Drawing.Size(110, 43);
+            this.helpMe_Organic_GardenWaste_button.Size = new System.Drawing.Size(110, 55);
             this.helpMe_Organic_GardenWaste_button.TabIndex = 10;
             this.helpMe_Organic_GardenWaste_button.Text = "Help Click Me>";
             this.helpMe_Organic_GardenWaste_button.UseVisualStyleBackColor = true;
@@ -3691,10 +3692,10 @@
             // Award_OrganicGardenWaste_picturebox
             // 
             this.Award_OrganicGardenWaste_picturebox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Award_OrganicGardenWaste_picturebox.Location = new System.Drawing.Point(271, 113);
+            this.Award_OrganicGardenWaste_picturebox.Location = new System.Drawing.Point(271, 133);
             this.Award_OrganicGardenWaste_picturebox.Name = "Award_OrganicGardenWaste_picturebox";
             this.tableLayoutPanel35.SetRowSpan(this.Award_OrganicGardenWaste_picturebox, 2);
-            this.Award_OrganicGardenWaste_picturebox.Size = new System.Drawing.Size(54, 38);
+            this.Award_OrganicGardenWaste_picturebox.Size = new System.Drawing.Size(54, 46);
             this.Award_OrganicGardenWaste_picturebox.TabIndex = 11;
             this.Award_OrganicGardenWaste_picturebox.TabStop = false;
             this.Award_OrganicGardenWaste_picturebox.Visible = false;
@@ -3704,9 +3705,9 @@
             this.Award_OrganicGardenWaste_label.AutoSize = true;
             this.tableLayoutPanel35.SetColumnSpan(this.Award_OrganicGardenWaste_label, 2);
             this.Award_OrganicGardenWaste_label.Dock = System.Windows.Forms.DockStyle.Right;
-            this.Award_OrganicGardenWaste_label.Location = new System.Drawing.Point(215, 154);
+            this.Award_OrganicGardenWaste_label.Location = new System.Drawing.Point(215, 182);
             this.Award_OrganicGardenWaste_label.Name = "Award_OrganicGardenWaste_label";
-            this.Award_OrganicGardenWaste_label.Size = new System.Drawing.Size(110, 22);
+            this.Award_OrganicGardenWaste_label.Size = new System.Drawing.Size(110, 26);
             this.Award_OrganicGardenWaste_label.TabIndex = 12;
             this.Award_OrganicGardenWaste_label.Text = "Award Ceremony";
             this.Award_OrganicGardenWaste_label.Visible = false;
@@ -3715,7 +3716,7 @@
             // 
             this.OrganicGardenWaste_NumberOfPerson_textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.OrganicGardenWaste_NumberOfPerson_textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OrganicGardenWaste_NumberOfPerson_textbox.Location = new System.Drawing.Point(103, 69);
+            this.OrganicGardenWaste_NumberOfPerson_textbox.Location = new System.Drawing.Point(103, 81);
             this.OrganicGardenWaste_NumberOfPerson_textbox.Name = "OrganicGardenWaste_NumberOfPerson_textbox";
             this.OrganicGardenWaste_NumberOfPerson_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicGardenWaste_NumberOfPerson_textbox.TabIndex = 5;
@@ -3727,7 +3728,7 @@
             // 
             this.OrganicGardenWaste_InKgs_textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.OrganicGardenWaste_InKgs_textbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OrganicGardenWaste_InKgs_textbox.Location = new System.Drawing.Point(103, 25);
+            this.OrganicGardenWaste_InKgs_textbox.Location = new System.Drawing.Point(103, 29);
             this.OrganicGardenWaste_InKgs_textbox.Name = "OrganicGardenWaste_InKgs_textbox";
             this.OrganicGardenWaste_InKgs_textbox.Size = new System.Drawing.Size(50, 22);
             this.OrganicGardenWaste_InKgs_textbox.TabIndex = 1;
@@ -3740,7 +3741,7 @@
             this.label38.AutoSize = true;
             this.tableLayoutPanel35.SetColumnSpan(this.label38, 2);
             this.label38.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label38.Location = new System.Drawing.Point(159, 72);
+            this.label38.Location = new System.Drawing.Point(159, 88);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(106, 16);
             this.label38.TabIndex = 6;
@@ -3751,7 +3752,7 @@
             this.label39.AutoSize = true;
             this.tableLayoutPanel35.SetColumnSpan(this.label39, 2);
             this.label39.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label39.Location = new System.Drawing.Point(159, 28);
+            this.label39.Location = new System.Drawing.Point(159, 36);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(106, 16);
             this.label39.TabIndex = 2;
@@ -3762,10 +3763,10 @@
             this.chartpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chartpanel.Controls.Add(this.plotView1);
             this.chartpanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartpanel.Location = new System.Drawing.Point(3, 279);
+            this.chartpanel.Location = new System.Drawing.Point(3, 323);
             this.chartpanel.Name = "chartpanel";
             this.tableLayoutPanel1.SetRowSpan(this.chartpanel, 2);
-            this.chartpanel.Size = new System.Drawing.Size(443, 409);
+            this.chartpanel.Size = new System.Drawing.Size(443, 475);
             this.chartpanel.TabIndex = 3;
             // 
             // plotView1
@@ -3787,9 +3788,9 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.tableLayoutPanel44);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(452, 555);
+            this.panel1.Location = new System.Drawing.Point(452, 643);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1044, 133);
+            this.panel1.Size = new System.Drawing.Size(1044, 155);
             this.panel1.TabIndex = 4;
             // 
             // tableLayoutPanel44
@@ -3820,18 +3821,87 @@
             this.tableLayoutPanel44.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel44.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel44.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel44.Size = new System.Drawing.Size(1042, 131);
+            this.tableLayoutPanel44.Size = new System.Drawing.Size(1042, 153);
             this.tableLayoutPanel44.TabIndex = 5;
+            // 
+            // database_list_combobox
+            // 
+            this.database_list_combobox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.database_list_combobox.FormattingEnabled = true;
+            this.database_list_combobox.Location = new System.Drawing.Point(419, 41);
+            this.database_list_combobox.Name = "database_list_combobox";
+            this.database_list_combobox.Size = new System.Drawing.Size(98, 24);
+            this.database_list_combobox.TabIndex = 1;
+            this.database_list_combobox.SelectedIndexChanged += new System.EventHandler(this.database_list_combobox_SelectedIndexChanged);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label33.Location = new System.Drawing.Point(343, 38);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(70, 38);
+            this.label33.TabIndex = 7;
+            this.label33.Text = "Select DB Year";
+            // 
+            // ExitApp_button
+            // 
+            this.ExitApp_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ExitApp_button.Location = new System.Drawing.Point(939, 41);
+            this.ExitApp_button.Name = "ExitApp_button";
+            this.tableLayoutPanel44.SetRowSpan(this.ExitApp_button, 2);
+            this.ExitApp_button.Size = new System.Drawing.Size(100, 70);
+            this.ExitApp_button.TabIndex = 4;
+            this.ExitApp_button.Text = "Exit";
+            this.ExitApp_button.UseVisualStyleBackColor = true;
+            this.ExitApp_button.Click += new System.EventHandler(this.ExitApp_button_Click);
+            // 
+            // database_status_button
+            // 
+            this.database_status_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.database_status_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.database_status_button.Location = new System.Drawing.Point(523, 41);
+            this.database_status_button.Name = "database_status_button";
+            this.tableLayoutPanel44.SetRowSpan(this.database_status_button, 2);
+            this.database_status_button.Size = new System.Drawing.Size(98, 70);
+            this.database_status_button.TabIndex = 3;
+            this.database_status_button.Text = "DB Status";
+            this.database_status_button.UseVisualStyleBackColor = true;
+            this.database_status_button.Click += new System.EventHandler(this.database_status_button_Click);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(627, 41);
+            this.button1.Name = "button1";
+            this.tableLayoutPanel44.SetRowSpan(this.button1, 2);
+            this.button1.Size = new System.Drawing.Size(98, 70);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Gen Report";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.RecalculateGenerateReport);
+            // 
+            // privacyPolicy_button
+            // 
+            this.privacyPolicy_button.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.privacyPolicy_button.Location = new System.Drawing.Point(835, 41);
+            this.privacyPolicy_button.Name = "privacyPolicy_button";
+            this.tableLayoutPanel44.SetRowSpan(this.privacyPolicy_button, 2);
+            this.privacyPolicy_button.Size = new System.Drawing.Size(98, 70);
+            this.privacyPolicy_button.TabIndex = 5;
+            this.privacyPolicy_button.Text = "Privacy Policy";
+            this.privacyPolicy_button.UseVisualStyleBackColor = true;
+            this.privacyPolicy_button.Click += new System.EventHandler(this.btnPrivacyPolicy_Click);
             // 
             // panel2
             // 
             this.tableLayoutPanel44.SetColumnSpan(this.panel2, 3);
             this.panel2.Controls.Add(this.tableLayoutPanel45);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 35);
+            this.panel2.Location = new System.Drawing.Point(3, 41);
             this.panel2.Name = "panel2";
             this.tableLayoutPanel44.SetRowSpan(this.panel2, 2);
-            this.panel2.Size = new System.Drawing.Size(306, 58);
+            this.panel2.Size = new System.Drawing.Size(306, 70);
             this.panel2.TabIndex = 0;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -3852,16 +3922,16 @@
             this.tableLayoutPanel45.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel45.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel45.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel45.Size = new System.Drawing.Size(306, 58);
+            this.tableLayoutPanel45.Size = new System.Drawing.Size(306, 70);
             this.tableLayoutPanel45.TabIndex = 0;
             // 
             // Daily
             // 
             this.Daily.AutoSize = true;
             this.Daily.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Daily.Location = new System.Drawing.Point(79, 32);
+            this.Daily.Location = new System.Drawing.Point(79, 38);
             this.Daily.Name = "Daily";
-            this.Daily.Size = new System.Drawing.Size(70, 23);
+            this.Daily.Size = new System.Drawing.Size(70, 29);
             this.Daily.TabIndex = 0;
             this.Daily.Text = "Daily";
             this.Daily.UseVisualStyleBackColor = true;
@@ -3873,9 +3943,9 @@
             this.mode_annual_radioButton.Checked = true;
             this.tableLayoutPanel45.SetColumnSpan(this.mode_annual_radioButton, 2);
             this.mode_annual_radioButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mode_annual_radioButton.Location = new System.Drawing.Point(155, 32);
+            this.mode_annual_radioButton.Location = new System.Drawing.Point(155, 38);
             this.mode_annual_radioButton.Name = "mode_annual_radioButton";
-            this.mode_annual_radioButton.Size = new System.Drawing.Size(148, 23);
+            this.mode_annual_radioButton.Size = new System.Drawing.Size(148, 29);
             this.mode_annual_radioButton.TabIndex = 1;
             this.mode_annual_radioButton.TabStop = true;
             this.mode_annual_radioButton.Text = "Annual";
@@ -3892,73 +3962,6 @@
             this.label1.Size = new System.Drawing.Size(146, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Result Window Mode";
-            // 
-            // database_list_combobox
-            // 
-            this.database_list_combobox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.database_list_combobox.FormattingEnabled = true;
-            this.database_list_combobox.Location = new System.Drawing.Point(419, 35);
-            this.database_list_combobox.Name = "database_list_combobox";
-            this.database_list_combobox.Size = new System.Drawing.Size(98, 24);
-            this.database_list_combobox.TabIndex = 1;
-            this.database_list_combobox.SelectedIndexChanged += new System.EventHandler(this.database_list_combobox_SelectedIndexChanged);
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label33.Location = new System.Drawing.Point(343, 32);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(70, 32);
-            this.label33.TabIndex = 7;
-            this.label33.Text = "Select DB Year";
-            // 
-            // database_status_button
-            // 
-            this.database_status_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.database_status_button.Location = new System.Drawing.Point(523, 35);
-            this.database_status_button.Name = "database_status_button";
-            this.tableLayoutPanel44.SetRowSpan(this.database_status_button, 2);
-            this.database_status_button.Size = new System.Drawing.Size(98, 58);
-            this.database_status_button.TabIndex = 3;
-            this.database_status_button.Text = "DB Status";
-            this.database_status_button.UseVisualStyleBackColor = true;
-            // 
-            // ExitApp_button
-            // 
-            this.ExitApp_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ExitApp_button.Location = new System.Drawing.Point(939, 35);
-            this.ExitApp_button.Name = "ExitApp_button";
-            this.tableLayoutPanel44.SetRowSpan(this.ExitApp_button, 2);
-            this.ExitApp_button.Size = new System.Drawing.Size(100, 58);
-            this.ExitApp_button.TabIndex = 4;
-            this.ExitApp_button.Text = "Exit";
-            this.ExitApp_button.UseVisualStyleBackColor = true;
-            this.ExitApp_button.Click += new System.EventHandler(this.ExitApp_button_Click);
-            // 
-            // privacyPolicy_button
-            // 
-            this.privacyPolicy_button.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.privacyPolicy_button.Location = new System.Drawing.Point(835, 35);
-            this.privacyPolicy_button.Name = "privacyPolicy_button";
-            this.tableLayoutPanel44.SetRowSpan(this.privacyPolicy_button, 2);
-            this.privacyPolicy_button.Size = new System.Drawing.Size(98, 58);
-            this.privacyPolicy_button.TabIndex = 5;
-            this.privacyPolicy_button.Text = "Privacy Policy";
-            this.privacyPolicy_button.UseVisualStyleBackColor = true;
-            this.privacyPolicy_button.Click += new System.EventHandler(this.btnPrivacyPolicy_Click);
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(627, 35);
-            this.button1.Name = "button1";
-            this.tableLayoutPanel44.SetRowSpan(this.button1, 2);
-            this.button1.Size = new System.Drawing.Size(98, 58);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Gen Report";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.RecalculateGenerateReport);
             // 
             // homeOffice_errorProvider
             // 
@@ -4037,7 +4040,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1499, 691);
+            this.ClientSize = new System.Drawing.Size(1499, 801);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(1517, 738);
             this.Name = "Form1";

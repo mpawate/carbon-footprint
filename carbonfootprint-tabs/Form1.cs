@@ -14,9 +14,6 @@ using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using static System.Net.WebRequestMethods;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System;
@@ -133,7 +130,7 @@ namespace carbonfootprint_tabs
                     }
 
                     // Delete data older than 6 months (or adjust the months parameter as needed)
-                    DeleteOldData(6); // Deletes data older than 6 months
+                    //DeleteOldData(6); // Deletes data older than 6 months
                 }
             }
             catch (Exception ex)
@@ -288,56 +285,12 @@ namespace carbonfootprint_tabs
             if (isConnected)
             {
                 database_status_button.Text = "DB Connected";
-                //database_status_button.BackColor = Color.Green;
-                //database_status_button.ForeColor = Color.White; // Optional: To make the text readable
             }
             else
             {
                 database_status_button.Text = "DB Disconnected";
-                //database_status_button.BackColor = Color.Red;
-                //database_status_button.ForeColor = Color.White; // Optional: To make the text readable
             }
         }
-        /*
-        private void CheckDatabaseConnection()
-        {
-            bool isConnected = false;
-            string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
-            string connectionString = $"Data Source={dbPath};Version=3;";
-
-            // Display the database path and connection string for debugging
-            MessageBox.Show($"Attempting to connect to database at: {dbPath}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            MessageBox.Show($"Connection String: {connectionString}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            try
-            {
-                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-                {
-                    connection.Open();
-                    isConnected = true;
-                    MessageBox.Show("Database connection successful!", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions related to the connection check
-                MessageBox.Show($"Database connection failed: {ex.Message}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            // Update the button based on connection status
-            if (isConnected)
-            {
-                database_status_button.Text = "DB Connected";
-                database_status_button.BackColor = Color.Green;
-                database_status_button.ForeColor = Color.White; // Optional: To make the text readable
-            }
-            else
-            {
-                database_status_button.Text = "DB Disconnected";
-                database_status_button.BackColor = Color.Red;
-                database_status_button.ForeColor = Color.White; // Optional: To make the text readable
-            }
-        }*/
 
         private void ExitApp_button_Click(object sender, EventArgs e)
         {
@@ -2194,7 +2147,8 @@ namespace carbonfootprint_tabs
             string emission_factors = $"Emission Factors: {localBusTotalFactor:F6} kg CO2e (CO2: {localBusCO2Factor:F6}, CH4: {localBusCH4Factor:F6}, N2O: {localBusN2OFactor:F6})";
             return emission_factors; // Small car, petrol, miles
         }
-
+        double waste_consumption_min = 0;
+        double waste_consumption_max = 200;
         //Organic food and drink waste
         private void OrganicFoodWaste_CalculateCarbon(object sender, EventArgs e)
         {
@@ -2226,12 +2180,16 @@ namespace carbonfootprint_tabs
                     isWasteConsumptionErrorSet = false;
                 }
             }
-            else if (!double.TryParse(OrganicFoodWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || wasteConsumptionInKgsPerPerson <= 0 || wasteConsumptionInKgsPerPerson > 200)
+            else if (!double.TryParse(OrganicFoodWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || 
+                                  wasteConsumptionInKgsPerPerson <= waste_consumption_min || 
+                                  wasteConsumptionInKgsPerPerson > waste_consumption_max)
             {
                 isValid = false;
                 if (!isWasteConsumptionErrorSet)
                 {
-                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, "Enter the amount of organic food waste generated per person annually. Valid range: 1 kg to 200 kg. Example: 95 kg. Click for Help.");
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, 
+                        "Enter the amount of organic food waste generated per person annually. " +
+                        "Valid range: 1 kg to 200 kg. Example: 95 kg. Click for Help.");
                     isWasteConsumptionErrorSet = true;
                 }
                 OrganicFoodWaste_Emission_label.Text = "Emission"; // Assign default value
@@ -2355,13 +2313,15 @@ namespace carbonfootprint_tabs
 
                 if (totalWasteKg > averageAnnualWaste)
                 {
-                    Feedback_OrganicFoodWaste_label.Text = $"Your annual waste of {totalWasteKg:F2} kg for {numPersons} person(s) is higher than the expected average of {averageAnnualWaste:F2} kg for {numPersons} person(s).";
+                    Feedback_OrganicFoodWaste_label.Text = $"Your annual waste of {totalWasteKg:F2} kg for {numPersons} person(s) " +
+                        $"is higher than the expected average of {averageAnnualWaste:F2} kg for {numPersons} person(s).";
                     improvementTips = "Consider reducing waste by composting, better meal planning, and understanding portion sizes.";
                     youTubeLink = "https://www.youtube.com/watch?v=xyQ5ukvSRnA";
                 }
                 else
                 {
-                    Feedback_OrganicFoodWaste_label.Text = $"Your annual waste of {totalWasteKg:F2} kg for {numPersons} person(s) is within the expected average of {averageAnnualWaste:F2} kg for {numPersons} person(s).";
+                    Feedback_OrganicFoodWaste_label.Text = $"Your annual waste of {totalWasteKg:F2} kg for {numPersons} person(s) " +
+                        $"is within the expected average of {averageAnnualWaste:F2} kg for {numPersons} person(s).";
                     improvementTips = "Great job! Keep maintaining your low waste levels and consider sharing your practices with others.";
                     youTubeLink = "No suggestions";
                 }
@@ -2372,7 +2332,8 @@ namespace carbonfootprint_tabs
                 // Conditionally append the report data
                 if (shouldAppend)
                 {
-                    AppendReport("Waste", "Food and Organic Waste", totalWasteKg, averageAnnualWaste, Feedback_OrganicFoodWaste_label.Text, improvementTips, youTubeLink, "Kg");
+                    AppendReport("Waste", "Food and Organic Waste", totalWasteKg, averageAnnualWaste,
+                        Feedback_OrganicFoodWaste_label.Text, improvementTips, youTubeLink, "Kg");
                 }
             }
         }
@@ -5516,6 +5477,11 @@ namespace carbonfootprint_tabs
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void database_status_button_Click(object sender, EventArgs e)
         {
 
         }
