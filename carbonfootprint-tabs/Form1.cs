@@ -5055,10 +5055,9 @@ namespace carbonfootprint_tabs
                 AngleSpan = 360,
                 StartAngle = 0,
                 Diameter = 0.7, // Adjust this to make the pie chart smaller
-                //InnerDiameter = 0.4, // Adjust this to change the inner diameter
             };
             // Add data points to the PieSeries
-            pieSeries.Slices.Add(new PieSlice("Energy", homeEmission) { IsExploded = false, Fill = homeColor });
+            pieSeries.Slices.Add(new PieSlice("H Energy", homeEmission) { IsExploded = false, Fill = homeColor });
             pieSeries.Slices.Add(new PieSlice("Leisure", leisureTravelEmission) { IsExploded = false, Fill = leisureColor });
             pieSeries.Slices.Add(new PieSlice("Office", commuteTravelEmission) { IsExploded = false, Fill = officeColor });
             pieSeries.Slices.Add(new PieSlice("Waste", personalWasteEmission) { IsExploded = false, Fill = foodColor });
@@ -5233,7 +5232,6 @@ namespace carbonfootprint_tabs
             }
 
 
-            //UpdatePieChartplot();
             UpdatePieChartplot(totalEmission, totalEmissionLeisureTravel, totalEmissionCommuteTravel, totalEmissionPersonalWaste);
         }
         private string ExtractEmissionValue(string emissionString)
@@ -5297,9 +5295,6 @@ namespace carbonfootprint_tabs
             OfficeCommute_CalculateCarbon(sender, e);
             CalculateHomeOfficeCarbon(sender, e);
             // Display all reports in the message box
-            //DisplayAllReportsInMessageBox();
-            //DisplayAllReportsInPDF();
-            //DisplayAllReportsInPDFSharp();
             GeneratePdfFromReports();
             shouldAppend = false;
 
