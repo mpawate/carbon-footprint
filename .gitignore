@@ -44,6 +44,9 @@ TestResults/
 .localhistory/
 .localhistory/*
 
+# Publish folder
+carbonfootprint-tabs/publish
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
