@@ -1,4 +1,4 @@
-﻿            using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +21,7 @@ using System.Diagnostics;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing.Layout;
+using System.Security.Cryptography;
 namespace carbonfootprint_tabs
 {
     public partial class Form1 : Form
@@ -41,7 +42,7 @@ namespace carbonfootprint_tabs
         private string totalCommuteTravelTrainEmission = "";
         private string totalCommuteTravelBusEmission = "";
         private string totalWorkHoursEmission = "";
-        
+
         private string totalOrganicGardenWasteEmission = "";
         private string totalHouseholdResidualWasteEmission = "";
         private string totalOrganicFoodWasteEmission = "";
@@ -90,6 +91,9 @@ namespace carbonfootprint_tabs
         private bool isBusCommuteMilesErrorSet = false;
 
         string dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\conversion_factors.db";
+        private static readonly byte[] aesKey = Convert.FromBase64String("wHjCB6b8blc7l14ulswZ4PF1ClUz5VjjilLe+wNqgYo=");
+        private static readonly byte[] fixedIv = Encoding.UTF8.GetBytes("a9v5k3d7s9f0h1e2"); // 16 bytes for AES
+
         private Random random = new Random();
 
         //Unique functions
@@ -167,8 +171,8 @@ namespace carbonfootprint_tabs
             }
         }
         private void btnPrivacyPolicy_Click(object sender, EventArgs e)
-                {
-                    string privacyPolicy = @"This application is designed to collect data related to the usage of household items, office commutes, leisure activities, and similar behaviors. The data collected is solely for the purpose of tracking and managing carbon footprints. No personal identifiers are collected, only the data regarding the usage patterns of the items and activities.
+        {
+            string privacyPolicy = @"This application is designed to collect data related to the usage of household items, office commutes, leisure activities, and similar behaviors. The data collected is solely for the purpose of tracking and managing carbon footprints. No personal identifiers are collected, only the data regarding the usage patterns of the items and activities.
 
         User login credentials and all other logged data are securely encrypted using Advanced Encryption Standard (AES) with a 256-bit key. This encryption ensures that the data stored in the application's database is protected at rest, making it unreadable without proper decryption keys. Since the application is desktop-based and does not transmit data over the internet, encryption during data transmission is not required. All logged data is automatically deleted from the database after three months and is not recoverable after deletion.
 
@@ -176,8 +180,8 @@ namespace carbonfootprint_tabs
 
         The application is focused on maintaining data security and protecting user privacy. No data is shared with third parties, and it is utilized exclusively to aid users in understanding and reducing their carbon footprints. By using this application, these practices are acknowledged and accepted.";
 
-                    MessageBox.Show(privacyPolicy, "Privacy Policy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+            MessageBox.Show(privacyPolicy, "Privacy Policy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
 
         public class EnergyReport
@@ -464,7 +468,7 @@ namespace carbonfootprint_tabs
                 // Use the carType, fuelType, and milesTravelled variables as needed
                 string emissionFactor = GetEmissionFactor(carType, fuelType);
                 string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactor);
-                double totalEmission = (milesTravelled)* Convert.ToDouble(extractedEmissionFactor);
+                double totalEmission = (milesTravelled) * Convert.ToDouble(extractedEmissionFactor);
                 CommuteTravel_emission_label.Text = $"Total Emission: {totalEmission:F6} kg CO2e";
                 totalCommuteTravelCarEmission = $"Total Emission: {totalEmission:F6} kg CO2e";
                 updateGlobalLabel(this, EventArgs.Empty);
@@ -620,7 +624,7 @@ namespace carbonfootprint_tabs
             if (milesTravelled >= 1 && milesTravelled <= 100)
             {
                 //milesTravelled = (milesTravelled * 2) * workingDaysInYear; // Calculate the total annual miles
-                                                                           // Use the milesTravelled variable as needed
+                // Use the milesTravelled variable as needed
                 string emissionFactorTrain = GetEmissionFactorTrain();
                 string extractedEmissionFactor = ExtractEmissionFactorsValue(emissionFactorTrain);
                 milesTravelled = milesTravelled * 2;//doubling to get roundtrip miles.
@@ -670,7 +674,7 @@ namespace carbonfootprint_tabs
                 Properties.Resources.ribbon
             };
 
-                    Bitmap[] improvementImages = {
+            Bitmap[] improvementImages = {
                 Properties.Resources.target,
                 Properties.Resources.person,
                 Properties.Resources.business,
@@ -1172,18 +1176,20 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Homeworking (office equipment + heating)");
-                    command.Parameters.AddWithValue("@Type", "NA");
-                    command.Parameters.AddWithValue("@Unit", "per FTE Working Hour");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Homeworking (office equipment + heating)"));
+                    command.Parameters.AddWithValue("@Type", EncryptString("NA"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("per FTE Working Hour"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            homeworkingEmissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedHomeworkingEmissionFactor = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            homeworkingEmissionFactor = double.Parse(DecryptString(encryptedHomeworkingEmissionFactor));
                         }
+
                     }
                 }
             }
@@ -1880,17 +1886,18 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Hotel stay");
-                    command.Parameters.AddWithValue("@Type", "NA");
-                    command.Parameters.AddWithValue("@Unit", "Room per night");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Hotel stay"));
+                    command.Parameters.AddWithValue("@Type", EncryptString("NA"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("Room per night"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            ukRoomPerNightEmissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedUkRoomPerNightEmissionFactor = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            ukRoomPerNightEmissionFactor = double.Parse(DecryptString(encryptedUkRoomPerNightEmissionFactor));
                         }
                     }
                 }
@@ -1991,21 +1998,31 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", activityParam);
-                    command.Parameters.AddWithValue("@Type", typeParam);
-                    command.Parameters.AddWithValue("@Unit", unitParam);
-                    command.Parameters.AddWithValue("@Year", selectedYear);
-                    command.Parameters.AddWithValue("@Fuel", fuelParam);
+                    command.Parameters.AddWithValue("@Activity", EncryptString(activityParam));
+                    command.Parameters.AddWithValue("@Type", EncryptString(typeParam));
+                    command.Parameters.AddWithValue("@Unit", EncryptString(unitParam));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
+                    command.Parameters.AddWithValue("@Fuel", EncryptString(fuelParam));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            CarTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
-                            CarCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit"));
-                            CarCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit"));
-                            CarN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedCarTotalFactor = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            CarTotalFactor = double.Parse(DecryptString(encryptedCarTotalFactor));
+
+                            // Decrypt and parse the "kg CO2e of CO2 per unit" value
+                            string encryptedCarCO2Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            CarCO2Factor = double.Parse(DecryptString(encryptedCarCO2Factor));
+
+                            // Decrypt and parse the "kg CO2e of CH4 per unit" value
+                            string encryptedCarCH4Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            CarCH4Factor = double.Parse(DecryptString(encryptedCarCH4Factor));
+
+                            // Decrypt and parse the "kg CO2e of N2O per unit" value
+                            string encryptedCarN2OFactor = reader.GetString(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            CarN2OFactor = double.Parse(DecryptString(encryptedCarN2OFactor));
                         }
                     }
                 }
@@ -2049,21 +2066,31 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", activityParam);
-                    command.Parameters.AddWithValue("@Type", typeParam);
-                    command.Parameters.AddWithValue("@Unit", unitParam);
-                    command.Parameters.AddWithValue("@Year", selectedYear);
-                    command.Parameters.AddWithValue("@Fuel", fuelParam);
+                    command.Parameters.AddWithValue("@Activity", EncryptString(activityParam));
+                    command.Parameters.AddWithValue("@Type", EncryptString(typeParam));
+                    command.Parameters.AddWithValue("@Unit", EncryptString(unitParam));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
+                    command.Parameters.AddWithValue("@Fuel", EncryptString(fuelParam));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            BikeTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
-                            BikeCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit"));
-                            BikeCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit"));
-                            BikeN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedBikeTotalFactor = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            BikeTotalFactor = double.Parse(DecryptString(encryptedBikeTotalFactor));
+
+                            // Decrypt and parse the "kg CO2e of CO2 per unit" value
+                            string encryptedBikeCO2Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            BikeCO2Factor = double.Parse(DecryptString(encryptedBikeCO2Factor));
+
+                            // Decrypt and parse the "kg CO2e of CH4 per unit" value
+                            string encryptedBikeCH4Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            BikeCH4Factor = double.Parse(DecryptString(encryptedBikeCH4Factor));
+
+                            // Decrypt and parse the "kg CO2e of N2O per unit" value
+                            string encryptedBikeN2OFactor = reader.GetString(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            BikeN2OFactor = double.Parse(DecryptString(encryptedBikeN2OFactor));
                         }
                     }
                 }
@@ -2088,21 +2115,32 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Rail");
-                    command.Parameters.AddWithValue("@Type", "National rail");
-                    command.Parameters.AddWithValue("@Unit", "passenger.km");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Rail"));
+                    command.Parameters.AddWithValue("@Type", EncryptString("National rail"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("passenger.km"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Emission factors for national rail per passenger.km
-                            nationalRailTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e")); // total kg CO2e per mile
-                            nationalRailCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit")); // kg CO2e of CO2 per mile
-                            nationalRailCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit")); // kg CO2e of CH4 per mile
-                            nationalRailN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit")); // kg CO2e of N2O per mile
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedNationalRailTotalFactor = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            nationalRailTotalFactor = double.Parse(DecryptString(encryptedNationalRailTotalFactor));
+
+                            // Decrypt and parse the "kg CO2e of CO2 per unit" value
+                            string encryptedNationalRailCO2Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            nationalRailCO2Factor = double.Parse(DecryptString(encryptedNationalRailCO2Factor));
+
+                            // Decrypt and parse the "kg CO2e of CH4 per unit" value
+                            string encryptedNationalRailCH4Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            nationalRailCH4Factor = double.Parse(DecryptString(encryptedNationalRailCH4Factor));
+
+                            // Decrypt and parse the "kg CO2e of N2O per unit" value
+                            string encryptedNationalRailN2OFactor = reader.GetString(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            nationalRailN2OFactor = double.Parse(DecryptString(encryptedNationalRailN2OFactor));
                         }
+
                     }
                 }
             }
@@ -2126,21 +2164,32 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Bus");
-                    command.Parameters.AddWithValue("@Type", "Local bus (not London)");
-                    command.Parameters.AddWithValue("@Unit", "passenger.km");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Bus"));
+                    command.Parameters.AddWithValue("@Type", EncryptString("Local bus (not London)"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("passenger.km"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Emission factors for national rail per passenger.km
-                            localBusTotalFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e")); // total kg CO2e per mile
-                            localBusCO2Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit")); // kg CO2e of CO2 per mile
-                            localBusCH4Factor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit")); // kg CO2e of CH4 per mile
-                            localBusN2OFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit")); // kg CO2e of N2O per mile
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedLocalBusTotalFactor = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            localBusTotalFactor = double.Parse(DecryptString(encryptedLocalBusTotalFactor));
+
+                            // Decrypt and parse the "kg CO2e of CO2 per unit" value
+                            string encryptedLocalBusCO2Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            localBusCO2Factor = double.Parse(DecryptString(encryptedLocalBusCO2Factor));
+
+                            // Decrypt and parse the "kg CO2e of CH4 per unit" value
+                            string encryptedLocalBusCH4Factor = reader.GetString(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            localBusCH4Factor = double.Parse(DecryptString(encryptedLocalBusCH4Factor));
+
+                            // Decrypt and parse the "kg CO2e of N2O per unit" value
+                            string encryptedLocalBusN2OFactor = reader.GetString(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            localBusN2OFactor = double.Parse(DecryptString(encryptedLocalBusN2OFactor));
                         }
+
                     }
                 }
             }
@@ -2180,14 +2229,14 @@ namespace carbonfootprint_tabs
                     isWasteConsumptionErrorSet = false;
                 }
             }
-            else if (!double.TryParse(OrganicFoodWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) || 
-                                  wasteConsumptionInKgsPerPerson <= waste_consumption_min || 
+            else if (!double.TryParse(OrganicFoodWaste_InKgs_textbox.Text, out wasteConsumptionInKgsPerPerson) ||
+                                  wasteConsumptionInKgsPerPerson <= waste_consumption_min ||
                                   wasteConsumptionInKgsPerPerson > waste_consumption_max)
             {
                 isValid = false;
                 if (!isWasteConsumptionErrorSet)
                 {
-                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox, 
+                    organicFoodWaste_errorProvider.SetError(OrganicFoodWaste_InKgs_textbox,
                         "Enter the amount of organic food waste generated per person annually. " +
                         "Valid range: 1 kg to 200 kg. Example: 95 kg. Click for Help.");
                     isWasteConsumptionErrorSet = true;
@@ -2350,18 +2399,20 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Refuse");
-                    command.Parameters.AddWithValue("@Type", "Organic: food and drink waste");
-                    command.Parameters.AddWithValue("@Unit", "tonnes");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Refuse"));
+                    command.Parameters.AddWithValue("@Type", EncryptString("Organic: food and drink waste"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("tonnes"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            scalingFactorOrganicFoodWaste = reader.GetDouble(reader.GetOrdinal("Landfill"));
+                            // Decrypt and parse the "Landfill" value
+                            string encryptedScalingFactorOrganicFoodWaste = reader.GetString(reader.GetOrdinal("Landfill"));
+                            scalingFactorOrganicFoodWaste = double.Parse(DecryptString(encryptedScalingFactorOrganicFoodWaste));
                         }
+
                     }
                 }
             }
@@ -2387,7 +2438,7 @@ namespace carbonfootprint_tabs
                 Properties.Resources.ribbon
             };
 
-                    Bitmap[] improvementImages = {
+            Bitmap[] improvementImages = {
                 Properties.Resources.target,
                 Properties.Resources.person,
                 Properties.Resources.business,
@@ -2403,7 +2454,7 @@ namespace carbonfootprint_tabs
                 "Well Done"
             };
 
-                    string[] improvementPhrases = {
+            string[] improvementPhrases = {
                 "Try Harder",
                 "Improve More",
                 "Keep Going",
@@ -2655,18 +2706,20 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Refuse");
-                    command.Parameters.AddWithValue("@Type", "Organic: garden waste");
-                    command.Parameters.AddWithValue("@Unit", "tonnes");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Refuse"));
+                    command.Parameters.AddWithValue("@Type", EncryptString("Organic: garden waste"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("tonnes"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            scalingFactorOrganicGardenWasteLandfill = reader.GetDouble(reader.GetOrdinal("Landfill"));
+                            // Decrypt and parse the "Landfill" value
+                            string encryptedScalingFactorOrganicGardenWasteLandfill = reader.GetString(reader.GetOrdinal("Landfill"));
+                            scalingFactorOrganicGardenWasteLandfill = double.Parse(DecryptString(encryptedScalingFactorOrganicGardenWasteLandfill));
                         }
+
                     }
                 }
             }
@@ -2979,17 +3032,20 @@ namespace carbonfootprint_tabs
                 string query = "SELECT* FROM conversion_factor WHERE Activity = @Activity AND Type = @Type AND Year = @Year AND Unit = @Unit";
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Refuse");
-                    command.Parameters.AddWithValue("@Type", "Household residual waste");
-                    command.Parameters.AddWithValue("@Unit", "tonnes");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Refuse"));
+                    command.Parameters.AddWithValue("@Type", EncryptString("Household residual waste"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("tonnes"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            scalingFactorHouseholdResidualWasteLandfill = reader.GetDouble(reader.GetOrdinal("Landfill"));
+                            // Decrypt and parse the "Landfill" value
+                            string encryptedScalingFactorHouseholdResidualWasteLandfill = reader.GetString(reader.GetOrdinal("Landfill"));
+                            scalingFactorHouseholdResidualWasteLandfill = double.Parse(DecryptString(encryptedScalingFactorHouseholdResidualWasteLandfill));
                         }
+
                     }
                 }
             }
@@ -3254,15 +3310,15 @@ namespace carbonfootprint_tabs
                 Properties.Resources.ribbon
             };
 
-                    Bitmap[] improvementImages = {
+            Bitmap[] improvementImages = {
                 Properties.Resources.target,
                 Properties.Resources.person,
                 Properties.Resources.business,
                 Properties.Resources.fail
             };
 
-                    // Define arrays for the phrases (shortened to two words)
-                    string[] goodPerformancePhrases = {
+            // Define arrays for the phrases (shortened to two words)
+            string[] goodPerformancePhrases = {
                 "Eco Star",
                 "Great Job",
                 "Top Performer",
@@ -3270,7 +3326,7 @@ namespace carbonfootprint_tabs
                 "Well Done"
             };
 
-                    string[] improvementPhrases = {
+            string[] improvementPhrases = {
                 "Try Harder",
                 "Improve More",
                 "Keep Going",
@@ -3313,16 +3369,22 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Water supply");
-                    command.Parameters.AddWithValue("@Unit", "cubic metres");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Water supply"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("cubic metres"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            emissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
+                            // Retrieve the encrypted value as a string
+                            string encryptedValue = reader.GetString(reader.GetOrdinal("kg CO2e"));
+
+                            // Decrypt the value
+                            string decryptedValue = DecryptString(encryptedValue);
+
+                            // Convert the decrypted value to a double
+                            emissionFactor = double.Parse(decryptedValue);
                         }
                     }
                 }
@@ -4698,7 +4760,7 @@ namespace carbonfootprint_tabs
                 "   - Valid range: 1500 W to 3000 W.\n\n" +
                 "2. **Number of Heater Units:**\n" +
                 "   - Enter the number of heater units used.\n" +
-                "   - Example: 1 unit.\n" + 
+                "   - Example: 1 unit.\n" +
                 "   - Valid range: 1 to 3 units.\n\n" +
                 "3. **Daily Usage Hours:**\n" +
                 "   - Enter the number of hours the heater is used per day.\n" +
@@ -4950,19 +5012,29 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "Electricity generated");
-                    command.Parameters.AddWithValue("@Unit", "kWh");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("Electricity generated"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("kWh"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            totalGenerationEmissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
-                            co2GenerationFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit"));
-                            ch4GenerationFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit"));
-                            n2oGenerationFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedKgCO2e = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            totalGenerationEmissionFactor = double.Parse(DecryptString(encryptedKgCO2e));
+
+                            // Decrypt and parse the "kg CO2e of CO2 per unit" value
+                            string encryptedCO2GenerationFactor = reader.GetString(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            co2GenerationFactor = double.Parse(DecryptString(encryptedCO2GenerationFactor));
+
+                            // Decrypt and parse the "kg CO2e of CH4 per unit" value
+                            string encryptedCH4GenerationFactor = reader.GetString(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            ch4GenerationFactor = double.Parse(DecryptString(encryptedCH4GenerationFactor));
+
+                            // Decrypt and parse the "kg CO2e of N2O per unit" value
+                            string encryptedN2OGenerationFactor = reader.GetString(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            n2oGenerationFactor = double.Parse(DecryptString(encryptedN2OGenerationFactor));
                         }
                     }
                 }
@@ -4970,19 +5042,29 @@ namespace carbonfootprint_tabs
                 //string query = input;
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Activity", "T&D- UK electricity");
-                    command.Parameters.AddWithValue("@Unit", "kWh");
-                    command.Parameters.AddWithValue("@Year", selectedYear);
+                    command.Parameters.AddWithValue("@Activity", EncryptString("T&D- UK electricity"));
+                    command.Parameters.AddWithValue("@Unit", EncryptString("kWh"));
+                    command.Parameters.AddWithValue("@Year", EncryptString(selectedYear));
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            // Carbon emission factors per kWh for electricity generation in the UK
-                            totalTDemissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e"));
-                            co2TDemissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CO2 per unit"));
-                            ch4TDemissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of CH4 per unit"));
-                            n2oTDemissionFactor = reader.GetDouble(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            // Decrypt and parse the "kg CO2e" value
+                            string encryptedKgCO2e = reader.GetString(reader.GetOrdinal("kg CO2e"));
+                            totalTDemissionFactor = double.Parse(DecryptString(encryptedKgCO2e));
+
+                            // Decrypt and parse the "kg CO2e of CO2 per unit" value
+                            string encryptedCO2TDemissionFactor = reader.GetString(reader.GetOrdinal("kg CO2e of CO2 per unit"));
+                            co2TDemissionFactor = double.Parse(DecryptString(encryptedCO2TDemissionFactor));
+
+                            // Decrypt and parse the "kg CO2e of CH4 per unit" value
+                            string encryptedCH4TDemissionFactor = reader.GetString(reader.GetOrdinal("kg CO2e of CH4 per unit"));
+                            ch4TDemissionFactor = double.Parse(DecryptString(encryptedCH4TDemissionFactor));
+
+                            // Decrypt and parse the "kg CO2e of N2O per unit" value
+                            string encryptedN2OTDemissionFactor = reader.GetString(reader.GetOrdinal("kg CO2e of N2O per unit"));
+                            n2oTDemissionFactor = double.Parse(DecryptString(encryptedN2OTDemissionFactor));
                         }
                     }
                 }
@@ -5046,7 +5128,7 @@ namespace carbonfootprint_tabs
             OxyColor leisureColor = OxyColor.FromRgb(192, 192, 255);
             OxyColor foodColor = OxyColor.FromRgb(192, 255, 192);
 
-            
+
             // Create a new PieSeries
             var pieSeries = new PieSeries
             {
@@ -5178,7 +5260,7 @@ namespace carbonfootprint_tabs
                 customEntryEmission *= daysInYear;
 
                 // Use working days for commute emissions
-                CommuTravelCarEmission = (CommuTravelCarEmission * 2) *workingDaysInYear;
+                CommuTravelCarEmission = (CommuTravelCarEmission * 2) * workingDaysInYear;
                 CommuTravelTrainEmission = (CommuTravelTrainEmission * 2) * workingDaysInYear;
                 CommuTravelBusEmission = (CommuTravelBusEmission * 2) * workingDaysInYear;
                 WorkHrsEmission *= workingDaysInYear;
@@ -5479,6 +5561,55 @@ namespace carbonfootprint_tabs
         private void database_status_button_Click(object sender, EventArgs e)
         {
 
+        }
+
+        // Encryption method
+        // Encryption method with fixed IV
+        public static string EncryptString(string plainText)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = aesKey;
+                aesAlg.IV = fixedIv; // Use the fixed IV
+
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(plainText);
+                        }
+                    }
+                    return Convert.ToBase64String(msEncrypt.ToArray());
+                }
+            }
+        }
+
+        public static string DecryptString(string cipherText)
+        {
+            byte[] fullCipher = Convert.FromBase64String(cipherText);
+
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = aesKey;
+                aesAlg.IV = fixedIv; // Use the fixed IV
+
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msDecrypt = new MemoryStream(fullCipher))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+                            return srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+            }
         }
 
         /*
