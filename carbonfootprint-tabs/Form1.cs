@@ -172,13 +172,13 @@ namespace carbonfootprint_tabs
         }
         private void btnPrivacyPolicy_Click(object sender, EventArgs e)
         {
-            string privacyPolicy = @"This application is designed to collect data related to the usage of household items, office commutes, leisure activities, and similar behaviors. The data collected is solely for the purpose of tracking and managing carbon footprints. No personal identifiers are collected, only the data regarding the usage patterns of the items and activities.
+            string privacyPolicy = @"This application is designed to collect data related to the usage of household items, office commutes, leisure activities, and similar behaviors. The data collected is solely for the purpose of tracking and managing carbon footprints. No personal login credentials are collected; the application operates in guest mode, focusing only on the usage patterns of the items and activities.
 
-        User login credentials and all other logged data are securely encrypted using Advanced Encryption Standard (AES) with a 256-bit key. This encryption ensures that the data stored in the application's database is protected at rest, making it unreadable without proper decryption keys. Since the application is desktop-based and does not transmit data over the internet, encryption during data transmission is not required. All logged data is automatically deleted from the database after three months and is not recoverable after deletion.
+    All scaling factors used in the application are securely encrypted and stored in the SQLite database at rest, ensuring the protection of data against unauthorized access. These scaling factors are sourced from official UK Government resources: 'ghg-conversion-factors-2023-condensed-set-update.xlsx' and 'ghg-conversion-factors-2024-condensed-set-update.xlsx'. These factors are provided by the UK Government for greenhouse gas (GHG) reporting. The scope of these factors is defined to be relevant to emissions reporting. 
 
-        All scaling factors used in the application are stored in the database and are sourced from the official UK Government resources: 'ghg-conversion-factors-2023-condensed-set-update.xlsx' and 'ghg-conversion-factors-2024-condensed-set-update.xlsx'. These factors are provided by the UK Government for greenhouse gas (GHG) reporting and are suitable for use by UK-based organisations of all sizes, as well as international organisations reporting on UK operations. The scope of these factors is defined to be relevant to emissions reporting. They may also be used for other purposes, but users do so at their own risk.
+    The application is desktop-based and does not transmit data over the internet, so encryption during data transmission is not required. Data is not recoverable after once the app exits.
 
-        The application is focused on maintaining data security and protecting user privacy. No data is shared with third parties, and it is utilized exclusively to aid users in understanding and reducing their carbon footprints. By using this application, these practices are acknowledged and accepted.";
+    The application is focused on maintaining data security and protecting user privacy. No data is shared with third parties, and it is utilized exclusively to aid users in understanding and reducing their carbon footprints. By using this application, these practices are acknowledged and accepted.";
 
             MessageBox.Show(privacyPolicy, "Privacy Policy", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -642,7 +642,7 @@ namespace carbonfootprint_tabs
                 {
                     feedback_officeCommute_Leisure_label.Text = $"Feedback: Your mileage of {milesTravelled} miles/day is higher than the average of {averageMiles} miles.";
                     improvementTips = "Consider reducing train travel frequency or exploring remote work options.";
-                    youTubeLink = "https://www.youtube.com/watch?v=eco_travel_tips";
+                    youTubeLink = "https://www.youtube.com/watch?v=bqhs29jAJ2s";
                 }
                 else
                 {
