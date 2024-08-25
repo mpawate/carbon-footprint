@@ -1,3 +1,5 @@
+## Possible Errors When Building the C# Project
+
 ## Mark of the Web Error in Cloned Files
 
 After cloning this repository, you may encounter an error when building the project related to certain files, such as `Form1.resx`, being in the Internet or Restricted zone. This issue occurs because files downloaded from the internet, including those cloned from GitHub, may be flagged with a security marker known as the "Mark of the Web" (MOTW). 
