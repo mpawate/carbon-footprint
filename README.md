@@ -30,3 +30,13 @@ If you encounter issues with the `Form1.resx` file being marked as from the "Int
    - Rerun the project to see if the issue is resolved.
 
 These steps should help you resolve any security-related issues with the `Form1.resx` file and allow your project to build and run correctly.
+
+## Designer Form Not Displayed
+
+**Issue:** The designer form may not be displayed correctly in Visual Studio after building the project.
+
+**Reason:** This issue may occur due to temporary glitches or caching problems within Visual Studio.
+
+**Solution:** A simple reboot of Visual Studio or your computer typically resolves this issue. After rebooting, the designer form should display correctly.
+
+
